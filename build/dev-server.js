@@ -30,7 +30,12 @@ apiRoutes.get('/login', function (req, res) {
     data: login
   })
 })
-
+var proce = appData.proce
+apiRoutes.get('/proce', function(req, res) {
+  res.json({
+    data: proce
+  })
+})
 app.use('/api', apiRoutes)
 
 var compiler = webpack(webpackConfig)
