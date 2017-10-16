@@ -9,8 +9,8 @@
               行政
             </template>
             <MenuItem name="llh">联络函</MenuItem>
-            <MenuItem name="2-2">评论管理</MenuItem>
-            <MenuItem name="4-3">举报管理</MenuItem>
+            <MenuItem name="2-2"></MenuItem>
+            <MenuItem name="4-3"></MenuItem>
           </Submenu>
         </Menu>
       </Col>

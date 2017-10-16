@@ -1,10 +1,15 @@
 <template>
   <div>
-  	<Row>
-      <Col span="8">col-8</Col>
-      <Col span="8" offset="8">col-8 | offset-8</Col>
-      <Col span="8">col-8</Col>
-      <Col span="8" offset="8">col-8 | offset-8</Col>
+    <Row>
+      <Col>
+        <div class="un-input" style="display: flex;">
+          <span>发起人</span>
+          <div class="noinput">
+          </div>
+          <div class="noinput">
+          </div>
+  	    </div>
+  	  </Col>
     </Row>
   </div>
 </template>
@@ -13,6 +18,13 @@
   export default {}
 </script>
 
-<style>
-
+<style langed>
+.un-input{
+	display: flex;
+}
+.noinput{
+	width: 100px;
+	height: 30px;
+	border: solid 1px #333333;
+}
 </style>
