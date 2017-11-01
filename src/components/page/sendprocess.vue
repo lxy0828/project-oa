@@ -2,7 +2,7 @@
   <div>
     <Row>
       <Col span="8">
-        <Menu :theme="theme2" :open-names="['in']" accordion  @on-select="routeTo">
+        <Menu :open-names="['in']" accordion  @on-select="routeTo">
           <Submenu name="in">
             <template slot="title">
               <Icon type="pin"></Icon>

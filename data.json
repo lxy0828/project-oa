@@ -54,5 +54,52 @@
       "time": "2017/10/10 08:41",
       "active": "部门负责人"
     }]
+  },
+  "staff": {
+    "alldata": [
+      {
+        "apanum": "014228",
+        "apaname": "上官云顿",
+        "bmnum": "0009",
+        "bmname": "大数据战略中心",
+        "gsnum": "ROOT",
+        "gsname": "周黑鸭企业发展有限公司"
+      }, {
+        "apanum": "014229",
+        "apaname": "白展堂",
+        "bmnum": "0009",
+        "bmname": "信息中心",
+        "gsnum": "ROOT",
+        "gsname": "周黑鸭企业发展有限公司"
+      }, {
+        "apanum": "014230",
+        "apaname": "吕轻侯",
+        "bmnum": "0019",
+        "bmname": "信息中心",
+        "gsnum": "ROOT",
+        "gsname": "周黑鸭企业发展有限公司"
+      }, {
+        "apanum": "014231",
+        "apaname": "郭芙蓉",
+        "bmnum": "0029",
+        "bmname": "信息中心",
+        "gsnum": "ROOT",
+        "gsname": "周黑鸭企业发展有限公司"
+      }, {
+        "apanum": "014230",
+        "apaname": "吕轻侯",
+        "bmnum": "0019",
+        "bmname": "信息中心",
+        "gsnum": "ROOT",
+        "gsname": "周黑鸭企业发展有限公司"
+      }, {
+        "apanum": "014230",
+        "apaname": "吕轻侯",
+        "bmnum": "0019",
+        "bmname": "信息中心",
+        "gsnum": "ROOT",
+        "gsname": "周黑鸭企业发展有限公司"
+      }
+    ]
   }
 }

@@ -7,18 +7,18 @@
         v-model="demand"
         class-name="vertical-center-modal">
         <span>选择流程(选填)</span>
-        <Cascader :data="casdata" change-on-select  v-model="value1"></Cascader>
+        <Cascader :data="casdata" change-on-select  ></Cascader>
         <span>选择日期</span>
         <Col span="24">
           <DatePicker type="daterange" confirm placement="bottom-end" placeholder="选择日期" style="width: 100%"></DatePicker>
         </Col>
         <p>输入单号</p>
-        <Input v-model="value" placeholder="请输入..."></Input>
+        <Input  placeholder="请输入..."></Input>
         <p>输入发起人</p>
-        <Input v-model="value" placeholder="请输入..."></Input>
+        <Input  placeholder="请输入..."></Input>
       </Modal>
     </div>
-    <list-view :data="process"></list-view>
+    <list-view :data="prodata"></list-view>
   </div>
 </template>
 
@@ -30,18 +30,59 @@
     data () {
       return {
         casdata: connect,
-        process: [],
+        prodata: {
+          process: [],
+          pagesize: 4,
+          column: [
+            {
+              type: 'selection',
+              width: 60,
+              align: 'center'
+            },
+            {
+              type: 'index',
+              width: 60,
+              align: 'center'
+            },
+            {
+              title: '流程状态',
+              key: 'state'
+            },
+            {
+              title: '流程名称',
+              key: 'lcname',
+              sortable: true
+            },
+            {
+              title: '流程单号',
+              key: 'lcseat'
+            },
+            {
+              title: '发起者',
+              key: 'name'
+            },
+            {
+              title: '日期',
+              key: 'time',
+              sortable: true
+            },
+            {
+              title: '执行中的活动',
+              key: 'active'
+            }
+          ]
+        },
         demand: false
       }
     },
     created () {
-      console.log(connect)
       this._getProcess()
     },
     methods: {
       _getProcess () {
         axios.get('api/proce').then((res) => {
-          this.process = res.data.data.alldata
+          this.prodata.process = res.data.data.alldata
+          console.log(this.process)
         })
       }
     },

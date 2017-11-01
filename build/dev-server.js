@@ -36,6 +36,12 @@ apiRoutes.get('/proce', function(req, res) {
     data: proce
   })
 })
+var staff = appData.staff
+apiRoutes.get('/staff', function(req, res) {
+  res.json({
+    data: staff
+  })
+})
 app.use('/api', apiRoutes)
 
 var compiler = webpack(webpackConfig)
