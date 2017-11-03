@@ -22,7 +22,6 @@
   export default {
     methods: {
       routeTo (e) {
-        console.log(e)
         this.$router.push(e)
       }
     }
