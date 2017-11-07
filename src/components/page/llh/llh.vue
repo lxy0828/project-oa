@@ -16,6 +16,7 @@
             <Button type="text">发起人部门</Button>
             <Input readonly v-model="alldata.bmnum" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.bmname" placeholder="请输入..."></Input>
+            <Button type="info" @click="selectdepartment">查询</Button>
   	      </div>
   	    </Col>
       </Row>
@@ -121,6 +122,9 @@
         this.flagNum = 3
         this.flag = true
         this.modal = true
+      },
+      selectdepartment () {
+        alert(123)
       }
     },
     components: {
