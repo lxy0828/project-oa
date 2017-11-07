@@ -87,6 +87,7 @@
     },
     methods: {
       getTable (item) {
+        console.log(item)
         this.apadata = item
         if (this.flagNum === 1) {
           this.alldata.apanum = item.apanum
