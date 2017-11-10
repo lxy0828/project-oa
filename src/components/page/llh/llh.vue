@@ -1,6 +1,10 @@
 <template>
   <div>
     <h1>联络函</h1>
+      <div class="processtietle">
+       <div class="hk">单号：<span>{{processNumber}}</span></div>
+       <div class="hk">日期：<span>{{processDate}}</span></div>
+      </div>
     <div class="main-llh">
       <Row class="row-line">
         <Col span="10">
@@ -83,8 +87,13 @@
           checknextnum: '',
           checknextname: ''
         },
-        apadata: {}
+        apadata: {},
+        processNumber: '666',
+        processDate: ''
       }
+    },
+    created () {
+      this.getDate()
     },
     methods: {
       getTable (item) {
@@ -126,6 +135,11 @@
       },
       selectdepartment () {
         alert(123)
+      },
+      getDate () {
+        var myDate = new Date()
+        console.log(myDate.toLocaleDateString())
+        this.processDate = myDate.toLocaleDateString()
       }
     },
     components: {
@@ -148,5 +162,12 @@ h1{
 }
 .un-input{
 	display: flex;
+}
+.processtietle{
+  float: right;
+  margin-right: 10%;
+}
+.hk{
+  display: inline-block;
 }
 </style>

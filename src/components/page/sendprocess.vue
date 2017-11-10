@@ -17,9 +17,11 @@
               <Icon type="pin"></Icon>
               采购
             </template>
-            <MenuItem name="llh">采购单</MenuItem>
+            <MenuItem name="cgd">采购单</MenuItem>
             <MenuItem name="2-2"></MenuItem>
             <MenuItem name="4-3"></MenuItem>
+
+            
           </Submenu>
         </Menu>
       </Col>
@@ -31,6 +33,7 @@
   export default {
     methods: {
       routeTo (e) {
+        console.log(e)
         this.$router.push(e)
       }
     }
