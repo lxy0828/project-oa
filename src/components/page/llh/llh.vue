@@ -66,7 +66,7 @@
       </Row>
       <!-- 需要使用v-if，在条件切换的时候合适的销毁与重建 -->
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
-      <department @deptStatus="getDept" :data="bmmodal" v-if="bmflag"></department>
+      <department @deptStatus="getDept" @deptitem="deptSt" :data="bmmodal" v-if="bmflag"></department>
     </div>
   </div>
 </template>
@@ -101,13 +101,14 @@
       this.getDate()
     },
     methods: {
+      // 填充人员信息选择输入
       getTable (item) {
         this.apadata = item
         if (this.flagNum === 1) {
           this.alldata.apanum = item.apanum
           this.alldata.apaname = item.apaname
-          this.alldata.bmnum = item.bmnum
-          this.alldata.bmname = item.bmname
+          // this.alldata.bmnum = item.bmnum
+          // this.alldata.bmname = item.bmname
         } else if (this.flagNum === 2) {
           this.alldata.checknum = item.apanum
           this.alldata.checkname = item.apaname
@@ -116,29 +117,40 @@
           this.alldata.checknextname = item.apaname
         }
       },
+      // 填充部门信息选择输入
+      deptSt (item) {
+        this.alldata.bmnum = item.deptnum
+        this.alldata.bmname = item.depatname
+      },
+      // 改变人员信息弹出框状态
       getSt (item) {
         this.flag = item.staffFlag
         this.modal = item.staffmodal
       },
+      // 改变部门信息弹出框状态
       getDept (item) {
         this.bmmodal = item.deptFlag
         this.bmflag = item.deptFlag
       },
+      // 选择人员信息，对状态做出标记
       selectStaff () {
         this.flagNum = 1
         this.flag = true
         this.modal = true
       },
+      // 选择人员信息，对状态做出标记
       check () {
         this.flagNum = 2
         this.flag = true
         this.modal = true
       },
+      // 选择人员信息，对状态做出标记
       checknext () {
         this.flagNum = 3
         this.flag = true
         this.modal = true
       },
+      // 部门查询弹出框状态
       selectdepartment () {
         this.bmmodal = true
         this.bmflag = true

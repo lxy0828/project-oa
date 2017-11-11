@@ -106,7 +106,7 @@
     "alldata":[
       {
         "deptnum": "0001",
-        "deptname": "总办"
+        "deptaname": "总办"
       },{
         "deptnum": "0002",
         "depatname": "总裁办"

@@ -1,12 +1,12 @@
 <template>
   <div>
-  	<Modal v-model="showModal" @on-ok="okdept" @on-cancel="canceldept" title="Common Modal dialog box title">
+  	<Modal v-model="showModal" @on-ok="okdept" @on-cancel="canceldept" title="部门信息查询">
         <Row class="row-line">
           <Col span="18">
             <div class="un-input">
-              <Button type="text">姓名</Button>
+              <Button type="text">部门名称</Button>
               <Input value="1321312" placeholder="请输入..."></Input>
-              <Button type="text">编号</Button>
+              <Button type="text">部门编号</Button>
               <Input value="1321312" placeholder="请输入..."></Input>
   	        </div>
   	      </Col>
@@ -16,6 +16,7 @@
   	        </div>
   	      </Col>
         </Row>
+        <list-view @tableitem="getTable" :data="deptdata"></list-view>
     </Modal>
   </div>
 </template>
@@ -35,6 +36,20 @@
         hideDept: {
           deptFlag: false,
           deptmodal: false
+        },
+        deptdata: {
+          process: [],
+          pagesize: 4,
+          column: [
+            {
+              title: '部门代号',
+              key: 'deptnum'
+            },
+            {
+              title: '部门名称',
+              key: 'depatname'
+            }
+          ]
         }
       }
     },
@@ -45,10 +60,19 @@
       _getDept () {
         axios.get('api/dept').then((res) => {
           console.log(res)
+          this.deptdata.process = res.data.data.alldata
         })
       },
       okdept () {
         this.$emit('deptStatus', this.hideDept)
+      },
+      getTable (item) {
+        console.log(item)
+        this.$emit('deptitem', item)
+        this.$emit('deptStatus', this.hideDept)
+        if (item != null) {
+          this.showModal = false
+        }
       },
       canceldept () {
         this.$emit('deptStatus', this.hideDept)
