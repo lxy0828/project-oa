@@ -1,10 +1,11 @@
 <template>
   <div>
+    <Button type="text">发起人</Button>
     <h1>联络函</h1>
-      <div class="processtietle">
-       <div class="hk">单号：<span>{{processNumber}}</span></div>
-       <div class="hk">日期：<span>{{processDate}}</span></div>
-      </div>
+    <div class="processtietle">
+      <div class="hk">单号：<span>{{processNumber}}</span></div>
+      <div class="hk">日期：<span>{{processDate}}</span></div>
+    </div>
     <div class="main-llh">
       <Row class="row-line">
         <Col span="10">
@@ -98,6 +99,7 @@
       }
     },
     created () {
+      console.log(this.alldata)
       this.getDate()
     },
     methods: {
