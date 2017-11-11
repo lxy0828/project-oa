@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal v-model="showmodal" @on-ok="clickOK" :closable="false" :mask-closable="false" title="查询人员信息" width="1100">
+    <Modal v-model="showmodal" @on-ok="clickOK" @on-cancel="clickCancel" :closable="false" :mask-closable="false" title="查询人员信息" width="1100">
       <Row class="row-line">
         <Col span="18">
           <div class="un-input">
@@ -86,6 +86,9 @@
         }
       },
       clickOK () {
+        this.$emit('getstatus', this.hideMask)
+      },
+      clickCancel () {
         this.$emit('getstatus', this.hideMask)
       }
     },

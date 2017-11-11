@@ -60,18 +60,23 @@
           <Input type="textarea" :rows="4" placeholder="请输入..."></Input>
   	    </Col>
       </Row>
+      <!-- 需要使用v-if，在条件切换的时候合适的销毁与重建 -->
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
+      <department @deptStatus="getDept" :data="bmmodal" v-if="bmflag"></department>
     </div>
   </div>
 </template>
 
 <script>
   import Staff from '../../page/infor/staff.vue'
+  import Department from '../../page/infor/department.vue'
   export default {
     data () {
       return {
         modal: false,
         flag: false,
+        bmmodal: false,
+        bmflag: false,
         flagNum: 0,
         alldata: {
           apanum: '',
@@ -88,7 +93,6 @@
     },
     methods: {
       getTable (item) {
-        console.log(item)
         this.apadata = item
         if (this.flagNum === 1) {
           this.alldata.apanum = item.apanum
@@ -102,12 +106,14 @@
           this.alldata.checknextnum = item.apanum
           this.alldata.checknextname = item.apaname
         }
-        console.log(this.flagNum)
       },
       getSt (item) {
         this.flag = item.staffFlag
         this.modal = item.staffmodal
-        console.log(item)
+      },
+      getDept (item) {
+        this.bmmodal = item.deptFlag
+        this.bmflag = item.deptFlag
       },
       selectStaff () {
         this.flagNum = 1
@@ -125,11 +131,13 @@
         this.modal = true
       },
       selectdepartment () {
-        alert(123)
+        this.bmmodal = true
+        this.bmflag = true
       }
     },
     components: {
-      Staff
+      Staff,
+      Department
     }
   }
 </script>

@@ -101,5 +101,37 @@
         "gsname": "周黑鸭企业发展有限公司"
       }
     ]
+  },
+  "dept": {
+    "alldata":[
+      {
+        "deptnum": "0001",
+        "deptname": "总办"
+      },{
+        "deptnum": "0002",
+        "depatname": "总裁办"
+      },{
+        "deptnum": "0003",
+        "depatname": "大数据战略结束中心"
+      },{
+        "deptnum": "0012",
+        "depatname": "ERP部"
+      },{
+        "deptnum": "01002",
+        "depatname": "人力资源中心"
+      },{
+        "deptnum": "1002",
+        "depatname": "供应链中心"
+      },{
+        "deptnum": "0122",
+        "depatname": "财务中心"
+      },{
+        "deptnum": "0402",
+        "depatname": "品牌中心"
+      },{
+        "deptnum": "0902",
+        "depatname": "大数据战略分析部"
+      }
+    ]
   }
 }

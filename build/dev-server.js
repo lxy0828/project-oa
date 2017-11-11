@@ -42,6 +42,12 @@ apiRoutes.get('/staff', function(req, res) {
     data: staff
   })
 })
+var dept = appData.dept
+apiRoutes.get('/dept', function(req, res) {
+  res.json({
+    data: dept
+  })
+})
 app.use('/api', apiRoutes)
 
 var compiler = webpack(webpackConfig)
