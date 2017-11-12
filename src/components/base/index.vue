@@ -23,9 +23,9 @@
             <Icon type="navicon" size="32"></Icon>
           </i-button>
           <div>
-            <Button type="ghost">待办</Button>
-            <Button type="ghost">通知</Button>
-            <Button type="ghost">追踪</Button>
+            <Button type="ghost" @click="referFlow(backlog)">待办</Button>
+            <Button type="ghost" @click="referFlow(notice)">通知</Button>
+            <Button type="ghost" @click="referFlow(end)">追踪</Button>
           </div>
         </div>
         <div class="layout-breadcrumb">
@@ -55,7 +55,10 @@
     data () {
       return {
         spanLeft: 5,
-        spanRight: 19
+        spanRight: 19,
+        backlog: 'backlog',
+        notice: 'notice',
+        end: 'end'
       }
     },
     computed: {
@@ -76,6 +79,9 @@
           this.spanLeft = 5
           this.spanRight = 19
         }
+      },
+      referFlow (e) {
+        console.log(e)
       },
       routeTo (e) {
         console.log(e)
