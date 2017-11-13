@@ -167,7 +167,7 @@
         apadata: {},
         columns1: [
           {
-            type: 'selection',
+            type: 'index',
             width: 60,
             align: 'center'
           },
