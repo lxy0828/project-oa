@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Originate></Originate>
     <h1>采购单</h1>
     <div class="processtietle">
        <div class="hk">单号：<span>{{processNumber}}</span></div>
@@ -141,6 +142,7 @@
   </div>
 </template>
 <script>
+  import Originate from '../../page/infor/originate.vue'
   import Staff from '../../page/infor/staff.vue'
   export default {
     data () {
@@ -390,7 +392,8 @@
       }
     },
     components: {
-      Staff
+      Staff,
+      Originate
     }
   }
 </script>
