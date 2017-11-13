@@ -31,7 +31,7 @@
     created () {
       setTimeout(() => {
         this.handleListApproveHistory()
-      }, 80)
+      }, 200)
     },
     methods: {
       handleListApproveHistory () {

@@ -75,6 +75,8 @@
 <script>
   import Staff from '../../page/infor/staff.vue'
   import Department from '../../page/infor/department.vue'
+  import {getRandomNum} from '../../../common/js/random.js'
+  // import bus from '../../store/store.js'
   export default {
     data () {
       return {
@@ -94,12 +96,19 @@
           checknextname: ''
         },
         apadata: {},
-        processNumber: '666',
-        processDate: ''
+        processNumber: '',
+        processDate: '',
+        isShowSend: '1'
       }
     },
+    // beforeDestory () {
+    //   bus.$off('eventSend')
+    // },
     created () {
-      console.log(this.alldata)
+      // bus.$on('eventSend', (i) => {
+      //   this.isShowSend = i
+      // })
+      console.log(sessionStorage.getItem('eSend'))
       this.getDate()
     },
     methods: {
@@ -159,8 +168,13 @@
       },
       getDate () {
         var myDate = new Date()
-        console.log(myDate.toLocaleDateString())
         this.processDate = myDate.toLocaleDateString()
+        this.processNumber = getRandomNum('LLH')
+      }
+    },
+    watch: {
+      isShowSend () {
+        console.log(this.isShowSend)
       }
     },
     components: {

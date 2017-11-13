@@ -51,6 +51,7 @@
 </template>
 
 <script>
+  import bus from '../store/store.js'
   export default {
     data () {
       return {
@@ -61,12 +62,14 @@
         end: 'end'
       }
     },
+    beforeDestory () {
+      bus.$off('eventBusName')
+    },
     computed: {
       iconSize () {
         return this.spanLeft === 5 ? 14 : 24
       },
       setActive () {
-        console.log(this.$route.path.replace('/', ''))
         return this.$route.path.replace('/', '')
       }
     },
@@ -82,9 +85,13 @@
       },
       referFlow (e) {
         console.log(e)
+        bus.$emit('eventBusName', e)
+        // this.routeTo('index')
+        if (this.$route.path.replace('/', '') !== 'main') {
+          this.routeTo('main')
+        }
       },
       routeTo (e) {
-        console.log(e)
         this.$router.push(e)
       }
     }

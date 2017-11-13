@@ -25,6 +25,9 @@ export default new Router({
       path: '',
       component: Main
     }, {
+      path: '/main',
+      component: Main
+    }, {
       path: '/sendprocess',
       component: Sendprocess
     }, {

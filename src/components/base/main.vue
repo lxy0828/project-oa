@@ -18,7 +18,7 @@
         <Input  placeholder="请输入..."></Input>
       </Modal>
     </div>
-    <list-view :data="prodata"></list-view>
+    <list-view @tableitem="getTable" :data="prodata"></list-view>
   </div>
 </template>
 
@@ -26,6 +26,7 @@
   import axios from 'axios'
   import listView from '../page/listview/listview.vue'
   import connect from '../../common/js/connect.js'
+  import bus from '../store/store.js'
   export default {
     data () {
       return {
@@ -72,18 +73,48 @@
             }
           ]
         },
-        demand: false
+        demand: false,
+        indexState: ''
       }
     },
+    beforeDestory () {
+      bus.$off('eventBusName')
+    },
     created () {
+      bus.$on('eventBusName', (item) => {
+        this.indexState = item
+      })
       this._getProcess()
     },
     methods: {
+      // 获取点击table的内容
+      getTable (item) {
+        sessionStorage.setItem('eSend', 'false')
+        this.$router.push('llh')
+      },
       _getProcess () {
-        axios.get('api/proce').then((res) => {
-          this.prodata.process = res.data.data.alldata
-          console.log(this.process)
-        })
+        if (this.indexState === 'backlog') {
+          alert('点击了待办')
+        } else if (this.indexState === 'notice') {
+          alert('点击了通知')
+        } else if (this.indexState === 'end') {
+          alert('点击了追踪')
+        } else if (this.indexState === '') {
+          console.log(4)
+          axios.get('api/proce').then((res) => {
+            this.prodata.process = res.data.data.alldata
+          })
+        }
+      },
+      remove (index) {
+        console.log(index)
+        this.prodata.process.splice(index, 1)
+      }
+    },
+    watch: {
+      indexState () {
+        this._getProcess()
+        this.indexState = 1
       }
     },
     components: {
