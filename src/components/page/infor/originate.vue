@@ -30,6 +30,7 @@
         showBtn: false,
         comment: false,
         back: false,
+        yaoqiu: '',
         columns2: [
           {
             type: 'index',

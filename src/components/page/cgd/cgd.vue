@@ -108,11 +108,10 @@
         </Col>
         <Col span="8">
           <Button type="text">是否为办公用品</Button>
-          <Radio-group :model.sync="disabledGroup">
-            <Radio value="金斑蝶"></Radio>
-            <Radio value="爪哇犀牛"></Radio>
-            <Radio value="印度黑羚"></Radio>
-          </Radio-group>
+          <RadioGroup v-model="animal">
+            <Radio label="是"></Radio>
+            <Radio label="否"></Radio>
+          </RadioGroup>
         </Col>
       </Row>
       <Row class='row-line'>
@@ -127,7 +126,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">产品要求：</Button>
-            <Input type="textarea" v-model='yaoqiu' placeholder="请输入..." :rows="4"></Input>
+            <Input type="textarea" v-model='demand' placeholder="请输入..." :rows="4"></Input>
           </div>
         </col>
       </Row>
@@ -144,12 +143,14 @@
 <script>
   import Originate from '../../page/infor/originate.vue'
   import Staff from '../../page/infor/staff.vue'
+  import {getRandomNum} from '../../../common/js/random.js'
+  import {DX} from '../../../common/js/dx.js'
   export default {
     data () {
       return {
         value: '',
-        disabledGroup: '爪哇犀牛',
-        processNumber: '666',
+        animal: '是',
+        processNumber: '',
         processDate: '',
         modal: false,
         flag: false,
@@ -164,6 +165,16 @@
           checknextnum: '',
           checknextname: ''
         },
+        data1: [],
+        totalMoney: 0,
+        commodity: '',
+        daxielMoney: '',
+        danjia: '',
+        unit: '',
+        number: '',
+        price: '',
+        yongtu: '',
+        demand: '',
         apadata: {},
         columns1: [
           {
@@ -216,27 +227,17 @@
               ])
             }
           }
-        ],
-        data1: [],
-        totalMoney: 0,
-        commodity: '',
-        daxielMoney: '',
-        danjia: '',
-        unit: '',
-        number: '',
-        price: '',
-        yongtu: '',
-        yaoqiu: ''
+        ]
       }
     },
     created () {
       this.getDate()
-      this.daxielMoney = this.DX(this.totalMoney)
+      this.daxielMoney = DX(this.totalMoney)
     },
     methods: {
       getDate () {
         var myDate = new Date()
-        console.log(myDate.toLocaleDateString())
+        this.processNumber = getRandomNum('CGD')
         this.processDate = myDate.toLocaleDateString()
       },
       getTable (item) {
@@ -282,90 +283,14 @@
       addmoney () {
         this.price = Number(this.danjia) * Number(this.number)
       },
-      DX (money) {
-        var cnNums = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖']
-        var cnIntRadice = ['', '拾', '佰', '仟']
-        var cnIntUnits = ['', '万', '亿', '兆']
-        var cnDecUnits = ['角', '分', '毫', '厘']
-        var cnInteger = '整'
-        var cnIntLast = '元'
-        var maxNum = 999999999999999.9999
-        var integerNum
-        var decimalNum
-        var chineseStr = ''
-        var parts
-        if (money === '') { return '' }
-        money = parseFloat(money)
-        if (money >= maxNum) {
-          return ''
-        }
-        if (money === 0) {
-          chineseStr = cnNums[0] + cnIntLast + cnInteger
-          return chineseStr
-        }
-        money = money.toString()
-        if (money.indexOf('.') === -1) {
-          integerNum = money
-          decimalNum = ''
-        } else {
-          parts = money.split('.')
-          integerNum = parts[0]
-          decimalNum = parts[1].substr(0, 4)
-        }
-        if (parseInt(integerNum, 10) > 0) {
-          var zeroCount = 0
-          var IntLen = integerNum.length
-          for (var i = 0; i < IntLen; i++) {
-            var n = integerNum.substr(i, 1)
-            var p = IntLen - i - 1
-            var q = p / 4
-            var m = p % 4
-            if (n === '0') {
-              zeroCount++
-            } else {
-              if (zeroCount > 0) {
-                chineseStr += cnNums[0]
-              }
-              zeroCount = 0
-              chineseStr += cnNums[parseInt(n)] + cnIntRadice[m]
-            }
-            if (m === 0 && zeroCount < 4) {
-              chineseStr += cnIntUnits[q]
-            }
-          }
-          chineseStr += cnIntLast
-        }
-        if (decimalNum !== '') {
-          var decLen = decimalNum.length
-          for (var l = 0; l < decLen; l++) {
-            var v = decimalNum.substr(l, 1)
-            if (v !== '0') {
-              chineseStr += cnNums[Number(v)] + cnDecUnits[l]
-            }
-          }
-        }
-        if (chineseStr === '') {
-          chineseStr += cnNums[0] + cnIntLast + cnInteger
-        } else if (decimalNum === '') {
-          chineseStr += cnInteger
-        }
-        return chineseStr
-      },
       addInput () {
-        var item = {
-          name: '',
-          danwei: '',
-          shuliang: '',
-          jine: '',
-          yt: '',
-          cpyq: ''
-        }
+        let item = {}
         item.name = this.commodity
         item.danwei = this.unit
         item.shuliang = this.number
         item.jine = this.price
         item.yt = this.yongtu
-        item.cpyq = this.yaoqiu
+        item.cpyq = this.demand
         console.log(item)
         this.data1.push(item)
         var sum = 0
@@ -376,7 +301,7 @@
           return sum
         })
         this.totalMoney = sum
-        this.daxielMoney = this.DX(this.totalMoney)
+        this.daxielMoney = DX(this.totalMoney)
       },
       remove (index) {
         this.data1.splice(index, 1)
@@ -388,7 +313,7 @@
           return sum
         })
         this.totalMoney = sum
-        this.daxielMoney = this.DX(this.totalMoney)
+        this.daxielMoney = DX(this.totalMoney)
       }
     },
     components: {
@@ -417,6 +342,8 @@ h1{
   float: right;
   margin-right: 10%;
 }
-
+.hk{
+  display: inline-block;
+}
 
 </style>
