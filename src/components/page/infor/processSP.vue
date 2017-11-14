@@ -1,6 +1,6 @@
 <template>
   <div>
-  	<Button type="info" @click="spbb=true">查看流程审批</Button>
+  	<Button type="info" size="small" @click="spbb=true">审批历程</Button>
   	<Modal
         title="审批版本"
         v-model="spbb"

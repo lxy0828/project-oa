@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="wrapper">
-      <h1>OA办公系统</h1>
+      <h1 style="text-align: center">OA办公系统</h1>
       <div class="login">
         <i-form ref="formInline" :model="formInline" :rules="ruleInline">
           <Form-item prop="user">
@@ -10,29 +10,29 @@
           <Form-item prop="password">
             <Input v-model="formInline.password" placeholder="请输入密码"></Input>
           </Form-item>
+          <Form-item prop="model2">
+            <Select v-model="formInline.model2" size="small" style="width:200px">
+              <Option v-for="item in staffList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </Form-item>
           <Form-item>
             <i-button type="success" @click.native="handleSubmit('formInline',formInline)" long>登录</i-button>
           </Form-item>
         </i-form>
       </div>
-    </div>
-    <div class="loading" v-show="showloading.isShow">
-      <div class="loading-container">
-        <loading></loading>
-      </div>
-    </div>  
+    </div> 
   </div>  
 </template>
 
 <script>
   import axios from 'axios'
-  import Loading from './loading/loading.vue'
   export default {
     data () {
       return {
         formInline: {
           user: '',
-          password: ''
+          password: '',
+          model2: ''
         },
         ruleInline: {
           user: [{
@@ -51,21 +51,22 @@
             trigger: 'blur'
           }]
         },
-        showloading: {
-          isShow: false
-        }
+        staffList: [{
+          value: '董事长',
+          label: '董事长'
+        }, {
+          value: '首席官',
+          label: '首席官'
+        }]
       }
     },
     methods: {
       handleSubmit (name, formData) {
-        this.showloading.isShow = true
         this.$refs[name].validate((valid) => {
+          console.log(this.formInline)
           if (valid) {
-            axios.get('api/login').then((res) => {
+            axios.post('api/login', this.formInline).then((res) => {
               // console.log(this.showloading)
-              setTimeout(() => {
-                this.showloading.isShow = false
-              }, 2000)
               window.sessionStorage.setItem('user', formData.user)
               window.sessionStorage.setItem('password', formData.password)
               this.$Message.success('登录成功!')
@@ -73,14 +74,11 @@
             })
           } else {
             console.log(formData.user)
-            this.$router.push('/index')
-            // this.$Message.error('表单验证失败!');
+            // this.$router.push('/index')
+            this.$Message.error('表单验证失败!')
           }
         })
       }
-    },
-    components: {
-      Loading
     }
   }
 </script>

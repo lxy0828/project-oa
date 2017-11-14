@@ -8,7 +8,7 @@
       <Button type="warning" size="small" @click="back = true">退回</Button>
       <Button type="error" size="small" @click="comment = true">终止</Button>
     </div>
-    <processSP></processSP>
+    <processSP v-show="data.sponsor" class="sp"></processSP>
    <Modal
         title="审批意见"
         v-model="comment"
@@ -74,6 +74,9 @@
   margin-bottom: 10px
 }
 .textera{
+  margin-top: 10px
+}
+.sp{
   margin-top: 10px
 }
 </style>

@@ -31,7 +31,7 @@
             <Button type="text">部门审核</Button>
             <Input readonly v-model="alldata.checknum" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.checkname" placeholder="请输入..."></Input>
-            <Button type="info" @click="check">查询</Button>
+            <Button disabled type="info" @click="check">查询</Button>
   	      </div>
   	    </Col>
   	    <Col span="10" offset="4">
