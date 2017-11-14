@@ -31,7 +31,11 @@
             <Button type="text">部门审核</Button>
             <Input readonly v-model="alldata.checknum" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.checkname" placeholder="请输入..."></Input>
+<<<<<<< HEAD
             <Button type="info" @click="check">查询</Button>
+=======
+            <Button disabled type="info" @click="check">查询</Button>
+>>>>>>> 0798c8744c24eeaea975676e430bf39341e14f40
   	      </div>
   	    </Col>
   	    <Col span="10" offset="4">
@@ -77,19 +81,31 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">品名</Button>
+<<<<<<< HEAD
             <Input v-model='alldata.commodity' placeholder="请输入..."></Input>
+=======
+            <Input v-model='commodity' placeholder="请输入..." :disabled='isDisabled'></Input>
+>>>>>>> 0798c8744c24eeaea975676e430bf39341e14f40
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
             <Button type="text">预估单价</Button>
+<<<<<<< HEAD
             <Input v-model='alldata.danjia' placeholder="请输入..." @on-blur="addmoney"></Input>
+=======
+            <Input v-model='danjia' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
+>>>>>>> 0798c8744c24eeaea975676e430bf39341e14f40
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
             <Button type="text">单位</Button>
+<<<<<<< HEAD
             <Input  v-model='alldata.unit' placeholder="请输入..."></Input>
+=======
+            <Input  v-model='unit' placeholder="请输入..." :disabled='isDisabled'></Input>
+>>>>>>> 0798c8744c24eeaea975676e430bf39341e14f40
           </div>
         </Col>
       </Row>
@@ -97,7 +113,11 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">数量</Button>
+<<<<<<< HEAD
             <Input  v-model='alldata.number' placeholder="请输入..." @on-blur="addmoney"></Input>
+=======
+            <Input  v-model='number' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
+>>>>>>> 0798c8744c24eeaea975676e430bf39341e14f40
           </div>
         </Col>
         <Col span="8">
@@ -109,8 +129,8 @@
         <!-- <Col span="8">
           <Button type="text">是否为办公用品</Button>
           <RadioGroup v-model="animal">
-            <Radio label="是"></Radio>
-            <Radio label="否"></Radio>
+            <Radio label="是" :disabled='isDisabled'></Radio>
+            <Radio label="否" :disabled='isDisabled'></Radio>
           </RadioGroup>
         </Col> -->
       </Row>
@@ -132,7 +152,7 @@
       </Row>
       <!-- <Row class="rpw-line">
         <div style="margin-top:30px">
-          <i-button type="success" @click="addInput">添加</i-button>
+          <i-button type="success" @click="addInput" :disabled='isDisabled'>添加</i-button>
         </div>
           <i-table height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="data1" on-row-click></i-table>
       </Row> -->
