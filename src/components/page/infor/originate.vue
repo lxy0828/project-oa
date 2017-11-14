@@ -8,6 +8,7 @@
       <Button type="warning" size="small" @click="back = true">退回</Button>
       <Button type="error" size="small" @click="comment = true">终止</Button>
     </div>
+    <processSP></processSP>
    <Modal
         title="审批意见"
         v-model="comment"
@@ -24,6 +25,7 @@
   </div>
 </template>
 <script>
+  import processSP from '../infor/processSP.vue'
   export default {
     data () {
       return {
@@ -47,6 +49,9 @@
         ],
         data2: []
       }
+    },
+    components: {
+      processSP
     }
   }
 </script>
