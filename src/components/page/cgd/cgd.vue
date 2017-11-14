@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Originate></Originate>
+    <Originate :data="sendState" v-if="showSend"></Originate>
     <h1>采购单</h1>
     <div class="processtietle">
        <div class="hk">单号：<span>{{processNumber}}</span></div>
@@ -148,6 +148,7 @@
   export default {
     data () {
       return {
+        showSend: true,
         value: '',
         animal: '是',
         processNumber: '',
@@ -155,6 +156,10 @@
         modal: false,
         flag: false,
         flagNum: 0,
+        sendState: {
+          sponsor: '',
+          initiate: ''
+        },
         alldata: {
           apanum: '',
           apaname: '',
@@ -232,6 +237,8 @@
     },
     created () {
       this.getDate()
+      this.sendState.sponsor = sessionStorage.getItem('eSend')
+      this.sendState.initiate = sessionStorage.getItem('aSend')
       this.daxielMoney = DX(this.totalMoney)
     },
     methods: {

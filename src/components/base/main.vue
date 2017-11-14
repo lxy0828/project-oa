@@ -74,10 +74,11 @@
           ]
         },
         demand: false,
-        indexState: ''
+        indexState: '',
+        eSend: true
       }
     },
-    beforeDestory () {
+    destoryed () {
       bus.$off('eventBusName')
     },
     created () {
@@ -89,8 +90,8 @@
     methods: {
       // 获取点击table的内容
       getTable (item) {
-        sessionStorage.setItem('eSend', 'false')
-        this.$router.push('llh')
+        sessionStorage.setItem('eSend', this.eSend)
+        this.$router.push('cgd')
       },
       _getProcess () {
         if (this.indexState === 'backlog') {

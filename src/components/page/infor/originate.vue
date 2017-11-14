@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-show="showBtn">
+    <div v-show="data.initiate">
       <Button type="info" class="faqi">发起流程</Button>
     </div>
-    <div v-show="!showBtn">
+    <div v-show="data.sponsor">
       <Button type="success" size="small" @click="comment = true">继续派送</Button>
       <Button type="warning" size="small" @click="back = true">退回</Button>
       <Button type="error" size="small" @click="comment = true">终止</Button>
@@ -15,7 +15,7 @@
         <Input type="textarea" v-model='yaoqiu' placeholder="请输入..." :rows="4"></Input>
     </Modal>
     <Modal
-        title="退回到制定关卡"
+        title="退回到指定关卡"
         v-model="back"
         class-name="vertical-center-modal">
         <i-table  highlight-row ref="currentRowTable" border :columns="columns2" :data="data2" on-row-click></i-table>
@@ -25,9 +25,15 @@
 </template>
 <script>
   export default {
+    props: {
+      data: ''
+    },
     data () {
       return {
-        showBtn: false,
+        showBtn: {
+          type: Boolean,
+          default: false
+        },
         comment: false,
         back: false,
         yaoqiu: '',
@@ -47,6 +53,15 @@
         ],
         data2: []
       }
+    },
+    created () {
+      this.showBtn = this.data
+      if (this.showBtn.sponsor === 'true') {
+        sessionStorage.removeItem('eSend')
+      } else if (this.showBtn.initiate === 'true') {
+        sessionStorage.removeItem('aSend')
+      }
+      console.log(this.showBtn)
     }
   }
 </script>
