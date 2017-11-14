@@ -6,6 +6,7 @@ import Main from '../components/base/main.vue'
 import Sendprocess from '../components/page/sendprocess.vue'
 import Llh from '../components/page/llh/llh.vue'
 import Cgd from '../components/page/cgd/cgd.vue'
+import ErrorVue from '../components/base/404.vue'
 
 Vue.use(Router)
 
@@ -17,6 +18,10 @@ export default new Router({
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/error',
+    component: ErrorVue
   },
   {
     path: '/index',

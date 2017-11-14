@@ -29,6 +29,9 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">部门审核</Button>
+            <Input readonly v-model="alldata.checknum" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.checkname" placeholder="请输入..."></Input>
+            <Button disabled type="info" @click="check">查询</Button>
             <Input readonly v-model="alldata.checknum" placeholder="请输入..." :disabled='isDisabled'></Input>
             <Input readonly v-model="alldata.checkname" placeholder="请输入..." :disabled='isDisabled'></Input>
             <Button type="info" @click="check">查询</Button>

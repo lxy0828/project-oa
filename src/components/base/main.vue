@@ -106,10 +106,6 @@
             this.prodata.process = res.data.data.alldata
           })
         }
-      },
-      remove (index) {
-        console.log(index)
-        this.prodata.process.splice(index, 1)
       }
     },
     watch: {
