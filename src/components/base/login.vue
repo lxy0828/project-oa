@@ -4,17 +4,17 @@
       <h1 style="text-align: center">OA办公系统</h1>
       <div class="login">
         <i-form ref="formInline" :model="formInline" :rules="ruleInline">
-          <Form-item prop="user">
-            <Input v-model="formInline.user" placeholder="请输入用户名"></Input>
+          <Form-item prop="userName">
+            <Input v-model="formInline.userName" placeholder="请输入用户名"></Input>
           </Form-item>
           <Form-item prop="password">
             <Input v-model="formInline.password" placeholder="请输入密码"></Input>
           </Form-item>
-          <Form-item prop="model2">
+          <!-- <Form-item prop="model2">
             <Select v-model="formInline.model2" size="small" style="width:200px">
               <Option v-for="item in staffList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
-          </Form-item>
+          </Form-item> -->
           <Form-item>
             <i-button type="success" @click.native="handleSubmit('formInline',formInline)" long>登录</i-button>
           </Form-item>
@@ -26,16 +26,16 @@
 
 <script>
   import axios from 'axios'
+  import qs from 'qs'
   export default {
     data () {
       return {
         formInline: {
-          user: '',
-          password: '',
-          model2: ''
+          userName: '',
+          password: ''
         },
         ruleInline: {
-          user: [{
+          userName: [{
             required: true,
             message: '请输入用户名',
             trigger: 'blur'
@@ -50,32 +50,29 @@
             message: '密码长度不能小于6位',
             trigger: 'blur'
           }]
-        },
-        staffList: [{
-          value: '董事长',
-          label: '董事长'
-        }, {
-          value: '首席官',
-          label: '首席官'
-        }]
+        }
       }
     },
     methods: {
       handleSubmit (name, formData) {
         this.$refs[name].validate((valid) => {
-          console.log(this.formInline)
           if (valid) {
-            axios.post('api/login', this.formInline).then((res) => {
-              // console.log(this.showloading)
-              window.sessionStorage.setItem('user', formData.user)
-              window.sessionStorage.setItem('password', formData.password)
-              this.$Message.success('登录成功!')
-              // this.$router.push('/index')
+            let formcontroler = this.formInline
+            console.log(JSON.stringify(formcontroler))
+            console.log(qs.stringify(formcontroler))
+            axios.post('http://172.30.9.45:8080/ZHYOASystem_test/account/login.do', qs.stringify(formcontroler)).then((res) => {
+              console.log(res)
+              if (res.success) {
+                window.sessionStorage.setItem('infor', JSON.stringfy(res.currentUser))
+                this.$Message.success('登录成功!')
+                this.$router.push('/index')
+              } else {
+                this.$Message.success(res.errorInfo)
+              }
             })
           } else {
-            console.log(formData.user)
-            // this.$router.push('/index')
             this.$Message.error('表单验证失败!')
+            // this.$router.push('/index')
           }
         })
       }

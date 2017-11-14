@@ -31,17 +31,14 @@
             <Button type="text">部门审核</Button>
             <Input readonly v-model="alldata.checknum" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.checkname" placeholder="请输入..."></Input>
-            <Button disabled type="info" @click="check">查询</Button>
-            <Input readonly v-model="alldata.checknum" placeholder="请输入..." :disabled='isDisabled'></Input>
-            <Input readonly v-model="alldata.checkname" placeholder="请输入..." :disabled='isDisabled'></Input>
             <Button type="info" @click="check">查询</Button>
   	      </div>
   	    </Col>
   	    <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">部门审核</Button>
-            <Input readonly v-model="alldata.checknextnum" placeholder="请输入..." :disabled='isDisabled'></Input>
-            <Input readonly v-model="alldata.checknextname" placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input readonly v-model="alldata.checknextnum" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.checknextname" placeholder="请输入..."></Input>
             <Button type="info" @click="checknext">查询</Button>
   	      </div>
   	    </Col>
@@ -50,15 +47,15 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">部门负责人</Button>
-            <Input readonly value="1321312" placeholder="请输入..."></Input>
-            <Input readonly value="1321312" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptnum" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptname" placeholder="请输入..."></Input>
   	      </div>
   	    </Col>
   	    <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">发起人公司</Button>
-            <Input readonly value="1321312" placeholder="请输入..."></Input>
-            <Input readonly value="1321312" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.gsnum" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.gsname" placeholder="请输入..."></Input>
   	      </div>
   	    </Col>
       </Row>
@@ -66,13 +63,13 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">总金额</Button>
-            <Input readonly disabled v-model='totalMoney' placeholder="请输入..."></Input>
+            <Input readonly v-model='alldata.totalMoney' placeholder="请输入..."></Input>
           </div>
         </Col>
         <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">大写</Button>
-            <Input readonly disabled v-model='daxielMoney' placeholder="请输入..."></Input>
+            <Input readonly v-model='alldata.daxielMoney' placeholder="请输入..."></Input>
           </div>
         </Col>
       </Row>
@@ -80,19 +77,19 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">品名</Button>
-            <Input v-model='commodity' placeholder="请输入..."></Input>
+            <Input v-model='alldata.commodity' placeholder="请输入..."></Input>
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
             <Button type="text">预估单价</Button>
-            <Input v-model='danjia' placeholder="请输入..." @on-blur="addmoney"></Input>
+            <Input v-model='alldata.danjia' placeholder="请输入..." @on-blur="addmoney"></Input>
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
             <Button type="text">单位</Button>
-            <Input  v-model='unit' placeholder="请输入..."></Input>
+            <Input  v-model='alldata.unit' placeholder="请输入..."></Input>
           </div>
         </Col>
       </Row>
@@ -100,28 +97,28 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">数量</Button>
-            <Input  v-model='number' placeholder="请输入..." @on-blur="addmoney"></Input>
+            <Input  v-model='alldata.number' placeholder="请输入..." @on-blur="addmoney"></Input>
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
             <Button type="text">金额</Button>
-            <Input disabled  v-model='price' placeholder="请输入..."></Input>
+            <Input readonly  v-model='alldata.price' placeholder="请输入..."></Input>
           </div>
         </Col>
-        <Col span="8">
+        <!-- <Col span="8">
           <Button type="text">是否为办公用品</Button>
           <RadioGroup v-model="animal">
             <Radio label="是"></Radio>
             <Radio label="否"></Radio>
           </RadioGroup>
-        </Col>
+        </Col> -->
       </Row>
       <Row class='row-line'>
         <col span="20">
           <div class="un-input">
             <Button type="text">用途：</Button>
-            <Input  v-model='yongtu'  placeholder="请输入..."></Input>
+            <Input  v-model='alldata.yongtu'  placeholder="请输入..."></Input>
           </div>
         </col>
       </Row>
@@ -129,16 +126,16 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">产品要求：</Button>
-            <Input type="textarea" v-model='demand' placeholder="请输入..." :rows="4"></Input>
+            <Input type="textarea" v-model='alldata.demand' placeholder="请输入..." :rows="4"></Input>
           </div>
         </col>
       </Row>
-      <Row class="rpw-line">
+      <!-- <Row class="rpw-line">
         <div style="margin-top:30px">
           <i-button type="success" @click="addInput">添加</i-button>
         </div>
           <i-table height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="data1" on-row-click></i-table>
-      </Row>
+      </Row> -->
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
     </div>
   </div>
@@ -151,11 +148,8 @@
   export default {
     data () {
       return {
-<<<<<<< HEAD
-        isDisabled: true,
-=======
+        isDisabled: false,
         showSend: true,
->>>>>>> 5b2896f7adb1ae19b5ad8cf7df693d799e383ade
         value: '',
         animal: '是',
         processNumber: '',
@@ -175,18 +169,29 @@
           checknum: '',
           checkname: '',
           checknextnum: '',
-          checknextname: ''
+          checknextname: '',
+          deptnum: '',
+          deptname: '',
+          gsnum: '',
+          gsname: '',
+          totalMoney: 0,
+          daxielMoney: '',
+          commodity: '',
+          danjia: '',
+          unit: '',
+          number: '',
+          price: '',
+          yongtu: '',
+          demand: ''
         },
         data1: [],
-        totalMoney: 0,
-        commodity: '',
-        daxielMoney: '',
-        danjia: '',
-        unit: '',
-        number: '',
-        price: '',
-        yongtu: '',
-        demand: '',
+        // commodity: '',
+        // danjia: '',
+        // unit: '',
+        // number: '',
+        // price: '',
+        // yongtu: '',
+        // demand: '',
         apadata: {},
         columns1: [
           {
@@ -217,28 +222,28 @@
           {
             title: '产品要求',
             key: 'cpyq'
-          },
-          {
-            title: '删除',
-            key: 'action',
-            width: 80,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'error',
-                    size: 'small'
-                  },
-                  on: {
-                    click: () => {
-                      this.remove(params.index)
-                    }
-                  }
-                }, '删除')
-              ])
-            }
           }
+          // {
+          //   title: '删除',
+          //   key: 'action',
+          //   width: 80,
+          //   align: 'center',
+          //   render: (h, params) => {
+          //     return h('div', [
+          //       h('Button', {
+          //         props: {
+          //           type: 'error',
+          //           size: 'small'
+          //         },
+          //         on: {
+          //           click: () => {
+          //             this.remove(params.index)
+          //           }
+          //         }
+          //       }, '删除')
+          //     ])
+          //   }
+          // }
         ]
       }
     },
@@ -246,7 +251,7 @@
       this.getDate()
       this.sendState.sponsor = sessionStorage.getItem('eSend')
       this.sendState.initiate = sessionStorage.getItem('aSend')
-      this.daxielMoney = DX(this.totalMoney)
+      this.alldata.daxielMoney = DX(this.alldata.totalMoney)
     },
     methods: {
       getDate () {
@@ -295,7 +300,9 @@
         alert(123)
       },
       addmoney () {
-        this.price = Number(this.danjia) * Number(this.number)
+        this.alldata.price = Number(this.alldata.danjia) * Number(this.alldata.number)
+        this.alldata.totalMoney = this.alldata.price
+        this.alldata.daxielMoney = DX(this.alldata.totalMoney)
       },
       addInput () {
         let item = {}
@@ -314,8 +321,8 @@
           sum += je
           return sum
         })
-        this.totalMoney = sum
-        this.daxielMoney = DX(this.totalMoney)
+        this.alldata.totalMoney = sum
+        this.alldata.daxielMoney = DX(this.alldata.totalMoney)
       },
       remove (index) {
         this.data1.splice(index, 1)
@@ -326,8 +333,8 @@
           sum += je
           return sum
         })
-        this.totalMoney = sum
-        this.daxielMoney = DX(this.totalMoney)
+        this.alldata.totalMoney = sum
+        this.alldata.daxielMoney = DX(this.alldata.totalMoney)
       }
     },
     components: {
