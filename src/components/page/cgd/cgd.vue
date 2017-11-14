@@ -11,16 +11,16 @@
         <Col span='10'>
           <div class="un-input">
             <Button type="text">发起人</Button>
-            <Input readonly v-model="alldata.apanum" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.apaname" placeholder="请输入..."></Input>
-            <Button type="info" @click="selectStaff">查询</Button>
+            <Input readonly v-model="alldata.apanum" placeholder="请输入..." ></Input>
+            <Input readonly v-model="alldata.apaname" placeholder="请输入..." ></Input>
+            <Button type="info" @click="selectStaff" :disabled='isDisabled' >查询</Button>
           </div>
         </Col>
          <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">发起人部门</Button>
-            <Input readonly v-model="alldata.bmnum" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.bmname" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.bmnum" placeholder="请输入..." ></Input>
+            <Input readonly v-model="alldata.bmname" placeholder="请输入..." ></Input>
             <Button type="info" @click="selectdepartment">查询</Button>
   	      </div>
   	    </Col>
@@ -29,16 +29,16 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">部门审核</Button>
-            <Input readonly v-model="alldata.checknum" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.checkname" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.checknum" placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input readonly v-model="alldata.checkname" placeholder="请输入..." :disabled='isDisabled'></Input>
             <Button type="info" @click="check">查询</Button>
   	      </div>
   	    </Col>
   	    <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">部门审核</Button>
-            <Input readonly v-model="alldata.checknextnum" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.checknextname" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.checknextnum" placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input readonly v-model="alldata.checknextname" placeholder="请输入..." :disabled='isDisabled'></Input>
             <Button type="info" @click="checknext">查询</Button>
   	      </div>
   	    </Col>
@@ -118,7 +118,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">用途：</Button>
-            <Input  v-model='yongtu' placeholder="请输入..."></Input>
+            <Input  v-model='yongtu'  placeholder="请输入..."></Input>
           </div>
         </col>
       </Row>
@@ -148,6 +148,7 @@
   export default {
     data () {
       return {
+        isDisabled: true,
         value: '',
         animal: '是',
         processNumber: '',
