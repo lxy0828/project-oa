@@ -148,11 +148,8 @@
   export default {
     data () {
       return {
-<<<<<<< HEAD
         isDisabled: true,
-=======
         showSend: true,
->>>>>>> 5b2896f7adb1ae19b5ad8cf7df693d799e383ade
         value: '',
         animal: '是',
         processNumber: '',
