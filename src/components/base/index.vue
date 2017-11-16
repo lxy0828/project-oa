@@ -14,6 +14,10 @@
             <Icon type="ios-navigate" :size="iconSize"></Icon>
             <span class="layout-text">发起流程</span>
           </Menu-item>
+          <Menu-item  name="maintain">
+            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <span class="layout-text">信息维护</span>
+          </Menu-item>
         </Menu>
       </i-col>
       <i-col :span="spanRight">

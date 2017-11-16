@@ -7,6 +7,7 @@ import Sendprocess from '../components/page/sendprocess.vue'
 import Llh from '../components/page/llh/llh.vue'
 import Cgd from '../components/page/cgd/cgd.vue'
 import ErrorVue from '../components/base/404.vue'
+import Maintain from '../components/page/maintain/maintain.vue'
 
 Vue.use(Router)
 
@@ -41,6 +42,9 @@ export default new Router({
     }, {
       path: '/cgd',
       component: Cgd
+    }, {
+      path: '/maintain',
+      component: Maintain
     }]
   }]
 })
