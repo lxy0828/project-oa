@@ -77,7 +77,11 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">品名</Button>
+<<<<<<< HEAD
             <Input v-model='alldata.commodity' placeholder="请输入..."></Input>
+=======
+            <Input v-model='alldata.commodity' placeholder="请输入..." :disabled='isDisabled'></Input>
+>>>>>>> e7530faf57d5e05fb9ee759e085be552f27b12d0
           </div>
         </Col>
         <Col span="8">
@@ -89,7 +93,11 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">单位</Button>
+<<<<<<< HEAD
             <Input  v-model='alldata.unit' placeholder="请输入..."></Input>
+=======
+            <Input  v-model='alldata.unit' placeholder="请输入..." :disabled='isDisabled'></Input>
+>>>>>>> e7530faf57d5e05fb9ee759e085be552f27b12d0
           </div>
         </Col>
       </Row>
@@ -97,7 +105,11 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">数量</Button>
+<<<<<<< HEAD
             <Input  v-model='alldata.number' placeholder="请输入..." @on-blur="addmoney"></Input>
+=======
+            <Input  v-model='alldata.number' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
+>>>>>>> e7530faf57d5e05fb9ee759e085be552f27b12d0
           </div>
         </Col>
         <Col span="8">
