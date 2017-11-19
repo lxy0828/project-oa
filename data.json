@@ -6,60 +6,60 @@
   "proce": {
     "alldata":[{
       "state": "进行中",
-      "lcname": "请款单",
+      "processName": "请款单",
       "sta": "llh",
-      "lcseat": "zhyqkd201709090001",
-      "name": "张三",
-      "time": "2017/10/10 14:46",
-      "active": "部门负责人"
+      "flowId": "zhyqkd201709090001",
+      "proposer": "张三",
+      "submissionDate": "2017/10/10 14:46",
+      "taskNode": "部门负责人"
     }, {
       "state": "进行中",
-      "lcname": "费用报销单",
-      "lcseat": "zhyqkd201709090002",
-      "name": "张三",
+      "processName": "费用报销单",
+      "flowId": "zhyqkd201709090002",
+      "proposer": "张三",
       "sta": "llh",
-      "time": "2017/10/10 13:46",
-      "active": "部门负责人"
+      "submissionDate": "2017/10/10 13:46",
+      "taskNode": "部门负责人"
     }, {
       "state": "进行中",
-      "lcname": "员工借支单",
-      "lcseat": "zhyqkd201709090003",
-      "name": "张三",
+      "processName": "员工借支单",
+      "flowId": "zhyqkd201709090003",
+      "proposer": "张三",
       "sta": "cgd",
-      "time": "2017/10/10 18:46",
-      "active": "部门负责人"
+      "submissionDate": "2017/10/10 18:46",
+      "taskNode": "部门负责人"
     }, {
       "state": "进行中",
-      "lcname": "联络函",
-      "lcseat": "zhyqkd201709090004",
-      "name": "张三",
+      "processName": "联络函",
+      "flowId": "zhyqkd201709090004",
+      "proposer": "张三",
       "sta": "cgd",
-      "time": "2017/10/10 02:46",
-      "active": "部门负责人"
+      "submissionDate": "2017/10/10 02:46",
+      "taskNode": "部门负责人"
     }, {
       "state": "进行中",
-      "lcname": "公章使用申请",
-      "lcseat": "zhyqkd201709090005",
-      "name": "张三",
+      "processName": "公章使用申请",
+      "flowId": "zhyqkd201709090005",
+      "proposer": "张三",
       "sta": "cgd",
-      "time": "2017/10/10 08:36",
-      "active": "部门负责人"
+      "submissionDate": "2017/10/10 08:36",
+      "taskNode": "部门负责人"
     }, {
       "state": "进行中",
-      "lcname": "请款单",
-      "lcseat": "zhyqkd201709090006",
-      "name": "张三",
+      "processName": "请款单",
+      "flowId": "zhyqkd201709090006",
+      "proposer": "张三",
       "sta": "cgd",
-      "time": "2017/10/10 08:26",
-      "active": "部门负责人"
+      "submissionDate": "2017/10/10 08:26",
+      "taskNode": "部门负责人"
     }, {
       "state": "进行中",
-      "lcname": "请款单",
-      "lcseat": "zhyqkd201709090007",
-      "name": "张三",
+      "processName": "请款单",
+      "flowId": "zhyqkd201709090007",
+      "proposer": "张三",
       "sta": "cgd",
-      "time": "2017/10/10 08:41",
-      "active": "部门负责人"
+      "submissionDate": "2017/10/10 08:41",
+      "taskNode": "部门负责人"
     }]
   },
   "staff": {

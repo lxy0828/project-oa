@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-show="data.initiate">
-      <Button type="info" class="faqi">发起流程</Button>
+      <Button type="info" class="faqi" @click='sendProcess'>发起流程</Button>
     </div>
     <div v-show="data.sponsor">
       <Button type="success" size="small" @click="comment = true">继续派送</Button>
@@ -12,8 +12,9 @@
    <Modal
         title="审批意见"
         v-model="comment"
+        @on-ok="sucessprocess"
         class-name="vertical-center-modal">
-        <Input type="textarea" v-model='yaoqiu' placeholder="请输入..." :rows="4"></Input>
+        <Input type="textarea" v-model='resmsg.msg' placeholder="请输入..." :rows="4"></Input>
     </Modal>
     <Modal
         title="退回到指定关卡"
@@ -26,12 +27,15 @@
 </template>
 <script>
   import processSP from '../infor/processSP.vue'
+  import axios from 'axios'
+  import qs from 'qs'
   export default {
     props: {
-      data: ''
+      data: {}
     },
     data () {
       return {
+        alldata: this.data,
         showBtn: {
           type: Boolean,
           default: false
@@ -53,7 +57,11 @@
             key: 'name'
           }
         ],
-        data2: []
+        data2: [],
+        rsmsg: {
+          msg: '',
+          ZK: ''
+        }
       }
     },
     created () {
@@ -62,6 +70,29 @@
         sessionStorage.removeItem('eSend')
       } else if (this.showBtn.initiate === 'true') {
         sessionStorage.removeItem('aSend')
+      }
+    },
+    methods: {
+      sendProcess () {
+        let formcontroler = this.alldata
+        axios.post('http://172.30.9.66:8080/ZHYOASystem_test/purchaseOrders/startApply.do', qs.stringify(formcontroler)).then((res) => {
+          console.log(res)
+          if (res.success) {
+            this.$router.push('/index')
+          } else {
+            alert('发送失败')
+          }
+        })
+      },
+      sucessprocess () {
+        let formcontroler = this.rsmsg
+        axios.post('url', qs.stringify(formcontroler)).then((res) => {
+          if (res.success) {
+            this.$router.push('/index')
+          } else {
+            alert('审批失败')
+          }
+        })
       }
     },
     components: {

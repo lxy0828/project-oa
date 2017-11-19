@@ -43,27 +43,27 @@
           column: [
             {
               title: '编号',
-              key: 'apanum'
+              key: 'eid'
             },
             {
               title: '姓名',
-              key: 'apaname'
+              key: 'ename'
             },
             {
               title: '部门代号',
-              key: 'bmnum'
+              key: 'did'
             },
             {
               title: '部门名称',
-              key: 'bmname'
+              key: 'dname'
             },
             {
               title: '公司代号',
-              key: 'gsnum'
+              key: 'cid'
             },
             {
               title: '公司名称',
-              key: 'gsname'
+              key: 'cname'
             }
           ]
         }
@@ -74,8 +74,10 @@
     },
     methods: {
       _getStaff () {
-        axios.get('api/staff').then((res) => {
-          this.staffdata.process = res.data.data.alldata
+        axios.get('http://172.30.9.66:8080/ZHYOASystem_test/account/login.do').then((res) => {
+          console.log(res)
+          let resdata = JSON.stringfy(res)
+          this.staffdata.process = resdata.rows
         })
       },
       getTable (item) {

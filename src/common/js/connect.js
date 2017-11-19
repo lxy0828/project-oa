@@ -1,15 +1,21 @@
 const connect = [{
-  value: 'zhejiang',
+  value: '财务',
   label: '财务',
-  children: [{
-    value: 'hangzhou',
-    label: '请款单'
-  }]
+  children: [
+    {
+      value: '请款单',
+      label: '请款单'
+    },
+    {
+      value: '采购单',
+      label: '采购单'
+    }
+  ]
 }, {
-  value: 'jiangsu',
+  value: '行政',
   label: '行政',
   children: [{
-    value: 'nanjing',
+    value: '联络函',
     label: '联络函'
   }]
 }]

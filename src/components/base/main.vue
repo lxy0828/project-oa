@@ -5,17 +5,19 @@
       <Modal
         title="进阶查询"
         v-model="demand"
+        @on-ok="queding"
         class-name="vertical-center-modal">
         <span>选择流程(选填)</span>
-        <Cascader :data="casdata" change-on-select  ></Cascader>
+        <Cascader v-model='processtotal' :data="casdata" change-on-select  ></Cascader>
         <span>选择日期</span>
         <Col span="24">
-          <DatePicker type="daterange" confirm placement="bottom-end" placeholder="选择日期" style="width: 100%"></DatePicker>
+          <date-picker v-model="searchdata.startDate" format="yyyy年MM月dd日" type="date" placeholder="Select date" style="width: 200px"></date-picker>
+          <date-picker v-model="searchdata.endDate" format="yyyy年MM月dd日" type="date" placeholder="Select date" style="width: 200px"></date-picker>
         </Col>
         <p>输入单号</p>
-        <Input  placeholder="请输入..."></Input>
+        <Input v-model='searchdata.flowId'  placeholder="请输入..."></Input>
         <p>输入发起人</p>
-        <Input  placeholder="请输入..."></Input>
+        <Input v-model='searchdata.proposer'  placeholder="请输入..."></Input>
       </Modal>
     </div>
     <list-view @tableitem="getTable" :data="prodata"></list-view>
@@ -27,10 +29,19 @@
   import listView from '../page/listview/listview.vue'
   import connect from '../../common/js/connect.js'
   import bus from '../store/store.js'
+  import qs from 'qs'
   export default {
     data () {
       return {
+        processtotal: '',
         casdata: connect,
+        searchdata: {
+          flowId: '',
+          processName: '',
+          proposer: '',
+          startDate: '',
+          endDate: ''
+        },
         prodata: {
           process: [],
           pagesize: 4,
@@ -51,25 +62,25 @@
             },
             {
               title: '流程名称',
-              key: 'lcname',
+              key: 'processName',
               sortable: true
             },
             {
               title: '流程单号',
-              key: 'lcseat'
+              key: 'flowId'
             },
             {
               title: '发起者',
-              key: 'name'
+              key: 'proposer'
             },
             {
               title: '日期',
-              key: 'time',
+              key: 'submissionDate',
               sortable: true
             },
             {
               title: '执行中的活动',
-              key: 'active'
+              key: 'taskNode'
             }
           ]
         },
@@ -103,9 +114,25 @@
         } else if (this.indexState === '') {
           console.log(4)
           axios.get('api/proce').then((res) => {
+          // axios.get('http://172.30.9.66:8080/ZHYOASystem_test/purchaseOrdersTask/list.do').then((res) => {
+          // console.log(res)
             this.prodata.process = res.data.data.alldata
+            console.log(res.data.data.alldata)
+            // this.prodata.process = JSON.stringfy(res).rows
           })
         }
+      },
+      queding () {
+        this.searchdata.processName = this.processtotal[1]
+        // console.log(this.searchdata)
+        let formcontroler = this.searchdata
+        axios.post('http://172.30.9.66:8080/ZHYOASystem_test/purchaseOrdersTask/list.do', qs.stringfy(formcontroler)).then((res) => {
+          if (res.success) {
+            window.location.reload()
+          } else {
+            alert('查询失败')
+          }
+        })
       }
     },
     watch: {
