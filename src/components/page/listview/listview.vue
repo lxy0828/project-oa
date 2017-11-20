@@ -60,6 +60,7 @@
             this.$emit('tableitem', item)
           }
         })
+        // 下面打包时候删除
         this.$emit('tableitem', item)
       },
       changePage (page) {

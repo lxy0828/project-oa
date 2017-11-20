@@ -69,6 +69,10 @@
               title: '流程单号',
               key: 'flowId'
             },
+            // {
+            //   title: '流程版本号',
+            //   key: 'fId'
+            // },
             {
               title: '发起者',
               key: 'proposer'

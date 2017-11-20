@@ -342,6 +342,8 @@
       control () {
         if (this.sendState.sponsor) {
           this.isDisabled = true
+          // listview里面缓存的值替换alldata
+          // this.alldata = sessionStorage.getItem('formdata')
         }
         if (this.sendState.initiate) {
           this.isDisabled = false

@@ -1,0 +1,129 @@
+
+// 审批表单请求的数据，主页面点击进入时传递fId(流程序号)获得
+{
+	"purchaseOrders": [{
+		"deptAuditor1": "张三",
+		"deptAuditor1Id": "E000100",
+		"deptAuditor2": "赵六",
+		"deptAuditor2Id": "E000100",
+		"deptHead": "张三",
+		"deptHeadId": "E000100",
+		"endDate": "",
+		"estimatedPrice": "2000",
+		"fId": "",
+		"flowId": "CGD2017111894846158",
+		"noticePerson": "13",
+		"number": "20",
+		"processInstanceId": "40016",
+		"processName": "采购单",
+		"productName": "电脑",
+		"productRequirement": "13",
+		"propCompId": "C0001",
+		"propCompName": "湖北省周黑鸭企业发展有限公司",
+		"propDeptId": "D000100",
+		"propDeptName": "信息中心",
+		"proposer": "王五",
+		"proposerId": "E000500",
+		"startDate": "",
+		"state": "审核中",
+		"submissionDate": "2017-11-18 11:23:14",
+		"taskNode": "",
+		"totalAmount": "20000",
+		"unit": "台",
+		"upperAmount": "123",
+		"use": "办公"
+	}],
+	"success": true
+}
+
+
+// 主页面筛选流程反馈值
+{
+	"rows": [{
+		"createTime": "",
+		"endTime": "",
+		"fId": "40026",
+		"flowId": "CGD2017111894846158",
+		"id": "",
+		"name": "",
+		"processName": "采购单",
+		"proposer": "王五",
+		"state": "审核中",
+		"submissionDate": "2017-11-18 11:23:14",
+		"taskNode": "部门长审批"
+	}],
+	"total": 1,
+	"success": true
+}
+
+// 主页面加载请求数据，后面会加上fId(流程版本号)
+{
+	"rows": [{
+		"cid": "C0001",
+		"cname": "湖北周黑鸭企业发展有限公司",
+		"deptHead": "崔二",
+		"deptHeadId": "E00040",
+		"did": "D0001",
+		"dname": "大数据战略中心",
+		"eid": "E00040",
+		"ename": "崔二",
+		"pid": "P0002",
+		"pname": "部门长"
+	}, {
+		"cid": "C0001",
+		"cname": "湖北周黑鸭企业发展有限公司",
+		"deptHead": "张三",
+		"deptHeadId": "E000100",
+		"did": "D000100",
+		"dname": "信息中心",
+		"eid": "E000100",
+		"ename": "张三",
+		"pid": "P0001",
+		"pname": "部门长"
+	}, {
+		"cid": "C0001",
+		"cname": "湖北周黑鸭企业发展有限公司",
+		"deptHead": "张三",
+		"deptHeadId": "E000100",
+		"did": "D000100",
+		"dname": "信息中心",
+		"eid": "E000500",
+		"ename": "王五",
+		"pid": "P00030",
+		"pname": "普通员工"
+	}, {
+		"cid": "C0001",
+		"cname": "湖北周黑鸭企业发展有限公司",
+		"deptHead": "李四",
+		"deptHeadId": "E00050",
+		"did": "D0002",
+		"dname": "人力资源部",
+		"eid": "E00050",
+		"ename": "李四",
+		"pid": "P00040",
+		"pname": "部门长"
+	}, {
+		"cid": "C0001",
+		"cname": "湖北周黑鸭企业发展有限公司",
+		"deptHead": "赵六",
+		"deptHeadId": "E00060",
+		"did": "D0003",
+		"dname": "财务中心",
+		"eid": "E00060",
+		"ename": "赵六",
+		"pid": "P00022",
+		"pname": "部门长"
+	}, {
+		"cid": "C0001",
+		"cname": "湖北周黑鸭企业发展有限公司",
+		"deptHead": "赵六",
+		"deptHeadId": "E00060",
+		"did": "D0003",
+		"dname": "财务中心",
+		"eid": "E00061",
+		"ename": "朱七",
+		"pid": "P00021",
+		"pname": "财务主管"
+	}],
+	"total": 6
+}

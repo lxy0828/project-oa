@@ -14,7 +14,7 @@
         v-model="comment"
         @on-ok="sucessprocess"
         class-name="vertical-center-modal">
-        <Input type="textarea" v-model='resmsg.msg' placeholder="请输入..." :rows="4"></Input>
+        <Input type="textarea" v-model='rsmsg.msg' placeholder="请输入..." :rows="4"></Input>
     </Modal>
     <Modal
         title="退回到指定关卡"
