@@ -5,9 +5,9 @@
           <Col span="18">
             <div class="un-input">
               <Button type="text">公司名称</Button>
-              <Input value="1321312" placeholder="请输入..."></Input>
+              <Input  placeholder="请输入..."></Input>
               <Button type="text">公司编号</Button>
-              <Input value="1321312" placeholder="请输入..."></Input>
+              <Input  placeholder="请输入..."></Input>
   	        </div>
   	      </Col>
   	      <Col span="5" offset="1">

@@ -38,17 +38,18 @@
               <Breadcrumb-item>页面</Breadcrumb-item>
               <Breadcrumb-item>{{this.$route.path.replace('/','')}}</Breadcrumb-item>
             </Breadcrumb>
-            </div>
-            <div class="layout-content">
-              <div class="layout-content-main">
-                <transition mode="out-in">
-                  <router-view></router-view>
-                </transition>
-              </div>
-            </div>
-            <div class="layout-copy">
-                信息中心
-            </div>
+          </Breadcrumb>
+        </div>
+        <div class="layout-content">
+          <div class="layout-content-main">
+            <transition mode="out-in">
+              <router-view></router-view>
+            </transition>
+          </div>
+        </div>
+        <div class="layout-copy">
+            信息中心
+        </div>
       </i-col>
     </Row>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-  	<img src="loading/404.png">
+  	<img src="../base/loading/404.png" height="300px" width="100%">
   </div>
 </template>
 

@@ -46,5 +46,9 @@ export default new Router({
       path: '/maintain',
       component: Maintain
     }]
+  },
+  {
+    path: '*',
+    component: ErrorVue
   }]
 })

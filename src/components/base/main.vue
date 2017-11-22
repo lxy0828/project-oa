@@ -33,7 +33,7 @@
   export default {
     data () {
       return {
-        processtotal: '',
+        processtotal: [],
         casdata: connect,
         searchdata: {
           flowId: '',
@@ -106,6 +106,8 @@
       // 获取点击table的内容
       getTable (item) {
         sessionStorage.setItem('eSend', this.eSend)
+        sessionStorage.setItem('processId', item.flowId)
+        console.log(item.flowId)
         this.$router.push('cgd')
       },
       _getProcess () {

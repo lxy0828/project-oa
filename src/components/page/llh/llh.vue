@@ -47,15 +47,15 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">部门负责人</Button>
-            <Input readonly value="1321312" placeholder="请输入..."></Input>
-            <Input readonly value="1321312" placeholder="请输入..."></Input>
+            <Input readonly  placeholder="请输入..."></Input>
+            <Input readonly  placeholder="请输入..."></Input>
   	      </div>
   	    </Col>
   	    <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">发起人公司</Button>
-            <Input readonly value="1321312" placeholder="请输入..."></Input>
-            <Input readonly value="1321312" placeholder="请输入..."></Input>
+            <Input readonly  placeholder="请输入..."></Input>
+            <Input readonly  placeholder="请输入..."></Input>
   	      </div>
   	    </Col>
       </Row>

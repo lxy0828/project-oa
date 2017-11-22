@@ -141,6 +141,8 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
+  import qs from 'qs'
   import Originate from '../../page/infor/originate.vue'
   import Staff from '../../page/infor/staff.vue'
   import {getRandomNum} from '../../../common/js/random.js'
@@ -150,7 +152,6 @@
       return {
         isDisabled: '',
         showSend: true,
-        value: '',
         animal: '是',
         processNumber: '',
         processDate: '',
@@ -249,7 +250,7 @@
       }
     },
     created () {
-      this.getDate()
+      console.log(sessionStorage.getItem('processId'))
       this.sendState.sponsor = sessionStorage.getItem('eSend')
       // console.log(this.sendState.sponsor)
       this.sendState.initiate = sessionStorage.getItem('aSend')
@@ -344,8 +345,16 @@
           this.isDisabled = true
           // listview里面缓存的值替换alldata
           // this.alldata = sessionStorage.getItem('formdata')
+          this.alldata.flowId = sessionStorage.getItem('processId')
+          let flownum = this.alldata.flowId
+          axios.post('http://172.30.9.45:8080/ZHYOASystem_test/purchaseOrdersTask/selectByFlowId', qs.stringify(flownum)).then((res) => {
+            if (res.success) {
+              window.sessionStorage.setItem('formdata', JSON.stringfy(res.purchaseOrders))
+            }
+          })
         }
         if (this.sendState.initiate) {
+          this.getDate()
           this.isDisabled = false
         }
         console.log(this.isDisabled)
