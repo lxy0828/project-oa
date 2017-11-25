@@ -60,6 +60,80 @@
       "sta": "cgd",
       "submissionDate": "2017/10/10 08:41",
       "taskNode": "部门负责人"
+    }],
+    "alldata1":[{
+      "state": "进行中",
+      "processName": "请款单",
+      "sta": "llh",
+      "flowId": "zhyqkd201709090001",
+      "proposer": "张三",
+      "submissionDate": "2017/10/10 14:46",
+      "taskNode": "部门负责人"
+    }, {
+      "state": "进行中",
+      "processName": "费用报销单",
+      "flowId": "zhyqkd201709090002",
+      "proposer": "张三",
+      "sta": "llh",
+      "submissionDate": "2017/10/10 13:46",
+      "taskNode": "部门负责人"
+    }, {
+      "state": "进行中",
+      "processName": "员工借支单",
+      "flowId": "zhyqkd201709090003",
+      "proposer": "张三",
+      "sta": "cgd",
+      "submissionDate": "2017/10/10 18:46",
+      "taskNode": "部门负责人"
+    }, {
+      "state": "进行中",
+      "processName": "联络函",
+      "flowId": "zhyqkd201709090004",
+      "proposer": "张三",
+      "sta": "cgd",
+      "submissionDate": "2017/10/10 02:46",
+      "taskNode": "部门负责人"
+    }, {
+      "state": "进行中",
+      "processName": "公章使用申请",
+      "flowId": "zhyqkd201709090005",
+      "proposer": "张三",
+      "sta": "cgd",
+      "submissionDate": "2017/10/10 08:36",
+      "taskNode": "部门负责人"
+    }],
+    "alldata2":[{
+      "state": "进行中",
+      "processName": "请款单",
+      "sta": "llh",
+      "flowId": "zhyqkd201709090001",
+      "proposer": "张三",
+      "submissionDate": "2017/10/10 14:46",
+      "taskNode": "部门负责人"
+    }, {
+      "state": "进行中",
+      "processName": "费用报销单",
+      "flowId": "zhyqkd201709090002",
+      "proposer": "张三",
+      "sta": "llh",
+      "submissionDate": "2017/10/10 13:46",
+      "taskNode": "部门负责人"
+    }, {
+      "state": "进行中",
+      "processName": "员工借支单",
+      "flowId": "zhyqkd201709090003",
+      "proposer": "张三",
+      "sta": "cgd",
+      "submissionDate": "2017/10/10 18:46",
+      "taskNode": "部门负责人"
+    }, {
+      "state": "进行中",
+      "processName": "联络函",
+      "flowId": "zhyqkd201709090004",
+      "proposer": "张三",
+      "sta": "cgd",
+      "submissionDate": "2017/10/10 02:46",
+      "taskNode": "部门负责人"
     }]
   },
   "staff": {

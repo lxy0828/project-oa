@@ -18,6 +18,10 @@
             <Icon type="ios-navigate" :size="iconSize"></Icon>
             <span class="layout-text">信息维护</span>
           </Menu-item>
+          <Menu-item  name="upload">
+            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <span class="layout-text">流程上传</span>
+          </Menu-item>
         </Menu>
       </i-col>
       <i-col :span="spanRight">
@@ -28,8 +32,9 @@
           </i-button>
           <div>
             <Button type="ghost" @click="referFlow(backlog)">待办</Button>
-            <Button type="ghost" @click="referFlow(notice)">通知</Button>
-            <Button type="ghost" @click="referFlow(end)">追踪</Button>
+            <Button type="ghost" @click="referFlow(notice)">进行中</Button>
+            <Button type="ghost" @click="referFlow(end)">已完成</Button>
+            <Button type="ghost" @click="referFlow(over)">已终止</Button>
           </div>
         </div>
         <div class="layout-breadcrumb">
@@ -78,6 +83,12 @@
         return this.$route.path.replace('/', '')
       }
     },
+    created () {
+      // console.log(window.sessionStorage.getItem('infor'))
+      // if (window.sessionStorage.getItem('infor') === null) {
+      //   this.$router.push('/error')
+      // }
+    },
     methods: {
       toggleClick () {
         if (this.spanLeft === 5) {
@@ -89,14 +100,28 @@
         }
       },
       referFlow (e) {
-        console.log(e)
+        if (e === 'backlog') {
+          sessionStorage.setItem('backwait', 'backwait')
+          // sessionStorage.setItem('wait', 'true')
+        } else if (e === 'notice') {
+          sessionStorage.setItem('backwait', 'notice')
+          // sessionStorage.setItem('wait', 'false')
+        } else if (e === 'end') {
+          sessionStorage.setItem('backwait', 'end')
+          // sessionStorage.setItem('wait', 'false')
+        } else {
+          sessionStorage.setItem('backwait', 'over')
+        }
         bus.$emit('eventBusName', e)
-        // this.routeTo('index')
         if (this.$route.path.replace('/', '') !== 'main') {
           this.routeTo('main')
         }
       },
       routeTo (e) {
+        if (e === 'index') {
+          // sessionStorage.setItem('backwait', 'backwait')
+          // sessionStorage.setItem('wait', 'true')
+        }
         this.$router.push(e)
       }
     }
@@ -112,6 +137,7 @@
   position: relative;
   border-radius: 4px;
   overflow: hidden;
+  height: 100%;
 }
 .layout-breadcrumb {
   padding: 10px 15px 0;

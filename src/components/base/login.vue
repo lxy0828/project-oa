@@ -8,7 +8,7 @@
             <Input v-model="formInline.userName" placeholder="请输入用户名"></Input>
           </Form-item>
           <Form-item prop="password">
-            <Input v-model="formInline.password" placeholder="请输入密码"></Input>
+            <Input v-model="formInline.password" type="password" placeholder="请输入密码"></Input>
           </Form-item>
           <!-- <Form-item prop="model2">
             <Select v-model="formInline.model2" size="small" style="width:200px">
@@ -55,24 +55,29 @@
     },
     methods: {
       handleSubmit (name, formData) {
+        this.$Loading.start()
         this.$refs[name].validate((valid) => {
           if (valid) {
             let formcontroler = this.formInline
-            console.log(JSON.stringify(formcontroler))
-            console.log(qs.stringify(formcontroler))
-            window.sessionStorage.setItem('in', '123')
-            axios.post('http://172.30.9.45:8080/ZHYOASystem_test/account/login.do', qs.stringify(formcontroler)).then((res) => {
+            // console.log(JSON.stringify(formcontroler))
+            // console.log(qs.stringify(formcontroler))
+            this.$router.push('/index')
+            // window.sessionStorage.setItem('in', '123')
+            axios.post('http://172.30.40.7:8080/ZHYOASystem_test/account/login.do', qs.stringify(formcontroler)).then((res) => {
               console.log(res)
-              if (res.success) {
-                window.sessionStorage.setItem('infor', JSON.stringfy(res.currentUser))
+              if (res.data.success) {
+                window.sessionStorage.setItem('infor', res)
+                console.log(window.sessionStorage.getItem('infor'))
                 this.$Message.success('登录成功!')
+                this.$Loading.finish()
                 this.$router.push('/index')
               } else {
-                this.$Message.success(res.errorInfo)
+                this.$Message.success(res.data.errorInfo)
               }
             })
           } else {
             this.$Message.error('表单验证失败!')
+            this.$Loading.error()
             // this.$router.push('/index')
           }
         })
@@ -86,6 +91,7 @@
   width: 100%
   height: 100%
   position: relative
+  top: 200px
   .login
   	margin: 0 auto
   	padding: 200px auto

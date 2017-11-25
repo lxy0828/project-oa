@@ -8,6 +8,7 @@ import Llh from '../components/page/llh/llh.vue'
 import Cgd from '../components/page/cgd/cgd.vue'
 import ErrorVue from '../components/base/404.vue'
 import Maintain from '../components/page/maintain/maintain.vue'
+import Upload from '../components/page/upload/upload.vue'
 
 Vue.use(Router)
 
@@ -27,6 +28,12 @@ export default new Router({
   {
     path: '/index',
     component: Index,
+    beforeRouteEnter (to, from, next) {
+      console.log(to)
+      next(vm => {
+        console.log(vm)
+      })
+    },
     children: [{
       path: '',
       component: Main
@@ -45,6 +52,9 @@ export default new Router({
     }, {
       path: '/maintain',
       component: Maintain
+    }, {
+      path: '/upload',
+      component: Upload
     }]
   },
   {

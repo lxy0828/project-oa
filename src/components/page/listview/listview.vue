@@ -6,16 +6,16 @@
         <Page :total="dataCount"  :page-size="pageSize" show-total @on-change="changePage"></Page>
       </div>
     </div>
-    <div class="loading" v-show="!dataCount">
+    <!-- <div class="loading" v-show="!dataCount">
       <div class="loading-container">
         <loading></loading>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-  import Loading from '../../base/loading/loading.vue'
+  // import Loading from '../../base/loading/loading.vue'
   export default {
     props: {
       data: {}
@@ -25,25 +25,31 @@
         ajaxHistoryData: [],
         dataCount: 0,
         pageSize: 3,
-        historyData: []
+        historyData: [],
+        showLoading: true
       }
     },
     created () {
-      setTimeout(() => {
+      this.$nextTick(() => {
         this.handleListApproveHistory()
-      }, 200)
+      })
+      // setTimeout(() => {
+      //   this.handleListApproveHistory()
+      // }, 500)
     },
     methods: {
       handleListApproveHistory () {
         this.pageSize = this.data.pagesize
         this.ajaxHistoryData = this.data.process
+        // if (this.data.process.length >= 0) {
+        //   this.showLoading = false
+        // }
         this.dataCount = this.data.process.length
         if (this.data.process.length < this.pageSize) {
           this.historyData = this.ajaxHistoryData
         } else {
           this.historyData = this.ajaxHistoryData.slice(0, this.pageSize)
         }
-        console.log(this.historyData)
       },
       clickRow (item, index) {
         console.log(item)
@@ -54,9 +60,6 @@
         let _end = page * this.pageSize
         this.historyData = this.ajaxHistoryData.slice(_start, _end)
       }
-    },
-    components: {
-      Loading
     }
   }
 </script>

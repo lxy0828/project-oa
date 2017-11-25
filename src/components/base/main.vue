@@ -20,7 +20,7 @@
         <Input v-model='searchdata.proposer'  placeholder="请输入..."></Input>
       </Modal>
     </div>
-    <list-view @tableitem="getTable" :data="prodata"></list-view>
+    <list-view v-if="showList" @tableitem="getTable" :data="prodata"></list-view>
   </div>
 </template>
 
@@ -35,6 +35,7 @@
       return {
         processtotal: [],
         casdata: connect,
+        showList: false,
         searchdata: {
           flowId: '',
           processName: '',
@@ -105,34 +106,95 @@
     methods: {
       // 获取点击table的内容
       getTable (item) {
+        // 重table列表中点进去，设置标记
+        sessionStorage.setItem('rejectL', item.state)
         sessionStorage.setItem('eSend', this.eSend)
-        sessionStorage.setItem('processId', item.flowId)
-        console.log(item.flowId)
+        sessionStorage.setItem('processId', item.fId)
+        sessionStorage.setItem('flowId', item.flowId)
+        sessionStorage.setItem('processInstanceId', item.processInstanceId)
         this.$router.push('cgd')
       },
       _getProcess () {
-        if (this.indexState === 'backlog') {
-          alert('点击了待办')
-        } else if (this.indexState === 'notice') {
-          alert('点击了通知')
-        } else if (this.indexState === 'end') {
-          alert('点击了追踪')
-        } else if (this.indexState === '') {
-          console.log(4)
-          axios.get('api/proce').then((res) => {
-          // axios.get('http://172.30.9.66:8080/ZHYOASystem_test/purchaseOrdersTask/list.do').then((res) => {
-          // console.log(res)
-            this.prodata.process = res.data.data.alldata
-            console.log(res.data.data.alldata)
-            // this.prodata.process = JSON.stringfy(res).rows
+        this.$Loading.start()
+        console.log(this.indexState)
+        console.log(sessionStorage.getItem('backwait'))
+        this.showList = false
+        if (sessionStorage.getItem('backwait') === 'backwait') {
+          axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/list.do').then((res) => {
+            this.prodata.process = res.data.rows
+            this.showList = true
+            this.$Loading.finish()
           })
+          // setTimeout(() => {
+          //   axios.get('api/proce').then((res) => {
+          //     this.$Loading.finish()
+          //     this.$Loading.error()
+          //     console.log(res.data.data.alldata)
+          //     this.prodata.process = res.data.data.alldata
+          //     this.showList = true
+          //   })
+          // }, 2000)
+        } else if (sessionStorage.getItem('backwait') === 'notice') {
+          axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/unFinishedList.do').then((res) => {
+            console.log(res)
+            this.prodata.process = res.data.rows
+            this.showList = true
+            this.$Loading.finish()
+          })
+          // setTimeout(() => {
+          //   axios.get('api/proce').then((res) => {
+          //     console.log(res.data.data.alldata2)
+          //     this.prodata.process = res.data.data.alldata2
+          //     this.showList = true
+          //   })
+          // }, 2000)
+        } else if (sessionStorage.getItem('backwait') === 'end') {
+          axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/finishedList.do').then((res) => {
+            console.log(res.data)
+            this.prodata.process = res.data.rows
+            this.showList = true
+            this.$Loading.finish()
+          })
+          // setTimeout(() => {
+          //   axios.get('api/proce').then((res) => {
+          //     console.log(res.data.data.alldata1)
+          //     this.prodata.process = res.data.data.alldata1
+          //     this.showList = true
+          //   })
+          // }, 2000)
+        } else if (sessionStorage.getItem('backwait') === 'end') {
+          alert('查询已终止')
+          // axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/finishedList.do').then((res) => {
+          //   console.log(res.data)
+          //   this.prodata.process = res.data.rows
+          //   this.showList = true
+          //   this.$Loading.finish()
+          // })
+          // setTimeout(() => {
+          //   axios.get('api/proce').then((res) => {
+          //     console.log(res.data.data.alldata1)
+          //     this.prodata.process = res.data.data.alldata1
+          //     this.showList = true
+          //   })
+          // }, 2000)
+        } else if (sessionStorage.getItem('backwait') === null || sessionStorage.getItem('backwait') === '') {
+          axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/list.do').then((res) => {
+            this.prodata.process = res.data.rows
+            this.showList = true
+            this.$Loading.finish()
+          })
+          // axios.get('api/proce').then((res) => {
+          //   console.log(res)
+          //   this.prodata.process = res.data.data.alldata
+          //   this.showList = true
+          // })
         }
       },
       queding () {
         this.searchdata.processName = this.processtotal[1]
         // console.log(this.searchdata)
         let formcontroler = this.searchdata
-        axios.post('http://172.30.9.66:8080/ZHYOASystem_test/purchaseOrdersTask/list.do', qs.stringfy(formcontroler)).then((res) => {
+        axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/list.do', qs.stringfy(formcontroler)).then((res) => {
           if (res.success) {
             window.location.reload()
           } else {

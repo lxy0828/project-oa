@@ -10,36 +10,52 @@
   </div>
 </template>
 <script type="text/javascript">
+  import axios from 'axios'
+  import qs from 'qs'
   export default {
     data () {
       return {
         spbb: false,
         columns1: [
           {
-            title: '关卡名称',
-            key: 'gqmc'
-          },
-          {
             title: '审批人',
-            key: 'spr'
+            key: 'userId'
           },
           {
             title: '审批意见',
-            key: 'spyj'
+            key: 'message'
           },
           {
             title: '审批时间',
-            key: 'spsj'
+            key: 'time'
           }
         ],
-        spData: [
-          {
-            gqmc: '申请人',
-            spr: '李兴亚',
-            spyj: '同意',
-            spsj: '2017/11/14'
+        spData: []
+      }
+    },
+    created () {
+      this.$nextTick(() => {
+        this.getcourse()
+      })
+    },
+    methods: {
+      getcourse () {
+        let resmsg = {
+          fId: sessionStorage.getItem('processId'),
+          processInstanceId: sessionStorage.getItem('processInstanceId')
+        }
+        axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/listHistoryCommentWithProcessInstanceId.do', qs.stringify(resmsg)).then((res) => {
+          console.log(res)
+          if (res.data.success) {
+            this.spData = res.data.rows
+            this.$router.push('/index')
+          } else {
+            alert('审批失败')
           }
-        ]
+        }).catch(function (error) {
+          alert(error)
+          this.$router.push('/error')
+        })
       }
     }
   }

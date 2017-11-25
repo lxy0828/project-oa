@@ -16,7 +16,7 @@
   	      </div>
   	    </Col>
       </Row>
-      <list-view @tableitem="getTable" :data="staffdata"></list-view>
+      <list-view v-if="showList" @tableitem="getTable" :data="staffdata"></list-view>
     </Modal>
   </div>
 </template>
@@ -33,6 +33,7 @@
     data () {
       return {
         showmodal: this.data,
+        showList: false,
         hideMask: {
           staffFlag: false,
           staffmodal: false
@@ -74,10 +75,13 @@
     },
     methods: {
       _getStaff () {
-        axios.get('http://172.30.9.66:8080/ZHYOASystem_test/account/login.do').then((res) => {
+        this.showList = false
+        this.$Loading.start()
+        axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrders/listUCD.do').then((res) => {
           console.log(res)
-          let resdata = JSON.stringfy(res)
-          this.staffdata.process = resdata.rows
+          this.staffdata.process = res.data.rows
+          this.showList = true
+          this.$Loading.finish()
         })
       },
       getTable (item) {

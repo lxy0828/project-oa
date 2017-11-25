@@ -37,7 +37,9 @@
       routeTo (e) {
         // bus.$emit('eventSend', '32')
         sessionStorage.setItem('processId', '')
+        sessionStorage.setItem('flowId', '')
         sessionStorage.setItem('aSend', 'true')
+        sessionStorage.setItem('wait', 'false')
         this.$router.push(e)
       }
     }

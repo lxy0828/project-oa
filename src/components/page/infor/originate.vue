@@ -4,29 +4,47 @@
       <Button type="info" class="faqi" @click='sendProcess'>发起流程</Button>
     </div>
     <div v-show="data.sponsor">
-      <Button type="success" size="small" @click="comment = true">继续派送</Button>
-      <Button type="warning" size="small" @click="back = true">退回</Button>
-      <Button type="error" size="small" @click="comment = true">终止</Button>
+      <!-- <Button v-show="wait" type="info" class="faqi" @click='sendProcess'>发起流程</Button> -->
+      <Button v-show="wait" type="success" size="small" @click="comment = true">继续派送</Button>
+      <Button v-show="wait1" type="warning" size="small" @click="back = true">退回</Button>
+      <Button v-show="wait2" type="error" size="small" @click="commen = true">终止</Button>
     </div>
-    <processSP v-show="data.sponsor" class="sp"></processSP>
+    <div v-show="data.sponsor" style="margin-top: 5px">
+      <Button v-show="wait3" type="info" size="small" @click="getcourse">审批历程</Button>
+      <Modal
+          title="审批版本"
+          v-model="spbb"
+          class-name="vertical-center-modal">
+          <Table stripe :columns="columns1" :data="spData"></Table>
+      </Modal>
+    </div>
+    <!-- <processSP v-show="data.sponsor" class="sp"></processSP> -->
    <Modal
         title="审批意见"
         v-model="comment"
         @on-ok="sucessprocess"
         class-name="vertical-center-modal">
-        <Input type="textarea" v-model='rsmsg.msg' placeholder="请输入..." :rows="4"></Input>
+        <Input type="textarea" v-model='content' placeholder="请输入..." :rows="4"></Input>
     </Modal>
     <Modal
-        title="退回到指定关卡"
-        v-model="back"
+        title="审批意见"
+        v-model="commen"
+        @on-ok="faileprocess"
         class-name="vertical-center-modal">
-        <i-table  highlight-row ref="currentRowTable" border :columns="columns2" :data="data2" on-row-click></i-table>
+        <Input type="textarea" v-model='content' placeholder="请输入..." :rows="4"></Input>
+    </Modal>
+    <Modal
+        title="退回到发起人关卡"
+        v-model="back"
+        @on-ok="backprocess"
+        class-name="vertical-center-modal">
+        <!-- <i-table  highlight-row ref="currentRowTable" border :columns="columns2" :data="data2" on-row-click></i-table> -->
         <Input type="textarea" v-model='yaoqiu' placeholder="请输入审批意见..." :rows="4" class="textera"></Input>
     </Modal>
   </div>
 </template>
 <script>
-  import processSP from '../infor/processSP.vue'
+  // import processSP from '../infor/processSP.vue'
   import axios from 'axios'
   import qs from 'qs'
   export default {
@@ -41,7 +59,13 @@
           default: false
         },
         comment: false,
+        commen: false,
         back: false,
+        send: true,
+        wait: false,
+        wait1: false,
+        wait2: false,
+        wait3: false,
         yaoqiu: '',
         columns2: [
           {
@@ -58,10 +82,24 @@
           }
         ],
         data2: [],
-        rsmsg: {
-          msg: '',
-          ZK: ''
-        }
+        content: '',
+        spbb: false,
+        columns1: [
+          {
+            title: '审批人',
+            key: 'userId'
+          },
+          {
+            title: '审批意见',
+            key: 'message'
+          },
+          {
+            title: '审批时间',
+            key: 'time'
+          }
+        ],
+        spData: [],
+        test: true
       }
     },
     created () {
@@ -71,32 +109,119 @@
       } else if (this.showBtn.initiate === 'true') {
         sessionStorage.removeItem('aSend')
       }
+      if (sessionStorage.getItem('backwait') === 'notice') {
+        this.wait = false
+        this.wait1 = false
+        this.wait2 = false
+        this.wait3 = true
+      } else if (sessionStorage.getItem('backwait') === 'end') {
+        this.wait = false
+        this.wait1 = false
+        this.wait2 = false
+        this.wait3 = true
+      } else if (sessionStorage.getItem('backwait') === 'over') {
+        this.wait = false
+        this.wait1 = false
+        this.wait2 = false
+        this.wait3 = false
+      } else {
+        this.wait = true
+        this.wait1 = true
+        this.wait2 = true
+        this.wait3 = false
+      }
+      // console.log(sessionStorage.getItem('wait'))
+      // if (sessionStorage.getItem('wait') === 'false') {
+      //   this.wait = false
+      // } else {
+      //   this.wait = true
+      // }
+      // console.log(this.wait)
     },
     methods: {
       sendProcess () {
-        let formcontroler = this.alldata
-        axios.post('http://172.30.9.66:8080/ZHYOASystem_test/purchaseOrders/startApply.do', qs.stringify(formcontroler)).then((res) => {
-          console.log(res)
-          if (res.success) {
-            this.$router.push('/index')
-          } else {
-            alert('发送失败')
-          }
-        })
+        this.$emit('getSend', this.send)
       },
       sucessprocess () {
-        let formcontroler = this.rsmsg
-        axios.post('url', qs.stringify(formcontroler)).then((res) => {
-          if (res.success) {
+        this.$Loading.start()
+        let rsmsg = {
+          fId: sessionStorage.getItem('processId'),
+          flowId: sessionStorage.getItem('flowId'),
+          state: 1,
+          comment: this.content
+        }
+        if (sessionStorage.getItem('rejectL') === '审核被驳回') {
+          this.$emit('backSend', this.test)
+          // this.data.initiate = true
+          // this.$emit('getSend', this.send)
+        } else {
+          axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+            console.log(res)
+            if (res.data.success) {
+              this.$router.push('/index')
+              this.$Loading.finish()
+            } else {
+              alert('审批失败')
+            }
+          })
+        }
+      },
+      backprocess () {
+        this.$Loading.start()
+        let rsmsg = {
+          fId: sessionStorage.getItem('processId'),
+          flowId: sessionStorage.getItem('flowId'),
+          state: 2,
+          comment: this.yaoqiu
+        }
+        axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+          console.log(res)
+          if (res.data.success) {
             this.$router.push('/index')
+            this.$Loading.finish()
           } else {
             alert('审批失败')
           }
         })
+      },
+      faileprocess () {
+        this.$Loading.start()
+        let rsmsg = {
+          fId: sessionStorage.getItem('processId'),
+          flowId: sessionStorage.getItem('flowId'),
+          state: 3,
+          comment: this.content
+        }
+        axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+          console.log(res)
+          if (res.data.success) {
+            this.$router.push('/index')
+            this.$Loading.finish()
+          } else {
+            alert('审批失败')
+          }
+        })
+      },
+      getcourse () {
+        this.$Loading.start()
+        let resmsg = {
+          fId: sessionStorage.getItem('processId'),
+          processInstanceId: sessionStorage.getItem('processInstanceId')
+        }
+        axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/listHistoryCommentWithProcessInstanceId.do', qs.stringify(resmsg)).then((res) => {
+          console.log(res)
+          if (res.data.success) {
+            this.spData = res.data.rows
+            this.spbb = true
+            // this.$router.push('/index')
+            this.$Loading.finish()
+          } else {
+            alert('查询失败')
+          }
+        }).catch(function (error) {
+          alert(error)
+        })
       }
-    },
-    components: {
-      processSP
     }
   }
 </script>
