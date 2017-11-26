@@ -136,45 +136,45 @@
 <style scoped>
 
 <style scoped>
-.layout {
+ .layout {
   border: 1px solid #d7dde4;
   background: #f5f7f9;
   position: relative;
   border-radius: 4px;
   overflow: hidden;
   height: 100%;
-}
-.layout-breadcrumb {
-  padding: 10px 15px 0;
-}
-.layout-content {
-  min-height: 600px;
+} 
+ .layout-breadcrumb {
+  padding: 10px 15px;
+} 
+ .layout-content {
+  min-height: 900px;
   margin: 15px;
   overflow: hidden;
   background: #fff;
   border-radius: 4px;
-}
-.layout-content-main {
+} 
+ .layout-content-main {
   padding: 20px 10px;
-}
-.layout-copy {
+} 
+ .layout-copy {
   text-align: center;
   padding: 10px 0 20px;
   color: #9ea7b4;
-}
-.layout-menu-left {
+} 
+ .layout-menu-left {
   background: #464c5b;
-    /*min-width: 100px;*/
-}
-.layout-header {
+    min-width: 100px;
+} 
+ .layout-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 60px;
   background: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
-}
-.layout-logo-left {
+} 
+ .layout-logo-left {
   width: 90%;
   height: 30px;
   background: #5b6270;
@@ -185,13 +185,13 @@
   text-align: center;
   vertical-align: middle;
   overflow: hidden;
-}
-.layout-ceiling-main a {
+} 
+ .layout-ceiling-main a {
   color: #9ba7b5;
-}
-.layout-hide-text .layout-text {
+} 
+ .layout-hide-text .layout-text {
   display: none;
-}
+} 
 .ivu-col {
   transition: width .2s ease-in-out;
 }
