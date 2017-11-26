@@ -31,10 +31,10 @@
             <Icon type="navicon" size="32"></Icon>
           </i-button>
           <div>
-            <Button type="ghost" @click="referFlow(backlog)">待办</Button>
-            <Button type="ghost" @click="referFlow(notice)">进行中</Button>
-            <Button type="ghost" @click="referFlow(end)">已完成</Button>
-            <Button type="ghost" @click="referFlow(over)">已终止</Button>
+            <Button type="ghost" :class="{'current':currentIndex===1}" @click="referFlow(backlog)">待办</Button>
+            <Button type="ghost" :class="{'current':currentIndex===2}" @click="referFlow(notice)">进行中</Button>
+            <Button type="ghost" :class="{'current':currentIndex===3}" @click="referFlow(end)">已完成</Button>
+            <Button type="ghost" :class="{'current':currentIndex===4}" @click="referFlow(over)">已终止</Button>
           </div>
         </div>
         <div class="layout-breadcrumb">
@@ -69,7 +69,8 @@
         spanRight: 19,
         backlog: 'backlog',
         notice: 'notice',
-        end: 'end'
+        end: 'end',
+        currentIndex: 1
       }
     },
     beforeDestory () {
@@ -102,15 +103,19 @@
       referFlow (e) {
         if (e === 'backlog') {
           sessionStorage.setItem('backwait', 'backwait')
+          this.currentIndex = 1
           // sessionStorage.setItem('wait', 'true')
         } else if (e === 'notice') {
           sessionStorage.setItem('backwait', 'notice')
+          this.currentIndex = 2
           // sessionStorage.setItem('wait', 'false')
         } else if (e === 'end') {
           sessionStorage.setItem('backwait', 'end')
+          this.currentIndex = 3
           // sessionStorage.setItem('wait', 'false')
         } else {
           sessionStorage.setItem('backwait', 'over')
+          this.currentIndex = 4
         }
         bus.$emit('eventBusName', e)
         if (this.$route.path.replace('/', '') !== 'main') {
@@ -189,5 +194,8 @@
 }
 .ivu-col {
   transition: width .2s ease-in-out;
+}
+.current {
+  background: #3366FF
 }
 </style>

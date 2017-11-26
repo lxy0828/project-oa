@@ -128,7 +128,7 @@
         this.wait = true
         this.wait1 = true
         this.wait2 = true
-        this.wait3 = false
+        this.wait3 = true
       }
       // console.log(sessionStorage.getItem('wait'))
       // if (sessionStorage.getItem('wait') === 'false') {

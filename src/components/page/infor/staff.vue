@@ -5,14 +5,14 @@
         <Col span="18">
           <div class="un-input">
             <Button type="text">姓名</Button>
-            <Input placeholder="请输入..."></Input>
+            <Input v-model="selectData.ename" placeholder="请输入..."></Input>
             <Button type="text">编号</Button>
-            <Input placeholder="请输入..."></Input>
+            <Input v-model="selectData.eid" placeholder="请输入..."></Input>
   	      </div>
   	    </Col>
   	    <Col span="5" offset="1">
           <div class="un-input">
-            <Button type="info">查询</Button>
+            <Button type="info" @click="staffSelect">查询</Button>
   	      </div>
   	    </Col>
       </Row>
@@ -23,6 +23,7 @@
 
 <script>
   import axios from 'axios'
+  import qs from 'qs'
   import listView from '../../page/listview/listview.vue'
   export default {
     props: {
@@ -37,6 +38,10 @@
         hideMask: {
           staffFlag: false,
           staffmodal: false
+        },
+        selectData: {
+          ename: '',
+          eid: ''
         },
         staffdata: {
           process: [],
@@ -96,6 +101,17 @@
       },
       clickCancel () {
         this.$emit('getstatus', this.hideMask)
+      },
+      staffSelect () {
+        this.showList = false
+        this.$Loading.start()
+        let selectData = this.selectData
+        axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrders/listUCD.do', qs.stringify(selectData)).then((res) => {
+          console.log(res)
+          this.staffdata.process = res.data.rows
+          this.showList = true
+          this.$Loading.finish()
+        })
       }
     },
     components: {

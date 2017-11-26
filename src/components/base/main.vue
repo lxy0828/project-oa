@@ -2,34 +2,37 @@
   <div>
     <div>
       <Button type="primary" @click="demand = true">点击查询</Button>
-      <Modal
-        title="进阶查询"
-        v-model="demand"
-        @on-ok="queding"
-        class-name="vertical-center-modal">
-        <span>选择流程(选填)</span>
+      <Modal title="进阶查询" v-model="demand" @on-ok="sureSle" class-name="vertical-center-modal">
+        <!-- <span>选择流程(选填)</span>
         <Cascader v-model='processtotal' :data="casdata" change-on-select  ></Cascader>
         <span>选择日期</span>
         <Col span="24">
           <date-picker v-model="searchdata.startDate" format="yyyy年MM月dd日" type="date" placeholder="Select date" style="width: 200px"></date-picker>
           <date-picker v-model="searchdata.endDate" format="yyyy年MM月dd日" type="date" placeholder="Select date" style="width: 200px"></date-picker>
-        </Col>
+        </Col> -->
         <p>输入单号</p>
         <Input v-model='searchdata.flowId'  placeholder="请输入..."></Input>
         <p>输入发起人</p>
         <Input v-model='searchdata.proposer'  placeholder="请输入..."></Input>
+        <!-- <Button type="info" @click="queding">查询</Button> -->
       </Modal>
+      <!-- <div class="un-input">
+        <Button type="text">查询条件</Button>
+        <Input  placeholder="请输入..." ></Input>
+        <Input   placeholder="请输入..." ></Input>
+        <Button type="info" @click="sureSle">查询</Button>
+      </div> -->
     </div>
     <list-view v-if="showList" @tableitem="getTable" :data="prodata"></list-view>
   </div>
 </template>
 
 <script>
+  import qs from 'qs'
   import axios from 'axios'
   import listView from '../page/listview/listview.vue'
   import connect from '../../common/js/connect.js'
   import bus from '../store/store.js'
-  import qs from 'qs'
   export default {
     data () {
       return {
@@ -38,10 +41,10 @@
         showList: false,
         searchdata: {
           flowId: '',
-          processName: '',
-          proposer: '',
-          startDate: '',
-          endDate: ''
+          // processName: '',
+          proposer: '赵云'
+          // startDate: '',
+          // endDate: ''
         },
         prodata: {
           process: [],
@@ -162,14 +165,14 @@
           //     this.showList = true
           //   })
           // }, 2000)
-        } else if (sessionStorage.getItem('backwait') === 'end') {
-          alert('查询已终止')
-          // axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/finishedList.do').then((res) => {
-          //   console.log(res.data)
-          //   this.prodata.process = res.data.rows
-          //   this.showList = true
-          //   this.$Loading.finish()
-          // })
+        } else if (sessionStorage.getItem('backwait') === 'over') {
+          // alert('查询已终止')
+          axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/stoplist.do').then((res) => {
+            console.log(res.data)
+            this.prodata.process = res.data.rows
+            this.showList = true
+            this.$Loading.finish()
+          })
           // setTimeout(() => {
           //   axios.get('api/proce').then((res) => {
           //     console.log(res.data.data.alldata1)
@@ -190,17 +193,32 @@
           // })
         }
       },
-      queding () {
-        this.searchdata.processName = this.processtotal[1]
+      sureSle () {
+        // this.searchdata.processName = this.processtotal[1]
         // console.log(this.searchdata)
-        let formcontroler = this.searchdata
-        axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/list.do', qs.stringfy(formcontroler)).then((res) => {
-          if (res.success) {
-            window.location.reload()
-          } else {
-            alert('查询失败')
-          }
+        this.$Loading.start()
+        // let formcontroler = this.searchdata
+        let url
+        this.showList = false
+        if (sessionStorage.getItem('backwait') === 'backwait') {
+          url = 'http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/list.do'
+        } else if (sessionStorage.getItem('backwait') === 'notice') {
+          url = 'http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/unFinishedList.do'
+        } else if (sessionStorage.getItem('backwait') === 'end') {
+          url = 'http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/finishedList.do'
+        } else if (sessionStorage.getItem('backwait') === 'over') {
+          url = 'http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/stoplist.do'
+        } else {
+          url = 'http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/list.do'
+        }
+        console.log(url)
+        console.log(qs.stringify(this.searchdata))
+        axios.post(url, qs.stringify(this.searchdata)).then((res) => {
+          this.prodata.process = res.data.rows
+          this.showList = true
+          this.$Loading.finish()
         })
+        this.demand = false
       }
     },
     watch: {
@@ -216,6 +234,9 @@
 </script>
 
 <style>
+.un-input{
+  display: flex;
+}
 /*.vertical-center-modal{
   display: flex;
   align-items: center;

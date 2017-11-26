@@ -270,7 +270,7 @@
         if (item) {
           this.$Loading.start()
           let formcontroler = this.alldata
-          console.log(qs.stringify(formcontroler))
+          // console.log(qs.stringify(formcontroler))
           axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrders/startApply.do', qs.stringify(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
@@ -287,7 +287,7 @@
         if (item) {
           this.$Loading.start()
           let formcontroler = this.alldata
-          console.log(qs.stringify(formcontroler))
+          // console.log(qs.stringify(formcontroler))
           axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
