@@ -1,7 +1,6 @@
 <template>
   <div>
   	<img src="../base/loading/404.jpg" height="100%" width="100%">
-  	<!-- <div class="notfound"></div> -->
   </div>
 </template>
 

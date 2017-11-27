@@ -10,7 +10,7 @@
       <Button v-show="wait2" type="error" size="small" @click="commen = true">终止</Button>
     </div>
     <div v-show="data.sponsor" style="margin-top: 5px">
-      <Button v-show="wait3" type="info" size="small" @click="getcourse">审批历程</Button>
+      <Button type="info" size="small" @click="getcourse">审批历程</Button>
       <Modal
           title="审批版本"
           v-model="spbb"
@@ -65,7 +65,7 @@
         wait: false,
         wait1: false,
         wait2: false,
-        wait3: false,
+        // wait3: false,
         yaoqiu: '',
         columns2: [
           {
@@ -113,22 +113,18 @@
         this.wait = false
         this.wait1 = false
         this.wait2 = false
-        this.wait3 = true
       } else if (sessionStorage.getItem('backwait') === 'end') {
         this.wait = false
         this.wait1 = false
         this.wait2 = false
-        this.wait3 = true
       } else if (sessionStorage.getItem('backwait') === 'over') {
         this.wait = false
         this.wait1 = false
         this.wait2 = false
-        this.wait3 = false
       } else {
         this.wait = true
         this.wait1 = true
         this.wait2 = true
-        this.wait3 = true
       }
       // console.log(sessionStorage.getItem('wait'))
       // if (sessionStorage.getItem('wait') === 'false') {

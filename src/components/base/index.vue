@@ -148,7 +148,7 @@
   padding: 10px 15px 0;
 }
 .layout-content {
-  min-height: 600px;
+  min-height: 900px;
   margin: 15px;
   overflow: hidden;
   background: #fff;
@@ -196,6 +196,6 @@
   transition: width .2s ease-in-out;
 }
 .current {
-  background: #3366FF
+  background: #99CCFF
 }
 </style>
