@@ -83,7 +83,7 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">预估单价</Button>
-            <Input v-model='alldata.estimatedPrice ' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
+            <Input v-model='alldata.estimatedPrice' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
           </div>
         </Col>
         <Col span="8">
@@ -130,12 +130,13 @@
           </div>
         </col>
       </Row>
-      <!-- <Row class="rpw-line">
+      <Row class="rpw-line">
         <div style="margin-top:30px">
           <i-button type="success" @click="addInput" :disabled='isDisabled'>添加</i-button>
+          <Button type="error" @click="Tabledelete">删除</Button>
         </div>
-          <i-table height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="data1" on-row-click></i-table>
-      </Row> -->
+          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.list" ></i-table>
+      </Row>
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
     </div>
   </div>
@@ -154,6 +155,7 @@
         showSend: true,
         animal: '是',
         processNumber: '',
+        selectIndex: '',
         // processDate: '',
         modal: false,
         flag: false,
@@ -186,9 +188,9 @@
           number: '',
           use: '',
           productRequirement: '',
-          flowId: ''
+          flowId: '',
+          list: []
         },
-        data1: [],
         // commodity: '',
         // danjia: '',
         // unit: '',
@@ -208,46 +210,29 @@
             key: 'name'
           },
           {
-            title: '单位',
+            title: '预估单价',
             key: 'danwei'
           },
           {
-            title: '数量',
+            title: '单位',
             key: 'shuliang'
           },
           {
-            title: '金额',
+            title: '数量',
             key: 'jine'
           },
           {
-            title: '用途',
+            title: '金额',
             key: 'yt'
           },
           {
-            title: '产品要求',
+            title: '用途',
             key: 'cpyq'
+          },
+          {
+            title: '产品要求',
+            key: 'cpyqq'
           }
-          // {
-          //   title: '删除',
-          //   key: 'action',
-          //   width: 80,
-          //   align: 'center',
-          //   render: (h, params) => {
-          //     return h('div', [
-          //       h('Button', {
-          //         props: {
-          //           type: 'error',
-          //           size: 'small'
-          //         },
-          //         on: {
-          //           click: () => {
-          //             this.remove(params.index)
-          //           }
-          //         }
-          //       }, '删除')
-          //     ])
-          //   }
-          // }
         ]
       }
     },
@@ -339,26 +324,26 @@
         this.modal = true
       },
       selectdepartment () {
-        alert(123)
+        alert('部门为自动获取')
       },
       addmoney () {
         this.alldata.totalAmount = Number(this.alldata.estimatedPrice) * Number(this.alldata.number)
-        // this.alldata.totalAmount = this.alldata.totalAmount
         this.alldata.upperAmount = DX(this.alldata.totalAmount)
       },
       addInput () {
         let item = {}
-        item.name = this.commodity
-        item.danwei = this.unit
-        item.shuliang = this.number
-        item.jine = this.price
-        item.yt = this.yongtu
-        item.cpyq = this.demand
+        item.name = this.alldata.productName
+        item.danwei = this.alldata.estimatedPrice
+        item.shuliang = this.alldata.unit
+        item.jine = this.alldata.number
+        item.yt = this.alldata.totalAmount
+        item.cpyq = this.alldata.use
+        item.cpyqq = this.alldata.productRequirement
         console.log(item)
-        this.data1.push(item)
-        var sum = 0
-        var je = 0
-        this.data1.forEach(function (money) {
+        this.alldata.list.push(item)
+        let sum = 0
+        let je = 0
+        this.alldat.list.forEach(function (money) {
           je = Number(money.jine)
           sum += je
           return sum
@@ -367,10 +352,10 @@
         this.alldata.daxielMoney = DX(this.alldata.totalMoney)
       },
       remove (index) {
-        this.data1.splice(index, 1)
+        this.alldata.list.splice(index, 1)
         var sum = 0
         var je = 0
-        this.data1.forEach(function (money) {
+        this.alldata.list.forEach(function (money) {
           je = Number(money.jine)
           sum += je
           return sum
@@ -401,6 +386,13 @@
           this.getDate()
           this.isDisabled = false
         }
+      },
+      Onsleect (a, b) {
+        console.log(b)
+        this.selectIndex = b
+      },
+      Tabledelete () {
+        this.alldata.list.splice(this.selectIndex, 1)
       }
     },
     components: {

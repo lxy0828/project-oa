@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <Button type="primary" @click="demand = true">点击查询</Button>
+      <Button  icon="ios-search" type="primary" @click="demand = true">点击查询</Button>
       <Modal title="进阶查询" v-model="demand" @on-ok="sureSle" class-name="vertical-center-modal">
         <!-- <span>选择流程(选填)</span>
         <Cascader v-model='processtotal' :data="casdata" change-on-select  ></Cascader>
