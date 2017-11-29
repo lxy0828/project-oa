@@ -103,7 +103,7 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">金额</Button>
-            <Input readonly  v-model='alldata.totalAmount' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input readonly  v-model='alldata.amount' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
         <!-- <Col span="8">
@@ -180,16 +180,17 @@
           submissionDate: '',
           propCompName: '',
           noticePerson: '',
-          productName: '',
           totalAmount: 0,
           upperAmount: '',
+          productName: '',
           estimatedPrice: '',
           unit: '',
           number: '',
+          amount: '',
           use: '',
           productRequirement: '',
           flowId: '',
-          list: []
+          orderslist: []
         },
         // commodity: '',
         // danjia: '',
@@ -207,31 +208,31 @@
           },
           {
             title: '品名',
-            key: 'name'
+            key: 'productName'
           },
           {
             title: '预估单价',
-            key: 'danwei'
+            key: 'estimatedPrice'
           },
           {
             title: '单位',
-            key: 'shuliang'
+            key: 'unit'
           },
           {
             title: '数量',
-            key: 'jine'
+            key: 'number'
           },
           {
             title: '金额',
-            key: 'yt'
+            key: 'amount'
           },
           {
             title: '用途',
-            key: 'cpyq'
+            key: 'use'
           },
           {
             title: '产品要求',
-            key: 'cpyqq'
+            key: 'productRequirement'
           }
         ]
       }
@@ -256,7 +257,7 @@
           this.$Loading.start()
           let formcontroler = this.alldata
           // console.log(qs.stringify(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrders/startApply.do', qs.stringify(formcontroler)).then((res) => {
+          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.stringify(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -273,7 +274,7 @@
           this.$Loading.start()
           let formcontroler = this.alldata
           // console.log(qs.stringify(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
+          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -327,41 +328,43 @@
         alert('部门为自动获取')
       },
       addmoney () {
-        this.alldata.totalAmount = Number(this.alldata.estimatedPrice) * Number(this.alldata.number)
+        this.alldata.amount = Number(this.alldata.estimatedPrice) * Number(this.alldata.number)
         this.alldata.upperAmount = DX(this.alldata.totalAmount)
       },
       addInput () {
         let item = {}
-        item.name = this.alldata.productName
-        item.danwei = this.alldata.estimatedPrice
-        item.shuliang = this.alldata.unit
-        item.jine = this.alldata.number
-        item.yt = this.alldata.totalAmount
-        item.cpyq = this.alldata.use
-        item.cpyqq = this.alldata.productRequirement
-        console.log(item)
-        this.alldata.list.push(item)
+        item.productName = this.alldata.productName
+        item.estimatedPrice = this.alldata.estimatedPrice
+        item.unit = this.alldata.unit
+        item.number = this.alldata.number
+        item.amount = String(this.alldata.amount)
+        item.use = this.alldata.use
+        item.productRequirement = this.alldata.productRequirement
+        // console.log(item)
+        this.alldata.orderslist.push(item)
         let sum = 0
         let je = 0
-        this.alldat.list.forEach(function (money) {
-          je = Number(money.jine)
+        // console.log(this.alldata.orderslist)
+        this.alldata.orderslist.forEach(function (money) {
+          je = Number(money.amount)
           sum += je
           return sum
         })
-        this.alldata.totalMoney = sum
-        this.alldata.daxielMoney = DX(this.alldata.totalMoney)
+        this.alldata.totalAmount = sum
+        this.alldata.daxielMoney = DX(this.alldata.totalAmount)
+        console.log(this.alldata)
       },
       remove (index) {
-        this.alldata.list.splice(index, 1)
+        this.alldata.orderslist.splice(index, 1)
         var sum = 0
         var je = 0
-        this.alldata.list.forEach(function (money) {
-          je = Number(money.jine)
+        this.alldata.orderslist.forEach(function (money) {
+          je = Number(money.amount)
           sum += je
           return sum
         })
-        this.alldata.totalMoney = sum
-        this.alldata.daxielMoney = DX(this.alldata.totalMoney)
+        this.alldata.totalAmount = sum
+        this.alldata.daxielMoney = DX(this.alldata.totalAmount)
       },
       control () {
         if (this.sendState.sponsor) {
@@ -376,7 +379,7 @@
             fId: sessionStorage.getItem('processId'),
             flowId: sessionStorage.getItem('flowId')
           }
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
+          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
             console.log(res)
             this.alldata = res.data.purchase
             this.$Loading.finish()
@@ -392,7 +395,8 @@
         this.selectIndex = b
       },
       Tabledelete () {
-        this.alldata.list.splice(this.selectIndex, 1)
+        this.alldata.orderslist.splice(this.selectIndex, 1)
+        console.log(this.alldata.orderslist)
       }
     },
     components: {

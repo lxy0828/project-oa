@@ -63,7 +63,7 @@
             // console.log(qs.stringify(formcontroler))
             this.$router.push('/index')
             // window.sessionStorage.setItem('in', '123')
-            axios.post('http://172.30.40.7:8080/ZHYOASystem_test/account/login.do', qs.stringify(formcontroler)).then((res) => {
+            axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/account/login.do', qs.stringify(formcontroler)).then((res) => {
               console.log(res)
               if (res.data.success) {
                 window.sessionStorage.setItem('infor', res)

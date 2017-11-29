@@ -44,7 +44,7 @@
           fId: sessionStorage.getItem('processId'),
           processInstanceId: sessionStorage.getItem('processInstanceId')
         }
-        axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/listHistoryCommentWithProcessInstanceId.do', qs.stringify(resmsg)).then((res) => {
+        axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrdersTask/listHistoryCommentWithProcessInstanceId.do', qs.stringify(resmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.spData = res.data.rows

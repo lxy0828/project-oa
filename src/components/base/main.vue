@@ -123,7 +123,7 @@
         console.log(sessionStorage.getItem('backwait'))
         this.showList = false
         if (sessionStorage.getItem('backwait') === 'backwait') {
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test/purchaseOrdersTask/list.do').then((res) => {
+          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrdersTask/list.do').then((res) => {
             this.prodata.process = res.data.rows
             this.showList = true
             this.$Loading.finish()
