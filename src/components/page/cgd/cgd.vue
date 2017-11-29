@@ -135,7 +135,7 @@
           <i-button type="success" @click="addInput" :disabled='isDisabled'>添加</i-button>
           <Button type="error" @click="Tabledelete">删除</Button>
         </div>
-          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.list" ></i-table>
+          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
       </Row>
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
     </div>
@@ -190,7 +190,7 @@
           use: '',
           productRequirement: '',
           flowId: '',
-          list: []
+          orderslist: []
         },
         // commodity: '',
         // danjia: '',
@@ -252,7 +252,7 @@
         this.alldata.submissionDate = myDate.toLocaleDateString()
       },
       getSend (item) {
-        console.log(item)
+        console.log(123)
         if (item) {
           this.$Loading.start()
           let formcontroler = this.alldata
@@ -341,11 +341,11 @@
         item.use = this.alldata.use
         item.productRequirement = this.alldata.productRequirement
         // console.log(item)
-        this.alldata.list.push(item)
+        this.alldata.orderslist.push(item)
         let sum = 0
         let je = 0
-        // console.log(this.alldata.list)
-        this.alldata.list.forEach(function (money) {
+        console.log(this.alldata.orderslist)
+        this.alldata.orderslist.forEach(function (money) {
           je = Number(money.amount)
           sum += je
           return sum
@@ -355,10 +355,10 @@
         console.log(this.alldata)
       },
       remove (index) {
-        this.alldata.list.splice(index, 1)
+        this.alldata.orderslist.splice(index, 1)
         var sum = 0
         var je = 0
-        this.alldata.list.forEach(function (money) {
+        this.alldata.orderslist.forEach(function (money) {
           je = Number(money.amount)
           sum += je
           return sum
@@ -395,8 +395,8 @@
         this.selectIndex = b
       },
       Tabledelete () {
-        this.alldata.list.splice(this.selectIndex, 1)
-        console.log(this.alldata.list)
+        this.alldata.orderslist.splice(this.selectIndex, 1)
+        console.log(this.alldata.orderslist)
       }
     },
     components: {
