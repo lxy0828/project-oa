@@ -136,6 +136,7 @@
     },
     methods: {
       sendProcess () {
+        console.log(this.alldata)
         this.$emit('getSend', this.send)
       },
       sucessprocess () {
