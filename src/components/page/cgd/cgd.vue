@@ -190,7 +190,7 @@
           use: '',
           productRequirement: '',
           flowId: '',
-          orderslist: []
+          list: []
         },
         // commodity: '',
         // danjia: '',
@@ -341,11 +341,11 @@
         item.use = this.alldata.use
         item.productRequirement = this.alldata.productRequirement
         // console.log(item)
-        this.alldata.orderslist.push(item)
+        this.alldata.list.push(item)
         let sum = 0
         let je = 0
-        // console.log(this.alldata.orderslist)
-        this.alldata.orderslist.forEach(function (money) {
+        // console.log(this.alldata.list)
+        this.alldata.list.forEach(function (money) {
           je = Number(money.amount)
           sum += je
           return sum
@@ -355,10 +355,10 @@
         console.log(this.alldata)
       },
       remove (index) {
-        this.alldata.orderslist.splice(index, 1)
+        this.alldata.list.splice(index, 1)
         var sum = 0
         var je = 0
-        this.alldata.orderslist.forEach(function (money) {
+        this.alldata.list.forEach(function (money) {
           je = Number(money.amount)
           sum += je
           return sum
@@ -395,8 +395,8 @@
         this.selectIndex = b
       },
       Tabledelete () {
-        this.alldata.orderslist.splice(this.selectIndex, 1)
-        console.log(this.alldata.orderslist)
+        this.alldata.list.splice(this.selectIndex, 1)
+        console.log(this.alldata.list)
       }
     },
     components: {
