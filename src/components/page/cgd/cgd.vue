@@ -252,6 +252,7 @@
         this.alldata.submissionDate = myDate.toLocaleDateString()
       },
       getSend (item) {
+        console.log(item)
         if (item) {
           this.$Loading.start()
           let formcontroler = this.alldata
