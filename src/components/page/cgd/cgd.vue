@@ -3,7 +3,7 @@
     <Originate :data="sendState" v-if="showSend" @getSend="getSend" @backSend="backSend"></Originate>
     <h1>采购单</h1>
     <div class="processtietle">
-       <div class="hk">单号：<span>{{alldata.flowId}}</span></div>
+       <div class="hk">单号：<span>{{flowId}}</span></div>
        <div class="hk">日期：<span>{{alldata.submissionDate}}</span></div>
       </div>
     <div class="main-cgd">
@@ -77,19 +77,19 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">品名</Button>
-            <Input v-model='alldata.productName' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input v-model='productName' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
             <Button type="text">预估单价</Button>
-            <Input v-model='alldata.estimatedPrice' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
+            <Input v-model='estimatedPrice' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
             <Button type="text">单位</Button>
-            <Input  v-model='alldata.unit' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input  v-model='unit' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
       </Row>
@@ -97,13 +97,13 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">数量</Button>
-            <Input  v-model='alldata.number' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
+            <Input  v-model='number' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
             <Button type="text">金额</Button>
-            <Input readonly  v-model='alldata.amount' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input readonly  v-model='amount' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
         <!-- <Col span="8">
@@ -118,7 +118,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">用途：</Button>
-            <Input  v-model='alldata.use'  placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input  v-model='use'  placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
@@ -126,7 +126,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">产品要求：</Button>
-            <Input type="textarea" v-model='alldata.productRequirement' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
+            <Input type="textarea" v-model='productRequirement' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
@@ -135,7 +135,7 @@
           <i-button type="success" @click="addInput" :disabled='isDisabled'>添加</i-button>
           <Button type="error" @click="Tabledelete">删除</Button>
         </div>
-          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
+          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="orderslist" ></i-table>
       </Row>
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
     </div>
@@ -164,7 +164,16 @@
           sponsor: '',
           initiate: ''
         },
+        productName: '',
+        estimatedPrice: '',
+        unit: '',
+        number: '',
+        amount: '',
+        use: '',
+        productRequirement: '',
+        flowId: '',
         alldata: {
+
           processName: '采购单',
           proposerId: '',
           proposer: '',
@@ -181,17 +190,18 @@
           propCompName: '',
           noticePerson: '',
           totalAmount: 0,
-          upperAmount: '',
-          productName: '',
-          estimatedPrice: '',
-          unit: '',
-          number: '',
-          amount: '',
-          use: '',
-          productRequirement: '',
-          flowId: '',
-          orderslist: []
+          upperAmount: ''
+          // productName: '',
+          // estimatedPrice: '',
+          // unit: '',
+          // number: '',
+          // amount: '',
+          // use: '',
+          // productRequirement: '',
+          // flowId: '',
+          // orderslist: []
         },
+        orderslist: [],
         // commodity: '',
         // danjia: '',
         // unit: '',
@@ -242,20 +252,22 @@
       this.sendState.sponsor = sessionStorage.getItem('eSend')
       // console.log(this.sendState.sponsor)
       this.sendState.initiate = sessionStorage.getItem('aSend')
-      this.alldata.daxielMoney = DX(this.alldata.totalMoney)
+      this.alldata.upperAmount = DX(this.alldata.totalAmount)
       this.control()
     },
     methods: {
       getDate () {
         var myDate = new Date()
-        this.alldata.flowId = getRandomNum('CGD')
+        this.flowId = getRandomNum('CGD')
         this.alldata.submissionDate = myDate.toLocaleDateString()
       },
       getSend (item) {
         console.log(123)
         if (item) {
           this.$Loading.start()
-          let formcontroler = this.alldata
+          let formcontroler = {}
+          formcontroler.data = this.alldata
+          formcontroler.list = this.orderslist
           // console.log(qs.stringify(formcontroler))
           axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.stringify(formcontroler)).then((res) => {
             console.log(res)
@@ -328,37 +340,37 @@
         alert('部门为自动获取')
       },
       addmoney () {
-        this.alldata.amount = Number(this.alldata.estimatedPrice) * Number(this.alldata.number)
-        this.alldata.upperAmount = DX(this.alldata.totalAmount)
+        this.amount = Number(this.estimatedPrice) * Number(this.number)
       },
       addInput () {
         let item = {}
-        item.productName = this.alldata.productName
-        item.estimatedPrice = this.alldata.estimatedPrice
-        item.unit = this.alldata.unit
-        item.number = this.alldata.number
-        item.amount = String(this.alldata.amount)
-        item.use = this.alldata.use
-        item.productRequirement = this.alldata.productRequirement
+        item.productName = this.productName
+        item.estimatedPrice = this.estimatedPrice
+        item.unit = this.unit
+        item.number = this.number
+        item.amount = String(this.amount)
+        item.use = this.use
+        item.productRequirement = this.productRequirement
+        item.flowId = this.flowId
         // console.log(item)
-        this.alldata.orderslist.push(item)
+        this.orderslist.push(item)
         let sum = 0
         let je = 0
-        console.log(this.alldata.orderslist)
-        this.alldata.orderslist.forEach(function (money) {
+        console.log(this.orderslist)
+        this.orderslist.forEach(function (money) {
           je = Number(money.amount)
           sum += je
           return sum
         })
         this.alldata.totalAmount = sum
-        this.alldata.daxielMoney = DX(this.alldata.totalAmount)
+        this.alldata.upperAmount = DX(this.alldata.totalAmount)
         console.log(this.alldata)
       },
       remove (index) {
-        this.alldata.orderslist.splice(index, 1)
+        this.orderslist.splice(index, 1)
         var sum = 0
         var je = 0
-        this.alldata.orderslist.forEach(function (money) {
+        this.orderslist.forEach(function (money) {
           je = Number(money.amount)
           sum += je
           return sum
@@ -395,8 +407,8 @@
         this.selectIndex = b
       },
       Tabledelete () {
-        this.alldata.orderslist.splice(this.selectIndex, 1)
-        console.log(this.alldata.orderslist)
+        this.orderslist.splice(this.selectIndex, 1)
+        console.log(this.orderslist)
       }
     },
     components: {
