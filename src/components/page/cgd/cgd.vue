@@ -135,7 +135,7 @@
           <i-button type="success" @click="addInput" :disabled='isDisabled'>添加</i-button>
           <Button type="error" @click="Tabledelete">删除</Button>
         </div>
-          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
+          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.list" ></i-table>
       </Row>
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
     </div>
@@ -341,22 +341,9 @@
         item.productRequirement = this.alldata.productRequirement
         // console.log(item)
         this.alldata.orderslist.push(item)
-        // let sum = 0
-        // let je = 0
-        // this.alldata.orderslist.forEach(function (money) {
-        //   je = Number(money.amount)
-        //   sum += je
-        //   return sum
-        // })
-        // this.alldata.totalAmount = sum
-        // this.alldata.daxielMoney = DX(this.alldata.totalAmount)
-        this._scaleMoney()
-        console.log(this.alldata)
-      },
-      // 每次添加删除操作后金额异动计算
-      _scaleMoney () {
         let sum = 0
         let je = 0
+        // console.log(this.alldata.orderslist)
         this.alldata.orderslist.forEach(function (money) {
           je = Number(money.amount)
           sum += je
@@ -364,6 +351,7 @@
         })
         this.alldata.totalAmount = sum
         this.alldata.daxielMoney = DX(this.alldata.totalAmount)
+        console.log(this.alldata)
       },
       remove (index) {
         this.alldata.orderslist.splice(index, 1)
@@ -407,7 +395,6 @@
       },
       Tabledelete () {
         this.alldata.orderslist.splice(this.selectIndex, 1)
-        this._scaleMoney()
         console.log(this.alldata.orderslist)
       }
     },
