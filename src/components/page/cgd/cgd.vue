@@ -136,6 +136,7 @@
           <Button type="error" @click="Tabledelete">删除</Button>
         </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -150,6 +151,9 @@
           <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
 >>>>>>> parent of 31e0b4e... Revert "增加函数"
 >>>>>>> c8d46db3b90f8985ba7ee16eb39e38003b2b2dad
+=======
+        <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
+>>>>>>> ec1d10e699a3fe8ae2b5f5a576800b1170609600
       </Row>
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
     </div>
@@ -385,7 +389,7 @@
       _scaleMoney () {
         let sum = 0
         let je = 0
-<<<<<<< HEAD
+
         console.log(this.orderslist)
         this.orderslist.forEach(function (money) {
         // console.log(this.alldata.orderslist)
@@ -406,19 +410,14 @@
       _scaleMoney () {
         let sum = 0
         let je = 0
-=======
->>>>>>> c8d46db3b90f8985ba7ee16eb39e38003b2b2dad
         this.alldata.orderslist.forEach(function (money) {
           je = Number(money.amount)
           sum += je
           return sum
         })
         this.alldata.upperAmount = DX(this.alldata.totalAmount)
-<<<<<<< HEAD
         console.log(this.alldata)
         this.alldata.daxielMoney = DX(this.alldata.totalAmount)
-=======
->>>>>>> c8d46db3b90f8985ba7ee16eb39e38003b2b2dad
       },
       remove (index) {
         this.orderslist.splice(index, 1)
@@ -461,11 +460,8 @@
         this.selectIndex = b
       },
       Tabledelete () {
-<<<<<<< HEAD
         this.orderslist.splice(this.selectIndex, 1)
         console.log(this.orderslist)
-=======
->>>>>>> c8d46db3b90f8985ba7ee16eb39e38003b2b2dad
         this.alldata.orderslist.splice(this.selectIndex, 1)
         this._scaleMoney()
         console.log(this.alldata.orderslist)
