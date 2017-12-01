@@ -135,7 +135,11 @@
           <i-button type="success" @click="addInput" :disabled='isDisabled'>添加</i-button>
           <Button type="error" @click="Tabledelete">删除</Button>
         </div>
+<<<<<<< HEAD
           <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="orderslist" ></i-table>
+=======
+          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.list" ></i-table>
+>>>>>>> 7965b4ddc961995366cd93ef81e8730f617270c8
       </Row>
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
     </div>
@@ -262,7 +266,7 @@
         this.alldata.submissionDate = myDate.toLocaleDateString()
       },
       getSend (item) {
-        console.log(123)
+        console.log(item)
         if (item) {
           this.$Loading.start()
           let formcontroler = {}
@@ -356,8 +360,13 @@
         this.orderslist.push(item)
         let sum = 0
         let je = 0
+<<<<<<< HEAD
         console.log(this.orderslist)
         this.orderslist.forEach(function (money) {
+=======
+        // console.log(this.alldata.orderslist)
+        this.alldata.orderslist.forEach(function (money) {
+>>>>>>> 7965b4ddc961995366cd93ef81e8730f617270c8
           je = Number(money.amount)
           sum += je
           return sum
