@@ -135,7 +135,7 @@
           <i-button type="success" @click="addInput" :disabled='isDisabled'>添加</i-button>
           <Button type="error" @click="Tabledelete" :disabled='isDisabled'>删除</Button>
         </div>
-          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
+        <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
       </Row>
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
     </div>
@@ -344,7 +344,6 @@
       },
       addInput () {
         let item = {}
-        // item.productName = '测试'
         item.productName = this.alldata.productName
         item.estimatedPrice = this.alldata.estimatedPrice
         item.unit = this.alldata.unit
@@ -367,27 +366,6 @@
         // this.alldata.daxielMoney = DX(this.alldata.totalAmount)
         this._scaleMoney()
         console.log(qs.parse(this.alldata))
-      },
-      // 每次添加删除操作后金额异动计算
-      _scaleMoney () {
-        let sum = 0
-        let je = 0
-
-        console.log(this.orderslist)
-        this.orderslist.forEach(function (money) {
-        // console.log(this.alldata.orderslist)
-        this.alldata.orderslist.push(item)
-        // let sum = 0
-        // let je = 0
-        // this.alldata.orderslist.forEach(function (money) {
-        //   je = Number(money.amount)
-        //   sum += je
-        //   return sum
-        // })
-        // this.alldata.totalAmount = sum
-        // this.alldata.daxielMoney = DX(this.alldata.totalAmount)
-        this._scaleMoney()
-        console.log(this.alldata)
       },
       // 每次添加删除操作后金额异动计算
       _scaleMoney () {
@@ -444,8 +422,6 @@
         this.selectIndex = b
       },
       Tabledelete () {
-        this.orderslist.splice(this.selectIndex, 1)
-        console.log(this.orderslist)
         this.alldata.orderslist.splice(this.selectIndex, 1)
         this._scaleMoney()
         console.log(this.alldata.orderslist)
