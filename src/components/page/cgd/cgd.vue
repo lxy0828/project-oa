@@ -106,13 +106,13 @@
             <Input readonly  v-model='alldata.amount' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
-        <!-- <Col span="8">
+        <Col span="8">
           <Button type="text">是否为办公用品</Button>
           <RadioGroup v-model="animal">
             <Radio label="是" :disabled='isDisabled'></Radio>
             <Radio label="否" :disabled='isDisabled'></Radio>
           </RadioGroup>
-        </Col> -->
+        </Col>
       </Row>
       <Row class='row-line'>
         <col span="20">
