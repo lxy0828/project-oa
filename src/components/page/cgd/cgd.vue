@@ -3,7 +3,7 @@
     <Originate :data="sendState" v-if="showSend" @getSend="getSend" @backSend="backSend"></Originate>
     <h1>采购单</h1>
     <div class="processtietle">
-       <div class="hk">单号：<span>{{flowId}}</span></div>
+       <div class="hk">单号：<span>{{alldata.flowId}}</span></div>
        <div class="hk">日期：<span>{{alldata.submissionDate}}</span></div>
       </div>
     <div class="main-cgd">
@@ -77,19 +77,19 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">品名</Button>
-            <Input v-model='productName' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input v-model='alldata.productName' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
             <Button type="text">预估单价</Button>
-            <Input v-model='estimatedPrice' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
+            <Input v-model='alldata.estimatedPrice' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
             <Button type="text">单位</Button>
-            <Input  v-model='unit' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input  v-model='alldata.unit' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
       </Row>
@@ -97,13 +97,13 @@
         <Col span="8">
           <div class="un-input">
             <Button type="text">数量</Button>
-            <Input  v-model='number' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
+            <Input  v-model='alldata.number' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
             <Button type="text">金额</Button>
-            <Input readonly  v-model='amount' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input readonly  v-model='alldata.amount' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
         <!-- <Col span="8">
@@ -118,7 +118,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">用途：</Button>
-            <Input  v-model='use'  placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input  v-model='alldata.use'  placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
@@ -126,14 +126,14 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">产品要求：</Button>
-            <Input type="textarea" v-model='productRequirement' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
+            <Input type="textarea" v-model='alldata.productRequirement' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
       <Row class="rpw-line">
         <div style="margin-top:30px">
           <i-button type="success" @click="addInput" :disabled='isDisabled'>添加</i-button>
-          <Button type="error" @click="Tabledelete">删除</Button>
+          <Button type="error" @click="Tabledelete" :disabled='isDisabled'>删除</Button>
         </div>
         <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
       </Row>
@@ -164,16 +164,15 @@
           sponsor: '',
           initiate: ''
         },
-        productName: '',
-        estimatedPrice: '',
-        unit: '',
-        number: '',
-        amount: '',
-        use: '',
-        productRequirement: '',
-        flowId: '',
+        // productName: '',
+        // estimatedPrice: '',
+        // unit: '',
+        // number: '',
+        // amount: '',
+        // use: '',
+        // productRequirement: '',
+        // flowId: '',
         alldata: {
-
           processName: '采购单',
           proposerId: '',
           proposer: '',
@@ -190,18 +189,18 @@
           propCompName: '',
           noticePerson: '',
           totalAmount: 0,
-          upperAmount: ''
-          // productName: '',
-          // estimatedPrice: '',
-          // unit: '',
-          // number: '',
-          // amount: '',
-          // use: '',
-          // productRequirement: '',
-          // flowId: '',
-          // orderslist: []
+          upperAmount: '',
+          productName: '',
+          estimatedPrice: '',
+          unit: '',
+          number: '',
+          amount: '',
+          use: '',
+          productRequirement: '',
+          flowId: '',
+          orderslist: []
         },
-        orderslist: [],
+        // orderslist: [],
         // commodity: '',
         // danjia: '',
         // unit: '',
@@ -258,7 +257,7 @@
     methods: {
       getDate () {
         var myDate = new Date()
-        this.flowId = getRandomNum('CGD')
+        this.alldata.flowId = getRandomNum('CGD')
         this.alldata.submissionDate = myDate.toLocaleDateString()
       },
       getSend (item) {
@@ -266,10 +265,11 @@
         if (item) {
           this.$Loading.start()
           let formcontroler = {}
-          formcontroler.data = this.alldata
-          formcontroler.list = this.orderslist
-          // console.log(qs.stringify(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.stringify(formcontroler)).then((res) => {
+          formcontroler = this.alldata
+          // formcontroler.list = this.orderslist
+          console.log(qs.stringify(formcontroler))
+          console.log(qs.parse(formcontroler))
+          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -340,18 +340,19 @@
         alert('部门为自动获取')
       },
       addmoney () {
-        this.amount = Number(this.estimatedPrice) * Number(this.number)
+        this.alldata.amount = Number(this.alldata.estimatedPrice) * Number(this.alldata.number)
       },
       addInput () {
         let item = {}
-        item.productName = this.productName
-        item.estimatedPrice = this.estimatedPrice
-        item.unit = this.unit
-        item.number = this.number
-        item.amount = String(this.amount)
-        item.use = this.use
-        item.productRequirement = this.productRequirement
-        item.flowId = this.flowId
+        // item.productName = '测试'
+        item.productName = this.alldata.productName
+        item.estimatedPrice = this.alldata.estimatedPrice
+        item.unit = this.alldata.unit
+        item.number = this.alldata.number
+        item.amount = this.alldata.amount.toString()
+        item.use = this.alldata.use
+        item.productRequirement = this.alldata.productRequirement
+        item.flowId = this.alldata.flowId
         // console.log(item)
         // console.log(this.alldata.orderslist)
         this.alldata.orderslist.push(item)
@@ -365,7 +366,7 @@
         // this.alldata.totalAmount = sum
         // this.alldata.daxielMoney = DX(this.alldata.totalAmount)
         this._scaleMoney()
-        console.log(this.alldata)
+        console.log(qs.parse(this.alldata))
       },
       // 每次添加删除操作后金额异动计算
       _scaleMoney () {
@@ -380,10 +381,10 @@
         this.alldata.upperAmount = DX(this.alldata.totalAmount)
       },
       remove (index) {
-        this.orderslist.splice(index, 1)
+        this.alldata.orderslist.splice(index, 1)
         var sum = 0
         var je = 0
-        this.orderslist.forEach(function (money) {
+        this.alldata.orderslist.forEach(function (money) {
           je = Number(money.amount)
           sum += je
           return sum
@@ -406,7 +407,8 @@
           }
           axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
             console.log(res)
-            this.alldata = res.data.purchase
+            this.alldata = res.data.purchaseOrders
+            this.alldata.orderslist = res.data.list
             this.$Loading.finish()
           })
         }

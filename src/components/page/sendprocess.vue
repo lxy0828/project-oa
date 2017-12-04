@@ -9,8 +9,12 @@
               行政
             </template>
             <MenuItem name="llh">联络函</MenuItem>
-            <MenuItem name="2-2">1</MenuItem>
-            <MenuItem name="4-3">2</MenuItem>
+            <MenuItem name="ccsqd">出差申请</MenuItem>
+            <MenuItem name="bgspd">报告审批单</MenuItem>
+            <MenuItem name="pcsqd">派车申请单</MenuItem>
+            <MenuItem name="dwxczl">对外宣传资料审批单</MenuItem>
+            <MenuItem name="kcd">客餐单</MenuItem>
+            <MenuItem name="xccpsq">小吃产品申请单</MenuItem>
           </Submenu>
            <Submenu name="in">
             <template slot="title">
