@@ -135,25 +135,7 @@
           <i-button type="success" @click="addInput" :disabled='isDisabled'>添加</i-button>
           <Button type="error" @click="Tabledelete" :disabled='isDisabled'>删除</Button>
         </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> c8d46db3b90f8985ba7ee16eb39e38003b2b2dad
-          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="orderslist" ></i-table>
-          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.list" ></i-table>
-<<<<<<< HEAD
           <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
-=======
->>>>>>> 7965b4ddc961995366cd93ef81e8730f617270c8
-=======
-          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
->>>>>>> parent of 31e0b4e... Revert "增加函数"
->>>>>>> c8d46db3b90f8985ba7ee16eb39e38003b2b2dad
-=======
-        <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
->>>>>>> ec1d10e699a3fe8ae2b5f5a576800b1170609600
       </Row>
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
     </div>
