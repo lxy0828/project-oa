@@ -135,25 +135,7 @@
           <i-button type="success" @click="addInput" :disabled='isDisabled'>添加</i-button>
           <Button type="error" @click="Tabledelete">删除</Button>
         </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> c8d46db3b90f8985ba7ee16eb39e38003b2b2dad
-          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="orderslist" ></i-table>
-          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.list" ></i-table>
-<<<<<<< HEAD
-          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
-=======
->>>>>>> 7965b4ddc961995366cd93ef81e8730f617270c8
-=======
-          <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
->>>>>>> parent of 31e0b4e... Revert "增加函数"
->>>>>>> c8d46db3b90f8985ba7ee16eb39e38003b2b2dad
-=======
         <i-table @on-row-click="Onsleect" height="250" highlight-row ref="currentRowTable" border :columns="columns1" :data="alldata.orderslist" ></i-table>
->>>>>>> ec1d10e699a3fe8ae2b5f5a576800b1170609600
       </Row>
       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
     </div>
@@ -191,7 +173,6 @@
         productRequirement: '',
         flowId: '',
         alldata: {
-
           processName: '采购单',
           proposerId: '',
           proposer: '',
@@ -208,7 +189,6 @@
           propCompName: '',
           noticePerson: '',
           totalAmount: 0,
-          upperAmount: ''
           // productName: '',
           // estimatedPrice: '',
           // unit: '',
@@ -218,15 +198,17 @@
           // productRequirement: '',
           // flowId: '',
           // orderslist: []
+          upperAmount: '',
+          productName: '',
+          estimatedPrice: '',
+          unit: '',
+          number: '',
+          amount: '',
+          use: '',
+          productRequirement: '',
+          flowId: '',
+          orderslist: []
         },
-        orderslist: [],
-        // commodity: '',
-        // danjia: '',
-        // unit: '',
-        // number: '',
-        // price: '',
-        // yongtu: '',
-        // demand: '',
         apadata: {},
         columns1: [
           {
@@ -420,10 +402,10 @@
         this.alldata.daxielMoney = DX(this.alldata.totalAmount)
       },
       remove (index) {
-        this.orderslist.splice(index, 1)
+        this.alldata.orderslist.splice(index, 1)
         var sum = 0
         var je = 0
-        this.orderslist.forEach(function (money) {
+        this.alldata.orderslist.forEach(function (money) {
           je = Number(money.amount)
           sum += je
           return sum
@@ -460,8 +442,7 @@
         this.selectIndex = b
       },
       Tabledelete () {
-        this.orderslist.splice(this.selectIndex, 1)
-        console.log(this.orderslist)
+
         this.alldata.orderslist.splice(this.selectIndex, 1)
         this._scaleMoney()
         console.log(this.alldata.orderslist)
