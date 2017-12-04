@@ -9,6 +9,12 @@ import Cgd from '../components/page/cgd/cgd.vue'
 import ErrorVue from '../components/base/404.vue'
 import Maintain from '../components/page/maintain/maintain.vue'
 import Upload from '../components/page/upload/upload.vue'
+import Bgspd from '../components/page/bgspd/bgspd.vue'
+import Ccsqd from '../components/page/ccsqd/ccsqd.vue'
+import Dwxczl from '../components/page/dwxczl/dwxczl.vue'
+import Kcd from '../components/page/kcd/kcd.vue'
+import Pcsqd from '../components/page/pcsqd/pcsqd.vue'
+import Xccpsq from '../components/page/xccpsq/xccpsq.vue'
 
 Vue.use(Router)
 
@@ -55,6 +61,24 @@ export default new Router({
     }, {
       path: '/upload',
       component: Upload
+    }, {
+      path: '/bgspd',
+      component: Bgspd
+    }, {
+      path: '/ccsqd',
+      component: Ccsqd
+    }, {
+      path: '/dwxczl',
+      component: Dwxczl
+    }, {
+      path: '/kcd',
+      component: Kcd
+    }, {
+      path: '/pcsqd',
+      component: Pcsqd
+    }, {
+      path: '/xccpsq',
+      component: Xccpsq
     }]
   },
   {
