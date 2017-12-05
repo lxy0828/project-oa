@@ -249,7 +249,6 @@
     created () {
       console.log(sessionStorage.getItem('processId'))
       this.sendState.sponsor = sessionStorage.getItem('eSend')
-      // console.log(this.sendState.sponsor)
       this.sendState.initiate = sessionStorage.getItem('aSend')
       this.alldata.upperAmount = DX(this.alldata.totalAmount)
       this.control()
@@ -283,18 +282,21 @@
       backSend (item) {
         // 如果是点击被驳回的单子，从子组件获取信息，重新调用发起接口
         if (item) {
-          this.$Loading.start()
-          let formcontroler = this.alldata
+          // alert('即将进入驳回接口')
+          // this.$Loading.start()
+          // let formcontroler = {}
+          // formcontroler = this.alldata
           // console.log(qs.stringify(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
-            console.log(res)
-            if (res.data.success) {
-              this.$router.push('/index')
-              this.$Loading.finish()
-            } else {
-              alert('发送失败')
-            }
-          })
+          // http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/restartApply.do
+          // axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrdersTask/audit_bz.do', qs.parse(formcontroler)).then((res) => {
+          //   console.log(res)
+          //   if (res.data.success) {
+          //     this.$router.push('/index')
+          //     this.$Loading.finish()
+          //   } else {
+          //     alert('发送失败')
+          //   }
+          // })
         }
       },
       getTable (item) {
@@ -378,7 +380,7 @@
         })
         this.alldata.upperAmount = DX(this.alldata.totalAmount)
         console.log(this.alldata)
-        this.alldata.daxielMoney = DX(this.alldata.totalAmount)
+        // this.alldata.daxielMoney = DX(this.alldata.totalAmount)
       },
       remove (index) {
         this.alldata.orderslist.splice(index, 1)

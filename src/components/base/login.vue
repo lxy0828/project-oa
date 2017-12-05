@@ -61,7 +61,7 @@
             let formcontroler = this.formInline
             // console.log(JSON.stringify(formcontroler))
             // console.log(qs.stringify(formcontroler))
-            this.$router.push('/index')
+            // this.$router.push('/index')
             // window.sessionStorage.setItem('in', '123')
             axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/account/login.do', qs.stringify(formcontroler)).then((res) => {
               console.log(res)

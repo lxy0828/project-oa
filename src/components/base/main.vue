@@ -42,7 +42,7 @@
         searchdata: {
           flowId: '',
           // processName: '',
-          proposer: '赵云'
+          proposer: ''
           // startDate: '',
           // endDate: ''
         },
