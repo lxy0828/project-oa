@@ -378,6 +378,7 @@
           sum += je
           return sum
         })
+        this.alldata.totalAmount = sum
         this.alldata.upperAmount = DX(this.alldata.totalAmount)
         console.log(this.alldata)
         // this.alldata.daxielMoney = DX(this.alldata.totalAmount)
