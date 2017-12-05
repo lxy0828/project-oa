@@ -28,7 +28,7 @@
       <Row class="row-line">
         <Col span="10">
           <div class="un-input">
-            <Button type="text">部门审核</Button>
+            <Button type="text">发起方审核人</Button>
             <Input readonly v-model="alldata.checknum" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.checkname" placeholder="请输入..."></Input>
             <Button type="info" @click="check">查询</Button>
@@ -36,7 +36,7 @@
   	    </Col>
   	    <Col span="10" offset="4">
           <div class="un-input">
-            <Button type="text">部门审核</Button>
+            <Button type="text">回应方审核人</Button>
             <Input readonly v-model="alldata.checknextnum" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.checknextname" placeholder="请输入..."></Input>
             <Button type="info" @click="checknext">查询</Button>
@@ -46,10 +46,11 @@
       <Row class="row-line">
         <Col span="10">
           <div class="un-input">
-            <Button type="text">部门负责人</Button>
-            <Input readonly  placeholder="请输入..."></Input>
-            <Input readonly  placeholder="请输入..."></Input>
-  	      </div>
+            <Button type="text">抄送：</Button>
+            <Input readonly v-model="alldata.copytonum" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.copytoname" placeholder="请输入..."></Input>
+            <Button type="info" @click="copy">查询</Button>
+          </div>
   	    </Col>
   	    <Col span="10" offset="4">
           <div class="un-input">
@@ -93,7 +94,9 @@
           checknum: '',
           checkname: '',
           checknextnum: '',
-          checknextname: ''
+          checknextname: '',
+          copytonum: '',
+          copytoname: ''
         },
         apadata: {},
         processNumber: '',
@@ -126,6 +129,9 @@
         } else if (this.flagNum === 3) {
           this.alldata.checknextnum = item.apanum
           this.alldata.checknextname = item.apaname
+        } else if (this.flagNum === 4) {
+          this.alldata.copytonum = item.apanum
+          this.alldata.copytoname = item.apaname
         }
       },
       // 填充部门信息选择输入
@@ -158,6 +164,11 @@
       // 选择人员信息，对状态做出标记
       checknext () {
         this.flagNum = 3
+        this.flag = true
+        this.modal = true
+      },
+      copy () {
+        this.flagNum = 4
         this.flag = true
         this.modal = true
       },
