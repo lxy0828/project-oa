@@ -147,20 +147,32 @@
           comment: this.content
         }
         if (sessionStorage.getItem('rejectL') === '审核被驳回') {
+          this.wait1 = true
           this.$emit('backSend', this.test)
+          // alert('进入审核被驳回接口')
           // this.data.initiate = true
           // this.$emit('getSend', this.send)
         } else {
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrdersTask/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
-            console.log(res)
-            if (res.data.success) {
-              this.$router.push('/index')
-              this.$Loading.finish()
-            } else {
-              alert('审批失败')
-            }
-          })
+          console.log(123)
+          // axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrdersTask/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+          //   console.log(res)
+          //   if (res.data.success) {
+          //     this.$router.push('/index')
+          //     this.$Loading.finish()
+          //   } else {
+          //     alert('审批失败')
+          //   }
+          // })
         }
+        axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrdersTask/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+          console.log(res)
+          if (res.data.success) {
+            this.$router.push('/index')
+            this.$Loading.finish()
+          } else {
+            alert('审批失败')
+          }
+        })
       },
       backprocess () {
         this.$Loading.start()
