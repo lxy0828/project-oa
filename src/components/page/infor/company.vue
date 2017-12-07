@@ -24,7 +24,7 @@
 <script>
   import listView from '../listview/listview.vue'
   export default {
-  	props: {
+    props: {
       data: {
         type: Boolean
       }
@@ -53,7 +53,7 @@
       }
     },
     created: {
-      console.log(this.data)
+     // console.log(this.data)
     },
     methods: {
       okcom () {
@@ -68,7 +68,7 @@
           this.showCom = false
         }
       }
-    }
+    },
     compinents: {
       listView
     }

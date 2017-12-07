@@ -15,6 +15,9 @@ import Dwxczl from '../components/page/dwxczl/dwxczl.vue'
 import Kcd from '../components/page/kcd/kcd.vue'
 import Pcsqd from '../components/page/pcsqd/pcsqd.vue'
 import Xccpsq from '../components/page/xccpsq/xccpsq.vue'
+import Gzsqd from '../components/page/gzsqd/gzsqd.vue'
+import Zjsysq from '../components/page/zjsysq/zjsysq.vue'
+import Jdsqd from '../components/page/jdsqd/jdsqd.vue'
 
 Vue.use(Router)
 
@@ -76,6 +79,15 @@ export default new Router({
     }, {
       path: '/pcsqd',
       component: Pcsqd
+    }, {
+      path: '/gzsqd',
+      component: Gzsqd
+    }, {
+      path: '/zjsysq',
+      component: Zjsysq
+    }, {
+      path: '/jdsqd',
+      component: Jdsqd
     }, {
       path: '/xccpsq',
       component: Xccpsq

@@ -15,6 +15,9 @@
             <MenuItem name="dwxczl">对外宣传资料审批单</MenuItem>
             <MenuItem name="kcd">客餐单</MenuItem>
             <MenuItem name="xccpsq">小吃产品申请单</MenuItem>
+            <MenuItem name="gzsqd">公章申请单</MenuItem>
+            <MenuItem name="zjsysq">证件使用申请单</MenuItem>
+            <MenuItem name="jdsqd">接待申请单</MenuItem>
           </Submenu>
            <Submenu name="in">
             <template slot="title">

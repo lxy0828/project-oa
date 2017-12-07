@@ -1,12 +1,12 @@
 <template>
   <div>
     <Originate :data="sendState" v-if="showSend" @getSend="getSend" @backSend="backSend"></Originate>
-    <h1>出差申请单</h1>
-      <div class="processtietle">
+  	<h1>接待申请单</h1>
+    <div class="processtietle">
        <div class="hk">单号：<span>{{alldata.flowId}}</span></div>
        <div class="hk">日期：<span>{{alldata.submissionDate}}</span></div>
-      </div>
-      <div class="main-ccsqd">
+    </div>
+    <div class="main-xccpsq">
       <Row class="row-line">
         <Col span='10'>
           <div class="un-input">
@@ -28,7 +28,7 @@
       <Row class="row-line">
         <Col span="10">
           <div class="un-input">
-            <Button type="text">一级审核人</Button>
+            <Button type="text">一级审核</Button>
             <Input readonly v-model="alldata.deptAuditor1Id" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.deptAuditor1" placeholder="请输入..."></Input>
             <Button type="info" @click="check" :disabled='isDisabled'>查询</Button>
@@ -36,115 +36,107 @@
   	    </Col>
   	    <Col span="10" offset="4">
           <div class="un-input">
-            <Button type="text">二级审核人</Button>
+            <Button type="text">二级审核</Button>
             <Input readonly v-model="alldata.deptAuditor2Id" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.deptAuditor2" placeholder="请输入..."></Input>
             <Button type="info" @click="checknext" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
       </Row>
-      <Row class="row-line">
-        <Col span="10">
-          <div class="un-input">
-            <Button type="text">三级审核人</Button>
-            <Input readonly v-model="alldata.deptAuditor3Id" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.deptAuditor3" placeholder="请输入..."></Input>
-            <Button type="info" @click="copy" :disabled='isDisabled'>查询</Button>
-  	      </div>
-  	    </Col>
-  	    <Col span="10" offset="4">
-          <div class="un-input">
-            <Button type="text">职位</Button>
-            <Input readonly v-model="alldata.job" placeholder="请输入..."></Input>
-  	      </div>
-  	    </Col>
-      </Row>
-      <Row class="row-line">
-        <Col span="10">
-          <div class="un-input">
-            <Button type="text">部门负责人</Button>
-            <Input readonly v-model="alldata.deptHeadId" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.deptHead" placeholder="请输入..."></Input>
-  	      </div>
-  	    </Col>
-  	    <Col span="10" offset="4">
-          <div class="un-input">
-            <Button type="text">发起人公司</Button>
-            <Input readonly v-model="alldata.propCompId" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.propCompName" placeholder="请输入..."></Input>
-  	      </div>
-  	    </Col>
-      </Row>
-      <Row class="row-line">
-        <Col span="8">
-          <div class="un-input">
-          <Button type="text">起始日期</Button>
-          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
-          </div>
-  	    </Col>
-  	    <Col span="8">
-          <div class="un-input">
-  	      <Button type="text">截止日期</Button>
-          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
-          </div>
-  	    </Col>
-  	    <Col span="8">
-  	    <div class="un-input">
-  	      <Button type="text">合计天数：</Button>
-  	      <Input v-model="alldata.dateNumber" placeholder="请输入..."></Input>
-  	    </div>
-  	    </Col>
-      </Row>
       <Row class='row-line'>
-        <Col span="20">
+        <Col span='8'>
           <div class="un-input">
-            <Button type="text">出差省市地区：</Button>
+          <Button type="text">接待日期</Button>
+          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+          </div>
+        </Col>
+        <Col span='8'>
+          <div class="un-input">
+            <Button type="text">接待地点：</Button>
             <Input v-model='alldata.city' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
-      </Row>
-      <Row class="row-line">
-        <Col span="10">
+        <Col span='8'>
           <div class="un-input">
-            <Button type='text'>启程交通工具</Button>
-            <Select v-model="model1" style="width:200px">
-              <Option v-for="item in  trafficList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-            </Select>
+            <Button type="text">责任人：</Button>
+            <Input v-model='alldata.person' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
-        <Col span="14" >
-          <div class="un-input">
-            <Button type="text">其他或航班备注信息</Button>
-            <Input  v-model="alldata.other1" placeholder="请输入..."></Input>
-  	      </div>
-  	    </Col>
       </Row>
-      <Row class="row-line">
-        <Col span="10">
+      <Row class='row-line'>
+        <Col span='8'>
           <div class="un-input">
-            <Button type='text'>返程交通工具</Button>
-            <Select v-model="model2" style="width:200px">
-              <Option v-for="item in  trafficList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-            </Select>
+            <Button type="text">责任部门：</Button>
+            <Input v-model='alldata.city' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
-        <Col span="14" >
+        <Col span='8'>
           <div class="un-input">
-            <Button type="text">其他或航班备注信息</Button>
-            <Input  v-model="alldata.other2" placeholder="请输入..."></Input>
-  	      </div>
-  	    </Col>
+            <Button type="text">接待领导：</Button>
+            <Input v-model='alldata.city' placeholder="请输入..." :disabled='isDisabled'></Input>
+          </div>
+        </Col>
+        <Col span='8'>
+          <div class="un-input">
+            <Button type="text">来访人员：</Button>
+            <Input v-model='alldata.person' placeholder="请输入..." :disabled='isDisabled'></Input>
+          </div>
+        </Col>
+      </Row>
+      <Row class='row-line'>
+        <Col class='20'>
+          <div class="un-input">
+            <Button type="text">来访目的</Button>
+            <Input  v-model="alldata.todo" placeholder="请输入..."></Input>
+          </div>
+        </Col>
+      </Row>
+      <Row class='row-line'>
+        <Col class='20'>
+          <div class="un-input">
+            <Button type="text">电子屏幕欢迎词</Button>
+            <Input  v-model="alldata.todo" placeholder="请输入..."></Input>
+          </div>
+        </Col>
+      </Row>
+      <Row class='row-line'>
+        <Col class='20'>
+          <div class="un-input">
+            <Button type="text">参观路线</Button>
+            <Input  v-model="alldata.todo" placeholder="请输入..."></Input>
+          </div>
+        </Col>
+      </Row>
+      <Row class='row-line'>
+        <Col span='10'>
+          <div class="un-input">
+          <Button type="text">是否用餐</Button>
+          <RadioGroup v-model="alldata.animal">
+            <Radio label="是" :disabled='isDisabled'></Radio>
+            <Radio label="否" :disabled='isDisabled'></Radio>
+          </RadioGroup>
+          </div>
+        </Col>
+        <Col span='10' offset='4'>
+          <div class="un-input">
+          <Button type="text">是否送礼</Button>
+          <RadioGroup v-model="alldata.gif">
+            <Radio label="是" :disabled='isDisabled'></Radio>
+            <Radio label="否" :disabled='isDisabled'></Radio>
+          </RadioGroup>
+          </div>
+        </Col>
       </Row>
       <Row class='row-line'>
         <col span="20">
           <div class="un-input">
-            <Button type="text">出差事由：</Button>
+            <Button type="text">来访事由：</Button>
             <Input type="textarea" v-model='alldata.cause' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
-      <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
-      </div>
+       <staff @tableitem="getTable" @getstatus='getSt' :data="modal" v-if="flag"></staff>
+    </div>
   </div>
 </template>
 
@@ -169,51 +161,27 @@
           sponsor: '',
           initiate: ''
         },
-        trafficList: [
-          {
-            value: '火车',
-            label: '火车'
-          },
-          {
-            value: '动车',
-            label: '动车'
-          },
-          {
-            value: '飞机',
-            label: '飞机'
-          },
-          {
-            value: '高铁',
-            label: '高铁'
-          },
-          {
-            value: '其他',
-            label: '其他'
-          }
-        ],
-        model1: '',
-        model2: '',
+        disabledGroup: '是',
         alldata: {
-          processName: '采购单',
-          proposerId: '',
+          flowId: '',
+          submissionDate: '',
           proposer: '',
+          proposerId: '',
           propDeptId: '',
           propDeptName: '',
           deptAuditor1Id: '',
           deptAuditor1: '',
           deptAuditor2Id: '',
           deptAuditor2: '',
-          deptAuditor3Id: '',
-          deptAuditor3: '',
-          deptHeadId: '',
-          deptHead: '',
-          propCompId: '',
-          submissionDate: '',
-          propCompName: '',
+          company: '',
+          companyNumber: '',
+          animal: '是',
+          gif: '是',
+          price: '',
+          cause: '',
           city: '',
-          other1: '',
-          other2: '',
-          cause: ''
+          person: '',
+          todo: ''
         }
       }
     },
@@ -226,7 +194,7 @@
     methods: {
       getDate () {
         var myDate = new Date()
-        this.alldata.flowId = getRandomNum('JDSQD')
+        this.alldata.flowId = getRandomNum('KCD')
         this.alldata.submissionDate = myDate.toLocaleDateString()
       },
       getTable (item) {
@@ -247,9 +215,6 @@
         } else if (this.flagNum === 3) {
           this.alldata.deptAuditor2Id = item.eid
           this.alldata.deptAuditor2 = item.ename
-        } else if (this.flagNum === 4) {
-          this.alldata.copytonum = item.apanum
-          this.alldata.copytoname = item.apaname
         }
       },
       getSt (item) {
@@ -268,11 +233,6 @@
       },
       checknext () {
         this.flagNum = 3
-        this.flag = true
-        this.modal = true
-      },
-      copy () {
-        this.flagNum = 4
         this.flag = true
         this.modal = true
       },
@@ -349,7 +309,7 @@
 </script>
 
 <style>
-.main-ccsqd{
+.main-xccpsq{
 	width: 80%;
 	margin-left: 10%;
 	margin-top: 30px;
