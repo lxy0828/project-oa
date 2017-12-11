@@ -30,6 +30,28 @@
           </Submenu>
         </Menu>
       </Col>
+      <Col span="8">
+        <Menu :open-names="['in']" accordion  @on-select="routeTo">
+           <Submenu name="in">
+            <template slot="title">
+              <Icon type="pin"></Icon>
+              营销中心
+            </template>
+            <MenuItem name="zmtsx">自媒体上线审批单</MenuItem>
+            <MenuItem name="sjrws">计划任务书</MenuItem>
+            <MenuItem name="4-3"></MenuItem>
+          </Submenu>
+           <Submenu name="in">
+            <template slot="title">
+              <Icon type="pin"></Icon>
+              信息部
+            </template>
+            <MenuItem name="zmtsx">ERP物料申请表</MenuItem>
+            <MenuItem name="sjrws">ERP账号权限申请表</MenuItem>
+            <MenuItem name="swzhsq">上网账号申请表</MenuItem>
+          </Submenu>
+        </Menu>
+      </Col>
     </Row>
   </div>
 </template>

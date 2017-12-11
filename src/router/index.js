@@ -18,6 +18,9 @@ import Xccpsq from '../components/page/xccpsq/xccpsq.vue'
 import Gzsqd from '../components/page/gzsqd/gzsqd.vue'
 import Zjsysq from '../components/page/zjsysq/zjsysq.vue'
 import Jdsqd from '../components/page/jdsqd/jdsqd.vue'
+import Zmtsx from '../components/page/zmtsx/zmtsx.vue'
+import Sjrws from '../components/page/sjrws/sjrws.vue'
+import Swzhsq from '../components/page/swzhsq/swzhsq.vue'
 
 Vue.use(Router)
 
@@ -89,8 +92,17 @@ export default new Router({
       path: '/jdsqd',
       component: Jdsqd
     }, {
+      path: '/zmtsx',
+      component: Zmtsx
+    }, {
+      path: '/sjrws',
+      component: Sjrws
+    }, {
       path: '/xccpsq',
       component: Xccpsq
+    }, {
+      path: '/swzhsq',
+      component: Swzhsq
     }]
   },
   {
