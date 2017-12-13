@@ -28,24 +28,6 @@
       <Row class="row-line">
         <Col span="10">
           <div class="un-input">
-            <Button type="text">部门审核</Button>
-            <Input readonly v-model="alldata.deptAuditor1Id" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.deptAuditor1" placeholder="请输入..."></Input>
-            <Button type="info" @click="check" :disabled='isDisabled'>查询</Button>
-  	      </div>
-  	    </Col>
-  	    <Col span="10" offset="4">
-          <div class="un-input">
-            <Button type="text">部门审核</Button>
-            <Input readonly v-model="alldata.deptAuditor2Id" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.deptAuditor2" placeholder="请输入..."></Input>
-            <Button type="info" @click="checknext" :disabled='isDisabled'>查询</Button>
-  	      </div>
-  	    </Col>
-      </Row>
-      <Row class="row-line">
-        <Col span="10">
-          <div class="un-input">
             <Button type="text">部门负责人</Button>
             <Input readonly v-model="alldata.deptHeadId" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.deptHead" placeholder="请输入..."></Input>
@@ -62,29 +44,27 @@
       <Row class="row-line">
         <Col span="8">
           <div class="un-input">
-            <Button type="text">用户姓名：</Button>
+            <Button type="text">品名：</Button>
             <Input v-model='alldata.productName' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
-            <Button type="text">岗位</Button>
+            <Button type="text">型号</Button>
             <Input v-model='alldata.estimatedPrice' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
           </div>
         </Col>
         <Col span="8">
           <div class="un-input">
-            <Button type="text">申请原因：</Button>
-            <Select v-model="alldata.model1" style="width:200px">
-              <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-            </Select>
+            <Button type="text">单位：</Button>
+            <Input v-model='alldata.estimatedPrice' placeholder="请输入..." @on-blur="addmoney" :disabled='isDisabled'></Input>
           </div>
         </Col>
       </Row>
       <Row class="row-line">
         <Col span="8">
           <div class="un-input">
-            <Button type="text">设计模块：</Button>
+            <Button type="text">所属公司分类：</Button>
             <Select v-model="alldata.model2" style="width:200px">
               <Option v-for="item in cityList2" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
@@ -92,8 +72,10 @@
         </Col>
         <Col span="8">
           <div class="un-input">
-            <Button type="text">基本权限：</Button>
-            <Input readonly  v-model='alldata.amount' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Button type="text">品类名称：</Button>
+            <Select v-model="alldata.model1" style="width:200px">
+              <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
           </div>
         </Col>
         <Col span="8">
@@ -160,46 +142,126 @@
         },
         cityList: [
           {
-            value: '新增人员',
-            label: '新增人员'
+            value: '气调大盒',
+            label: '气调小盒'
           },
           {
-            value: '岗位变动',
-            label: '岗位变动'
+            value: '气调小盒',
+            label: '气调小盒'
           },
           {
-            value: '职责变动',
-            label: '职责变动'
+            value: '定量装大盒',
+            label: '定量装大盒'
           },
           {
-            value: '原权限不足',
-            label: '原权限不足'
+            value: '定量装标盒',
+            label: '定量装标盒'
           },
           {
-            value: '离职停用',
-            label: '离职停用'
+            value: '定量装小盒',
+            label: '定量装小盒'
+          },
+          {
+            value: '赠送',
+            label: '赠送'
+          },
+          {
+            value: '网购',
+            label: '网购'
+          },
+          {
+            value: '简包',
+            label: '简包'
+          },
+          {
+            value: '彩包',
+            label: '彩包'
+          },
+          {
+            value: 'Mini彩包',
+            label: 'Mini彩包'
+          },
+          {
+            value: '颗粒装',
+            label: '颗粒装'
+          },
+          {
+            value: '小吃',
+            label: '小吃'
+          },
+          {
+            value: '百货',
+            label: '百货'
+          },
+          {
+            value: '辅料',
+            label: '辅料'
+          },
+          {
+            value: '礼盒（有）',
+            label: '礼盒（有）'
+          },
+          {
+            value: '礼盒（空）',
+            label: '礼盒（空）'
+          },
+          {
+            value: '公用耗品',
+            label: '公用耗品'
+          },
+          {
+            value: '小吃耗品',
+            label: '小吃耗品'
+          },
+          {
+            value: '汽车耗品',
+            label: '汽车耗品'
+          },
+          {
+            value: '易耗品',
+            label: '易耗品'
+          },
+          {
+            value: '袋子耗品',
+            label: '袋子耗品'
+          },
+          {
+            value: '门店固定资产',
+            label: '门店固定资产'
+          },
+          {
+            value: '赠品（外购）',
+            label: '赠品（外购）'
+          },
+          {
+            value: '赠品（自产)',
+            label: '赠品（自产）'
+          },
+          {
+            value: '耗品',
+            label: '耗品'
+          },
+          {
+            value: '原料',
+            label: '原料'
+          },
+          {
+            value: '生食',
+            label: '生食'
+          },
+          {
+            value: '熟食',
+            label: '熟食'
           }
         ],
         cityList2: [
           {
-            value: '商贸管理',
-            label: '商贸管理'
+            value: '前台商贸系统',
+            label: '前台商贸系统'
           },
           {
-            value: '生产制造',
-            label: '生产制造'
-          },
-          {
-            value: '职责变动',
-            label: '职责变动'
-          },
-          {
-            value: '财务管理',
-            label: '财务管理'
-          },
-          {
-            value: '基础资料管理',
-            label: '基础资料管理'
+            value: '后台生产系统',
+            label: '后台生产系统'
           }
         ],
         // productName: '',

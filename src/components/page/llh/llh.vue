@@ -50,7 +50,7 @@
 <!--             <Input readonly v-model="alldata.sendother" placeholder="请输入..."></Input>
 <Input readonly v-model="alldata.sendothername" placeholder="请输入..."></Input> -->
             <div class="copy">
-              <span>{{copyid}}</span>;<span>{{copyname}}</span>
+              <span>{{showcopy}}</span>
             </div>
             <Button type="info" @click="copy">查询</Button>
           </div>
@@ -95,6 +95,7 @@
         modal: false,
         flag: false,
         flagNum: 0,
+        showcopy: '',
         sendState: {
           sponsor: '',
           initiate: ''
@@ -154,6 +155,7 @@
           this.copyid = item.eid
           this.copyname = item.ename
           this.add()
+          this.sendcopy()
         }
       },
       getSt (item) {
@@ -185,6 +187,12 @@
         ite.sendotherid = this.copyid
         ite.sendothername = this.copyname
         this.alldata.sendother.push(ite)
+      },
+      sendcopy () {
+        this.alldata.sendother.forEach(function (obj) {
+          this.showcopy += obj.sendothername
+          return this.showcopy
+        })
       },
       selectdepartment () {
         alert('部门为自动获取')
