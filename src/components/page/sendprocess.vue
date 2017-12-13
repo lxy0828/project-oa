@@ -46,8 +46,8 @@
               <Icon type="pin"></Icon>
               信息部
             </template>
-            <MenuItem name="zmtsx">ERP物料申请表</MenuItem>
-            <MenuItem name="sjrws">ERP账号权限申请表</MenuItem>
+            <MenuItem name="ERPwlsq">ERP物料申请表</MenuItem>
+            <MenuItem name="ERPzhsq">ERP账号权限申请表</MenuItem>
             <MenuItem name="swzhsq">上网账号申请表</MenuItem>
           </Submenu>
         </Menu>

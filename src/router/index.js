@@ -21,6 +21,8 @@ import Jdsqd from '../components/page/jdsqd/jdsqd.vue'
 import Zmtsx from '../components/page/zmtsx/zmtsx.vue'
 import Sjrws from '../components/page/sjrws/sjrws.vue'
 import Swzhsq from '../components/page/swzhsq/swzhsq.vue'
+import ERPzhsq from '../components/page/ERPzhsq/ERPzhsq.vue'
+import ERPwlsq from '../components/page/ERPwlsq/ERPwlsq.vue'
 
 Vue.use(Router)
 
@@ -103,6 +105,12 @@ export default new Router({
     }, {
       path: '/swzhsq',
       component: Swzhsq
+    }, {
+      path: '/ERPzhsq',
+      component: ERPzhsq
+    }, {
+      path: '/ERPwlsq',
+      component: ERPwlsq
     }]
   },
   {

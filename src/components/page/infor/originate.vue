@@ -164,7 +164,7 @@
           //   }
           // })
         }
-        axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrdersTask/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post('http://172.30.40.41:8080/ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')
@@ -182,7 +182,7 @@
           state: 2,
           comment: this.yaoqiu
         }
-        axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrdersTask/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post('http://172.30.40.41:8080/ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')
@@ -200,7 +200,7 @@
           state: 3,
           comment: this.content
         }
-        axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrdersTask/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post('http://172.30.40.41:8080/ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')
@@ -216,7 +216,7 @@
           fId: sessionStorage.getItem('processId'),
           processInstanceId: sessionStorage.getItem('processInstanceId')
         }
-        axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrdersTask/listHistoryCommentWithProcessInstanceId.do', qs.stringify(resmsg)).then((res) => {
+        axios.post('http://172.30.40.41:8080/ZHYOASystem_test2.0/snackApply/listHistoryCommentWithProcessInstanceId.do', qs.stringify(resmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.spData = res.data.rows
