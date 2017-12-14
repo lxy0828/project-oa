@@ -77,6 +77,7 @@
 </template>
 
 <script>
+  import ip from '../../../common/js/const.js'
   import axios from 'axios'
   import qs from 'qs'
   import Originate from '../../page/infor/originate.vue'
@@ -87,6 +88,7 @@
   export default {
     data () {
       return {
+        ip: ip,
         isDisabled: '',
         showSend: true,
         processNumber: '',
@@ -217,21 +219,21 @@
         }
       },
       backSend (item) {
+        // 接口不需要使用
       // 如果是点击被驳回的单子，从子组件获取信息，重新调用发起接口
-        if (item) {
-          this.$Loading.start()
-          let formcontroler = this.alldata
-          // console.log(qs.stringify(formcontroler))
-          axios.post('http://172.30.41.170:8080/ZHYOASystem/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
-            console.log(res)
-            if (res.data.success) {
-              this.$router.push('/index')
-              this.$Loading.finish()
-            } else {
-              alert('发送失败')
-            }
-          })
-        }
+        // if (item) {
+        //   this.$Loading.start()
+        //   let formcontroler = this.alldata
+        //   axios.post('http://172.30.41.170:8080/ZHYOASystem/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
+        //     console.log(res)
+        //     if (res.data.success) {
+        //       this.$router.push('/index')
+        //       this.$Loading.finish()
+        //     } else {
+        //       alert('发送失败')
+        //     }
+        //   })
+        // }
       },
       control () {
         if (this.sendState.sponsor) {

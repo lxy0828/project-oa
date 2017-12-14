@@ -10,11 +10,13 @@
   </div>
 </template>
 <script type="text/javascript">
+  import ip from '../../../common/js/const.js'
   import axios from 'axios'
   import qs from 'qs'
   export default {
     data () {
       return {
+        ip: ip,
         spbb: false,
         columns1: [
           {
@@ -44,7 +46,7 @@
           fId: sessionStorage.getItem('processId'),
           processInstanceId: sessionStorage.getItem('processInstanceId')
         }
-        axios.post('http://172.30.40.41:8080/ZHYOASystem_test2.0/purchaseOrdersTask/listHistoryCommentWithProcessInstanceId.do', qs.stringify(resmsg)).then((res) => {
+        axios.post(this.ip + 'ZHYOASystem_test2.0/purchaseOrdersTask/listHistoryCommentWithProcessInstanceId.do', qs.stringify(resmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.spData = res.data.rows

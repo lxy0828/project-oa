@@ -45,6 +45,7 @@
 </template>
 <script>
   // import processSP from '../infor/processSP.vue'
+  import ip from '../../../common/js/const.js'
   import axios from 'axios'
   import qs from 'qs'
   export default {
@@ -53,6 +54,7 @@
     },
     data () {
       return {
+        ip: ip,
         alldata: this.data,
         showBtn: {
           type: Boolean,
@@ -164,7 +166,7 @@
           //   }
           // })
         }
-        axios.post('http://172.30.40.41:8080/ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post(this.ip + 'ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')
@@ -182,7 +184,7 @@
           state: 2,
           comment: this.yaoqiu
         }
-        axios.post('http://172.30.40.41:8080/ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post(this.ip + 'ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')
@@ -200,7 +202,7 @@
           state: 3,
           comment: this.content
         }
-        axios.post('http://172.30.40.41:8080/ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post(this.ip + 'ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')
@@ -216,7 +218,7 @@
           fId: sessionStorage.getItem('processId'),
           processInstanceId: sessionStorage.getItem('processInstanceId')
         }
-        axios.post('http://172.30.40.41:8080/ZHYOASystem_test2.0/snackApply/listHistoryCommentWithProcessInstanceId.do', qs.stringify(resmsg)).then((res) => {
+        axios.post(this.ip + 'ZHYOASystem_test2.0/snackApply/listHistoryCommentWithProcessInstanceId.do', qs.stringify(resmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.spData = res.data.rows

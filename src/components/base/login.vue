@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  import ip from '../../common/js/const.js'
   import axios from 'axios'
   import qs from 'qs'
   export default {
@@ -50,8 +51,13 @@
             message: '密码长度不能小于6位',
             trigger: 'blur'
           }]
-        }
+        },
+        ip: ip
       }
+    },
+    created () {
+      // console.log(this.ip + 'ZHYOASystem/account/login.do')
+      // console.log('http://172.30.41.170:8080/ZHYOASystem/account/login.do')
     },
     methods: {
       handleSubmit (name, formData) {
@@ -63,8 +69,7 @@
             // console.log(qs.stringify(formcontroler))
             // this.$router.push('/index')
             // window.sessionStorage.setItem('in', '123')
-            axios.post('http://172.30.41.170:8080/ZHYOASystem/account/login.do', qs.stringify(formcontroler)).then((res) => {
-              console.log(res)
+            axios.post(this.ip + 'ZHYOASystem/account/login.do', qs.stringify(formcontroler)).then((res) => {
               if (res.data.success) {
                 window.sessionStorage.setItem('infor', res)
                 console.log(window.sessionStorage.getItem('infor'))

@@ -142,6 +142,7 @@
   </div>
 </template>
 <script>
+  import ip from '../../../common/js/const.js'
   import axios from 'axios'
   import qs from 'qs'
   import Originate from '../../page/infor/originate.vue'
@@ -151,6 +152,7 @@
   export default {
     data () {
       return {
+        ip: ip,
         isDisabled: '',
         showSend: true,
         animal: '是',
@@ -260,6 +262,7 @@
         this.alldata.submissionDate = myDate.toLocaleDateString()
       },
       getSend (item) {
+        // 发起流程
         console.log(item)
         if (item) {
           this.$Loading.start()
@@ -268,7 +271,7 @@
           // formcontroler.list = this.orderslist
           console.log(qs.stringify(formcontroler))
           console.log(qs.parse(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
+          axios.post(this.ip + 'ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -408,7 +411,7 @@
             fId: sessionStorage.getItem('processId'),
             flowId: sessionStorage.getItem('flowId')
           }
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
+          axios.post(this.ip + 'ZHYOASystem_test2.0/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
             console.log(res)
             this.alldata = res.data.purchaseOrders
             this.alldata.orderslist = res.data.list
