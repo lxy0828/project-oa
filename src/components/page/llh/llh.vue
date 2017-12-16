@@ -50,7 +50,9 @@
 <!--             <Input readonly v-model="alldata.sendother" placeholder="请输入..."></Input>
 <Input readonly v-model="alldata.sendothername" placeholder="请输入..."></Input> -->
             <div class="copy">
-              <span>{{showcopy}}</span>
+              <ul>
+                <li v-for='names in alldata.sendother' class="in-li">{{names.sendername}}</li>
+              </ul>
             </div>
             <Button type="info" @click="copy">查询</Button>
           </div>
@@ -77,7 +79,6 @@
 </template>
 
 <script>
-  import ip from '../../../common/js/const.js'
   import axios from 'axios'
   import qs from 'qs'
   import Originate from '../../page/infor/originate.vue'
@@ -88,7 +89,6 @@
   export default {
     data () {
       return {
-        ip: ip,
         isDisabled: '',
         showSend: true,
         processNumber: '',
@@ -97,7 +97,7 @@
         modal: false,
         flag: false,
         flagNum: 0,
-        showcopy: '',
+        showcopy: [],
         sendState: {
           sponsor: '',
           initiate: ''
@@ -118,7 +118,8 @@
           sendother: [],
           propcompid: '',
           propcompname: '',
-          reason: ''
+          reason: '',
+          submissionDate: ''
         }
       }
     },
@@ -157,7 +158,6 @@
           this.copyid = item.eid
           this.copyname = item.ename
           this.add()
-          this.sendcopy()
         }
       },
       getSt (item) {
@@ -186,15 +186,9 @@
       },
       add () {
         let ite = {}
-        ite.sendotherid = this.copyid
-        ite.sendothername = this.copyname
+        ite.senderid = this.copyid
+        ite.sendername = this.copyname
         this.alldata.sendother.push(ite)
-      },
-      sendcopy () {
-        this.alldata.sendother.forEach(function (obj) {
-          this.showcopy += obj.sendothername
-          return this.showcopy
-        })
       },
       selectdepartment () {
         alert('部门为自动获取')
@@ -207,7 +201,7 @@
           formcontroler = this.alldata
           console.log(qs.stringify(formcontroler))
           console.log(qs.parse(formcontroler))
-          axios.post('http://172.30.41.170:8080/ZHYOASystem/contact/addTContact.do ', qs.stringify(formcontroler)).then((res) => {
+          axios.post('http://172.30.41.170:8080/ZHYOASystem/contact/addTContact.do ', qs.parse(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -219,21 +213,21 @@
         }
       },
       backSend (item) {
-        // 接口不需要使用
       // 如果是点击被驳回的单子，从子组件获取信息，重新调用发起接口
-        // if (item) {
-        //   this.$Loading.start()
-        //   let formcontroler = this.alldata
-        //   axios.post('http://172.30.41.170:8080/ZHYOASystem/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
-        //     console.log(res)
-        //     if (res.data.success) {
-        //       this.$router.push('/index')
-        //       this.$Loading.finish()
-        //     } else {
-        //       alert('发送失败')
-        //     }
-        //   })
-        // }
+        if (item) {
+          this.$Loading.start()
+          let formcontroler = this.alldata
+          // console.log(qs.stringify(formcontroler))
+          axios.post('http://172.30.41.170:8080/ZHYOASystem/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
+            console.log(res)
+            if (res.data.success) {
+              this.$router.push('/index')
+              this.$Loading.finish()
+            } else {
+              alert('发送失败')
+            }
+          })
+        }
       },
       control () {
         if (this.sendState.sponsor) {
@@ -300,5 +294,9 @@ h1{
   width: 200px;
   height: 30px;
   border: 1px solid #ccc;
+}
+.in-li{
+  float: left;
+  margin-right:5px; 
 }
 </style>

@@ -166,7 +166,7 @@
           //   }
           // })
         }
-        axios.post(this.ip + 'ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post('http://172.30.41.170:8080/ZHYOASystem/contact/updateState.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')
@@ -184,7 +184,7 @@
           state: 2,
           comment: this.yaoqiu
         }
-        axios.post(this.ip + 'ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post('http://172.30.41.170:8080/ZHYOASystem/contact/updateState.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')
@@ -202,7 +202,7 @@
           state: 3,
           comment: this.content
         }
-        axios.post(this.ip + 'ZHYOASystem_test2.0/snackApply/audit_bz.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post('http://172.30.41.170:8080/ZHYOASystem/contact/updateState.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')

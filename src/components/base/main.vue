@@ -125,7 +125,7 @@
         console.log(sessionStorage.getItem('backwait'))
         this.showList = false
         if (sessionStorage.getItem('backwait') === 'backwait') {
-          axios.post(this.ip + 'ZHYOASystem_test2.0/purchaseOrdersTask/list.do').then((res) => {
+          axios.post('http://172.30.41.170:8080/ZHYOASystem_test2.0/purchaseOrdersTask/list.do').then((res) => {
             this.prodata.process = res.data.rows
             this.showList = true
             this.$Loading.finish()
@@ -140,7 +140,7 @@
           //   })
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === 'notice') {
-          axios.post(this.ip + 'ZHYOASystem_test2.0/purchaseOrdersTask/unFinishedList.do').then((res) => {
+          axios.post('http://172.30.41.170:8080/ZHYOASystem_test2.0/purchaseOrdersTask/unFinishedList.do').then((res) => {
             console.log(res)
             this.prodata.process = res.data.rows
             this.showList = true
@@ -154,7 +154,7 @@
           //   })
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === 'end') {
-          axios.post(this.ip + 'ZHYOASystem_test2.0/purchaseOrdersTask/finishedList.do').then((res) => {
+          axios.post('http://172.30.41.170:8080/ZHYOASystem_test2.0/purchaseOrdersTask/finishedList.do').then((res) => {
             console.log(res.data)
             this.prodata.process = res.data.rows
             this.showList = true
@@ -169,7 +169,7 @@
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === 'over') {
           // alert('查询已终止')
-          axios.post(this.ip + 'ZHYOASystem_test2.0/purchaseOrdersTask/stoplist.do').then((res) => {
+          axios.post('http://172.30.41.170:8080/ZHYOASystem_test2.0/purchaseOrdersTask/stoplist.do').then((res) => {
             console.log(res.data)
             this.prodata.process = res.data.rows
             this.showList = true
@@ -183,7 +183,7 @@
           //   })
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === null || sessionStorage.getItem('backwait') === '') {
-          axios.post(this.ip + 'ZHYOASystem_test2.0/purchaseOrdersTask/list.do').then((res) => {
+          axios.post('http://172.30.41.170:8080/ZHYOASystem_test2.0/purchaseOrdersTask/list.do').then((res) => {
             this.prodata.process = res.data.rows
             this.showList = true
             this.$Loading.finish()
@@ -203,15 +203,15 @@
         let url
         this.showList = false
         if (sessionStorage.getItem('backwait') === 'backwait') {
-          url = this.ip + 'ZHYOASystem/purchaseOrdersTask/list.do'
+          url = 'http://172.30.41.170:8080/ZHYOASystem/purchaseOrdersTask/list.do'
         } else if (sessionStorage.getItem('backwait') === 'notice') {
-          url = this.ip + 'ZHYOASystem/purchaseOrdersTask/unFinishedList.do'
+          url = 'http://172.30.41.170:8080/ZHYOASystem/purchaseOrdersTask/unFinishedList.do'
         } else if (sessionStorage.getItem('backwait') === 'end') {
-          url = this.ip + 'ZHYOASystem/purchaseOrdersTask/finishedList.do'
+          url = 'http://172.30.41.170:8080/ZHYOASystem/purchaseOrdersTask/finishedList.do'
         } else if (sessionStorage.getItem('backwait') === 'over') {
-          url = this.ip + 'ZHYOASystem/purchaseOrdersTask/stoplist.do'
+          url = 'http://172.30.41.170:8080/ZHYOASystem/purchaseOrdersTask/stoplist.do'
         } else {
-          url = this.ip + 'ZHYOASystem/purchaseOrdersTask/list.do'
+          url = 'http://172.30.41.170:8080/ZHYOASystem/purchaseOrdersTask/list.do'
         }
         console.log(url)
         console.log(qs.stringify(this.searchdata))

@@ -84,7 +84,7 @@
       _getStaff () {
         this.showList = false
         this.$Loading.start()
-        axios.post(this.ip + 'ZHYOASystem/contact/findInitiator.do').then((res) => {
+        axios.post('http://172.30.41.170:8080/ZHYOASystem/contact/findInitiator.do').then((res) => {
           console.log(res)
           this.staffdata.process = res.data.rows
           this.showList = true
@@ -108,7 +108,7 @@
         this.showList = false
         this.$Loading.start()
         let selectData = this.selectData
-        axios.post(this.ip + 'ZHYOASystem/contact/findInitiator.do', qs.stringify(selectData)).then((res) => {
+        axios.post('http://172.30.41.170:8080/ZHYOASystem/contact/findInitiator.do', qs.stringify(selectData)).then((res) => {
           console.log(res)
           this.staffdata.process = res.data.rows
           this.showList = true
