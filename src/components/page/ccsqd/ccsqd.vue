@@ -55,7 +55,7 @@
   	    <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">职位</Button>
-            <Input readonly v-model="alldata.job" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.EPOSITIONID" placeholder="请输入..."></Input>
   	      </div>
   	    </Col>
       </Row>
@@ -79,19 +79,19 @@
         <Col span="8">
           <div class="un-input">
           <Button type="text">起始日期</Button>
-          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+          <DatePicker type="date" placeholder="Select date" v-model="alldata.startDate" style="width: 200px"></DatePicker>
           </div>
   	    </Col>
   	    <Col span="8">
           <div class="un-input">
   	      <Button type="text">截止日期</Button>
-          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+          <DatePicker type="date" placeholder="Select date" v-model="alldata.endDate" style="width: 200px"></DatePicker>
           </div>
   	    </Col>
   	    <Col span="8">
   	    <div class="un-input">
   	      <Button type="text">合计天数：</Button>
-  	      <Input v-model="alldata.dateNumber" placeholder="请输入..."></Input>
+  	      <Input v-model="alldata.totalDays" placeholder="请输入..."></Input>
   	    </div>
   	    </Col>
       </Row>
@@ -99,7 +99,7 @@
         <Col span="20">
           <div class="un-input">
             <Button type="text">出差省市地区：</Button>
-            <Input v-model='alldata.city' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input v-model='alldata.travelAddress' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
       </Row>
@@ -107,7 +107,7 @@
         <Col span="10">
           <div class="un-input">
             <Button type='text'>启程交通工具</Button>
-            <Select v-model="model1" style="width:200px">
+            <Select v-model="alldata.startVehicle" style="width:200px">
               <Option v-for="item in  trafficList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
           </div>
@@ -115,7 +115,7 @@
         <Col span="14" >
           <div class="un-input">
             <Button type="text">其他或航班备注信息</Button>
-            <Input  v-model="alldata.other1" placeholder="请输入..."></Input>
+            <Input  v-model="alldata.startRemarks" placeholder="请输入..."></Input>
   	      </div>
   	    </Col>
       </Row>
@@ -123,7 +123,7 @@
         <Col span="10">
           <div class="un-input">
             <Button type='text'>返程交通工具</Button>
-            <Select v-model="model2" style="width:200px">
+            <Select v-model="alldata.endVehicle" style="width:200px">
               <Option v-for="item in  trafficList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
           </div>
@@ -131,7 +131,7 @@
         <Col span="14" >
           <div class="un-input">
             <Button type="text">其他或航班备注信息</Button>
-            <Input  v-model="alldata.other2" placeholder="请输入..."></Input>
+            <Input  v-model="alldata.endRemarks" placeholder="请输入..."></Input>
   	      </div>
   	    </Col>
       </Row>
@@ -139,7 +139,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">出差事由：</Button>
-            <Input type="textarea" v-model='alldata.cause' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
+            <Input type="textarea" v-model='alldata.travelReason' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
@@ -149,6 +149,7 @@
 </template>
 
 <script>
+  import ip from '../../../common/js/const.js'
   import axios from 'axios'
   import qs from 'qs'
   import Originate from '../../page/infor/originate.vue'
@@ -157,11 +158,9 @@
   export default {
     data () {
       return {
+        ip: ip,
         isDisabled: '',
         showSend: true,
-        processNumber: '',
-        selectIndex: '',
-        // processDate: '',
         modal: false,
         flag: false,
         flagNum: 0,
@@ -191,10 +190,8 @@
             label: '其他'
           }
         ],
-        model1: '',
-        model2: '',
         alldata: {
-          processName: '采购单',
+          processName: '出差申请单',
           proposerId: '',
           proposer: '',
           propDeptId: '',
@@ -210,10 +207,16 @@
           propCompId: '',
           submissionDate: '',
           propCompName: '',
-          city: '',
-          other1: '',
-          other2: '',
-          cause: ''
+          startDate: '',
+          endDate: '',
+          totalDays: '',
+          travelAddress: '',
+          startVehicle: '',
+          startRemarks: '',
+          endVehicle: '',
+          endRemarks: '',
+          travelReason: '',
+          EPOSITIONID: ''
         }
       }
     },
@@ -226,7 +229,7 @@
     methods: {
       getDate () {
         var myDate = new Date()
-        this.alldata.flowId = getRandomNum('JDSQD')
+        this.alldata.flowId = getRandomNum('CCSQD')
         this.alldata.submissionDate = myDate.toLocaleDateString()
       },
       getTable (item) {
@@ -241,6 +244,7 @@
           this.alldata.deptHead = item.deptHead
           this.alldata.propCompId = item.cid
           this.alldata.propCompName = item.cname
+          this.alldata.EPOSITIONID = item.pname
         } else if (this.flagNum === 2) {
           this.alldata.deptAuditor1Id = item.eid
           this.alldata.deptAuditor1 = item.ename
@@ -248,8 +252,8 @@
           this.alldata.deptAuditor2Id = item.eid
           this.alldata.deptAuditor2 = item.ename
         } else if (this.flagNum === 4) {
-          this.alldata.copytonum = item.apanum
-          this.alldata.copytoname = item.apaname
+          this.alldata.deptAuditor3Id = item.eid
+          this.alldata.deptAuditor3 = item.ename
         }
       },
       getSt (item) {
@@ -284,10 +288,13 @@
         if (item) {
           this.$Loading.start()
           let formcontroler = {}
+          console.log(new Date())
+          this.alldata.startDate = this.alldata.startDate.getFullYear() + '-' + this.alldata.startDate.getMonth() + '-' + this.alldata.startDate.getDate()
+          this.alldata.endDate = this.alldata.endDate.getFullYear() + '-' + this.alldata.endDate.getMonth() + '-' + this.alldata.endDate.getDate()
           formcontroler = this.alldata
           console.log(qs.stringify(formcontroler))
           console.log(qs.parse(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
+          axios.post(this.ip + 'travelApply/startApply.do', qs.parse(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -300,20 +307,20 @@
       },
       backSend (item) {
       // 如果是点击被驳回的单子，从子组件获取信息，重新调用发起接口
-        if (item) {
-          this.$Loading.start()
-          let formcontroler = this.alldata
-          // console.log(qs.stringify(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
-            console.log(res)
-            if (res.data.success) {
-              this.$router.push('/index')
-              this.$Loading.finish()
-            } else {
-              alert('发送失败')
-            }
-          })
-        }
+        // if (item) {
+        //   this.$Loading.start()
+        //   let formcontroler = this.alldata
+        //   // console.log(qs.stringify(formcontroler))
+        //   axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
+        //     console.log(res)
+        //     if (res.data.success) {
+        //       this.$router.push('/index')
+        //       this.$Loading.finish()
+        //     } else {
+        //       alert('发送失败')
+        //     }
+        //   })
+        // }
       },
       control () {
         if (this.sendState.sponsor) {
@@ -328,7 +335,7 @@
             fId: sessionStorage.getItem('processId'),
             flowId: sessionStorage.getItem('flowId')
           }
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
+          axios.post(this.ip + 'purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
             console.log(res)
             this.alldata = res.data.purchaseOrders
             this.alldata.orderslist = res.data.list
