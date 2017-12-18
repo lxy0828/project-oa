@@ -143,7 +143,7 @@
       sucessprocess () {
         this.$Loading.start()
         let rsmsg = {
-          fId: sessionStorage.getItem('processId'),
+          taskId: sessionStorage.getItem('processId'),
           flowId: sessionStorage.getItem('flowId'),
           state: 1,
           comment: this.content
@@ -179,7 +179,7 @@
       backprocess () {
         this.$Loading.start()
         let rsmsg = {
-          fId: sessionStorage.getItem('processId'),
+          taskId: sessionStorage.getItem('processId'),
           flowId: sessionStorage.getItem('flowId'),
           state: 2,
           comment: this.yaoqiu
@@ -197,7 +197,7 @@
       faileprocess () {
         this.$Loading.start()
         let rsmsg = {
-          fId: sessionStorage.getItem('processId'),
+          taskId: sessionStorage.getItem('processId'),
           flowId: sessionStorage.getItem('flowId'),
           state: 3,
           comment: this.content
@@ -215,7 +215,7 @@
       getcourse () {
         this.$Loading.start()
         let resmsg = {
-          fId: sessionStorage.getItem('processId'),
+          taskId: sessionStorage.getItem('processId'),
           processInstanceId: sessionStorage.getItem('processInstanceId')
         }
         axios.post(this.ip + 'task/listHistoryComment.do', qs.stringify(resmsg)).then((res) => {

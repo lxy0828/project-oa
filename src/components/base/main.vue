@@ -68,7 +68,7 @@
             },
             {
               title: '流程名称',
-              key: 'processName',
+              key: 'flowName',
               sortable: true
             },
             {
@@ -90,7 +90,7 @@
             },
             {
               title: '执行中的活动',
-              key: 'taskNode'
+              key: 'taskName'
             }
           ]
         },
@@ -114,7 +114,7 @@
         // 重table列表中点进去，设置标记
         sessionStorage.setItem('rejectL', item.state)
         sessionStorage.setItem('eSend', this.eSend)
-        sessionStorage.setItem('processId', item.fId)
+        sessionStorage.setItem('processId', item.taskId)
         sessionStorage.setItem('flowId', item.flowId)
         sessionStorage.setItem('processInstanceId', item.processInstanceId)
         this.$router.push('cgd')
@@ -154,7 +154,7 @@
           //   })
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === 'end') {
-          axios.post(this.ip + 'task/pendingTask.do').then((res) => {
+          axios.post(this.ip + 'task/finishedTask.do').then((res) => {
             console.log(res.data)
             this.prodata.process = res.data.rows
             this.showList = true
@@ -169,7 +169,7 @@
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === 'over') {
           // alert('查询已终止')
-          axios.post(this.ip + 'task/finishedTask.do').then((res) => {
+          axios.post(this.ip + 'task/terminatedTask.do').then((res) => {
             console.log(res.data)
             this.prodata.process = res.data.rows
             this.showList = true
@@ -183,7 +183,7 @@
           //   })
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === null || sessionStorage.getItem('backwait') === '') {
-          axios.post(this.ip + 'task/terminatedTask.do').then((res) => {
+          axios.post(this.ip + 'task/pendingTask.do').then((res) => {
             this.prodata.process = res.data.rows
             this.showList = true
             this.$Loading.finish()
