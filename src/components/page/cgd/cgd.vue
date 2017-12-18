@@ -271,7 +271,7 @@
           // formcontroler.list = this.orderslist
           console.log(qs.stringify(formcontroler))
           console.log(qs.parse(formcontroler))
-          axios.post(this.ip + 'ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
+          axios.post(this.ip + 'purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
