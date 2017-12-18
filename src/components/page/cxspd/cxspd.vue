@@ -1,7 +1,7 @@
 <template>
   <div>
     <Originate :data="sendState" v-if="showSend" @getSend="getSend" @backSend="backSend"></Originate>
-    <h1>公章使用申请单</h1>
+    <h1>促销审批单</h1>
     <div class="processtietle">
        <div class="hk">单号：<span>{{alldata.flowId}}</span></div>
        <div class="hk">日期：<span>{{alldata.submissionDate}}</span></div>
@@ -62,59 +62,93 @@
       <Row class="row-line">
         <Col span="10">
           <div class="un-input">
-            <Button type="text">公章所属公司</Button>
+            <Button type="text">申请人公司</Button>
             <Input readonly v-model="alldata.CompanyNumber" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.CompanyId" placeholder="请输入..."></Input>
             <Button type="info" @click="checkCompany" :disabled='isDisabled'>查询</Button>
   	      </div>
         </Col>
         <Col span="10" offset="4">
-          <Button type="text">使用类别</Button>
-          <RadioGroup v-model="alldata.animal">
-            <Radio label="盖章" :disabled='isDisabled'></Radio>
-            <Radio label="外借" :disabled='isDisabled'></Radio>
+          <Button type="text">是否为会员活动</Button>
+          <RadioGroup v-model="alldata.seal">
+            <Radio label="是" :disabled='isDisabled'></Radio>
+            <Radio label="否" :disabled='isDisabled'></Radio>
           </RadioGroup>
         </Col>
       </Row>
       <Row class="row-line">
-        <Col span='10'>
-          <Button type="text">公章类别</Button>
-          <RadioGroup v-model="alldata.seal">
-            <Radio label="公章" :disabled='isDisabled'></Radio>
-            <Radio label="合同章" :disabled='isDisabled'></Radio>
-            <Radio label="法人章" :disabled='isDisabled'></Radio>
-          </RadioGroup>
-        </Col>
-        <Col span="5" offset="4">
+        <Col span="8">
           <div class="un-input">
-            <Button type="text">需盖份数</Button>
-            <Input type='number' v-model="alldata.fsNumber" placeholder="请输入..."></Input>
+          <Button type="text">开始日期</Button>
+          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+          </div>
+  	    </Col>
+  	    <Col span="8">
+          <div class="un-input">
+  	      <Button type="text">结束日期</Button>
+          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+          </div>
+  	    </Col>
+        <Col span="8">
+          <div class="un-input">
+            <Button type="text">活动执行月份</Button>
+            <Input v-model="alldata.mounth" placeholder="请输入纯数字"></Input>
           </div>
         </Col>
       </Row>
       <Row class="row-line">
         <Col span="10">
           <div class="un-input">
-          <Button type="text">使用时间</Button>
-          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+            <Button type="text">活动标题</Button>
+            <Input v-model="alldata.title" placeholder="请输入"></Input>
           </div>
-  	    </Col>
-  	    <Col span="10" offset="4">
+        </Col>
+        <Col span="10" offset="4">
           <div class="un-input">
-  	      <Button type="text">归还时间</Button>
-          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+            <Button type="text">促销类型</Button>
+            <Select v-model="alldata.model1" style="width:200px">
+              <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
           </div>
-  	    </Col>
+        </Col>
+      </Row>
+      <Row class="row-line">
+        <Col span="8">
+          <div class="un-input">
+            <Button type="text">折扣率：</Button>
+            <Input v-model="alldata.discount" placeholder="请输入..."></Input>
+          </div>
+        </Col>
+        <Col span="8">
+          <div class="un-input">
+            <Button type="text">预计销售：</Button>
+            <Input v-model="alldata.predict" placeholder="请输入..."></Input>
+          </div>
+        </Col>
+        <Col span="8">
+          <div class="un-input">
+            <Button type="text">费效比：</Button>
+            <Input v-model="alldata.cost" placeholder="请输入..."></Input>
+          </div>
+        </Col>
+      </Row>
+      <Row class="row-line">
+        <Col span="20">
+          <div class=un-input>
+          <Button type="text">门店范围：</Button>
+          <Input v-model="alldata.scope"></Input>
+          </div>
+        </Col>
       </Row>
       <Row class='row-line'>
         <col span="20">
           <div class="un-input">
             <Button type="text">申请事由：</Button>
-            <Input type="textarea" v-model='alldata.cause' placeholder="请输入..." :rows="6" :disabled='isDisabled'></Input>
+            <Input type="textarea" v-model='alldata.cause' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
-      <Row class="rpw-line">
+      <Row class="row-line">
         <div style="margin-top:30px">
           <i-button type="success" @click="addInput" :disabled='isDisabled'>添加</i-button>
           <Button type="error" @click="Tabledelete" :disabled='isDisabled'>删除</Button>
@@ -149,6 +183,48 @@
           sponsor: '',
           initiate: ''
         },
+        cityList: [
+          {
+            value: '新店开业活动',
+            label: '新店开业活动'
+          },
+          {
+            value: '月度常规活动',
+            label: '月度常规活动'
+          },
+          {
+            value: '临时促销活动',
+            label: '临时促销活动'
+          },
+          {
+            value: '区域地推活动',
+            label: '区域地推活动'
+          },
+          {
+            value: '外卖平台活动',
+            label: '外卖平台活动'
+          },
+          {
+            value: '异业合作活动',
+            label: '异业合作活动'
+          },
+          {
+            value: '会员活动',
+            label: '会员活动'
+          },
+          {
+            value: '第三方支付活动',
+            label: '第三方支付活动'
+          },
+          {
+            value: '全国性促销活动',
+            label: '全国性促销活动'
+          },
+          {
+            value: '短信推送',
+            label: '短信推送'
+          }
+        ],
         disabledGroup: '是',
         alldata: {
           flowId: '',
@@ -163,13 +239,17 @@
           deptAuditor2: '',
           company: '',
           companyNumber: '',
-          animal: '盖章',
-          seal: '公章',
+          seal: '是',
           price: '',
           cause: '',
           CompanyNumber: '',
           CompanyId: '',
           fsNumber: '',
+          model1: '',
+          discount: '',
+          predict: '',
+          cost: '',
+          scope: '',
           orderslist: []
         },
         columns1: [

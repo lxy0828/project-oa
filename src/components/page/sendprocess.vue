@@ -35,13 +35,22 @@
            <Submenu name="in">
             <template slot="title">
               <Icon type="pin"></Icon>
-              营销中心
+              品牌中心
             </template>
             <MenuItem name="zmtsx">自媒体上线审批单</MenuItem>
             <MenuItem name="sjrws">计划任务书</MenuItem>
             <MenuItem name="4-3"></MenuItem>
           </Submenu>
-           <Submenu name="in">
+          <Submenu name="in">
+            <template slot="title">
+              <Icon type="pin"></Icon>
+              营销中心
+            </template>
+            <MenuItem name="cxspd">促销审批单</MenuItem>
+            <MenuItem name="sjrws">新店开业审批单</MenuItem>
+            <MenuItem name="4-3"></MenuItem>
+          </Submenu>
+          <Submenu name="in">
             <template slot="title">
               <Icon type="pin"></Icon>
               信息部

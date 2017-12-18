@@ -296,7 +296,7 @@ h1{
   border: 1px solid #ccc;
 }
 .in-li{
-  float: left;
-  margin-right:5px; 
+  margin-right:5px;
+  overflow:auto;
 }
 </style>

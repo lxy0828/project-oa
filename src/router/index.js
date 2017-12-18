@@ -23,6 +23,7 @@ import Sjrws from '../components/page/sjrws/sjrws.vue'
 import Swzhsq from '../components/page/swzhsq/swzhsq.vue'
 import ERPzhsq from '../components/page/ERPzhsq/ERPzhsq.vue'
 import ERPwlsq from '../components/page/ERPwlsq/ERPwlsq.vue'
+import Cxspd from '../components/page/cxspd/cxspd.vue'
 
 Vue.use(Router)
 
@@ -111,6 +112,9 @@ export default new Router({
     }, {
       path: '/ERPwlsq',
       component: ERPwlsq
+    }, {
+      path: '/cxspd',
+      component: Cxspd
     }]
   },
   {

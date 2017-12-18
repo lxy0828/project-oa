@@ -11,7 +11,7 @@
         <Col span='10'>
           <div class="un-input">
             <Button type="text">发起人</Button>
-            <Input readonly v-model="alldata.proposerId" placeholder="请输入..." ></Input>
+            <Input readonly v-model="alldata.proposerid" placeholder="请输入..." ></Input>
             <Input readonly v-model="alldata.proposer" placeholder="请输入..." ></Input>
             <Button type="info" @click="selectStaff" :disabled='isDisabled' >查询</Button>
           </div>
@@ -19,8 +19,8 @@
          <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">发起人部门</Button>
-            <Input readonly v-model="alldata.propDeptId" placeholder="请输入..." ></Input>
-            <Input readonly v-model="alldata.propDeptName" placeholder="请输入..." ></Input>
+            <Input readonly v-model="alldata.propdeptid" placeholder="请输入..." ></Input>
+            <Input readonly v-model="alldata.propdeptname" placeholder="请输入..." ></Input>
             <Button type="info" @click="selectdepartment" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
@@ -29,16 +29,16 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">部门审核</Button>
-            <Input readonly v-model="alldata.deptAuditor1Id" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.deptAuditor1" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptauditor1id" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptauditor1" placeholder="请输入..."></Input>
             <Button type="info" @click="check" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
   	    <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">部门审核</Button>
-            <Input readonly v-model="alldata.deptAuditor2Id" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.deptAuditor2" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptauditor2id" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptauditor2" placeholder="请输入..."></Input>
             <Button type="info" @click="checknext" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
@@ -47,22 +47,22 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">报告所属公司</Button>
-            <Input readonly  placeholder="请输入..."></Input>
-            <Input readonly  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.reportofcompanyid"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.reportofcompanyname"  placeholder="请输入..."></Input>
           </div>
         </Col>
         <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">部门负责人</Button>
-            <Input readonly  placeholder="请输入..."></Input>
-            <Input readonly  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.depprincipalid"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.depprincipalname"  placeholder="请输入..."></Input>
   	      </div>
         </Col>
       </Row>
       <Row class="row-line">
         <Col span="10">
           <Button type="text">是否为总部报告</Button>
-          <RadioGroup v-model="alldata.animal">
+          <RadioGroup v-model="alldata.sendheadquarters">
             <Radio label="是" :disabled='isDisabled'></Radio>
             <Radio label="否" :disabled='isDisabled'></Radio>
           </RadioGroup>
@@ -70,7 +70,12 @@
         <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">主送:</Button>
-            <Input v-model="alldata.price" placeholder="请输入..."></Input>
+            <div class="copy">
+              <ul>
+                <li v-for='names in alldata.sendother' class="in-li">{{names.sendername}}</li>
+              </ul>
+            </div>
+            <Button type="info" @click="copy">查询</Button>
           </div>
         </Col>
       </Row>
@@ -86,7 +91,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">报告内容：</Button>
-            <Input type="textarea" v-model='alldata.cause' placeholder="请输入..." :rows="6" :disabled='isDisabled'></Input>
+            <Input type="textarea" v-model='alldata.content' placeholder="请输入..." :rows="6" :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
@@ -117,22 +122,26 @@
           sponsor: '',
           initiate: ''
         },
+        copyid: '',
+        copyname: '',
         alldata: {
           flowId: '',
           submissionDate: '',
           proposer: '',
-          proposerId: '',
-          propDeptId: '',
-          propDeptName: '',
-          deptAuditor1Id: '',
-          deptAuditor1: '',
-          deptAuditor2Id: '',
-          deptAuditor2: '',
-          company: '',
-          companyNumber: '',
-          animal: '是',
-          price: '',
-          cause: '',
+          proposerid: '',
+          propdeptid: '',
+          propdeptname: '',
+          deptauditor1id: '',
+          deptauditor1: '',
+          deptauditor2id: '',
+          deptauditor2: '',
+          reportofcompanyid: '',
+          reportofcompanyname: '',
+          sendheadquarters: '是',
+          depprincipalid: '',
+          depprincipalname: '',
+          sendother: [],
+          content: '',
           title: ''
         }
       }
@@ -168,6 +177,10 @@
         } else if (this.flagNum === 3) {
           this.alldata.deptAuditor2Id = item.eid
           this.alldata.deptAuditor2 = item.ename
+        } else if (this.flagNum === 4) {
+          this.copyid = item.eid
+          this.copyname = item.ename
+          this.add()
         }
       },
       getSt (item) {
@@ -188,6 +201,17 @@
         this.flagNum = 3
         this.flag = true
         this.modal = true
+      },
+      copy () {
+        this.flagNum = 4
+        this.flag = true
+        this.modal = true
+      },
+      add () {
+        let ite = {}
+        ite.senderid = this.copyid
+        ite.sendername = this.copyname
+        this.alldata.sendother.push(ite)
       },
       selectdepartment () {
         alert('部门为自动获取')
@@ -279,5 +303,14 @@ h1{
 .processtietle{
   float: right;
   margin-right: 10%;
+}
+.copy{
+  width: 200px;
+  height: 30px;
+  border: 1px solid #ccc;
+}
+.in-li{
+  margin-right:5px;
+  overflow:auto;
 }
 </style>

@@ -271,7 +271,7 @@
           // formcontroler.list = this.orderslist
           console.log(qs.stringify(formcontroler))
           console.log(qs.parse(formcontroler))
-          axios.post(this.ip + 'ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
+          axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -411,7 +411,7 @@
             fId: sessionStorage.getItem('processId'),
             flowId: sessionStorage.getItem('flowId')
           }
-          axios.post(this.ip + 'ZHYOASystem_test2.0/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
+          axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
             console.log(res)
             this.alldata = res.data.purchaseOrders
             this.alldata.orderslist = res.data.list
