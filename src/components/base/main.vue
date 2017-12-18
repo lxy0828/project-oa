@@ -117,6 +117,7 @@
         sessionStorage.setItem('processId', item.taskId)
         sessionStorage.setItem('flowId', item.flowId)
         sessionStorage.setItem('processInstanceId', item.processInstanceId)
+        // if(item.flowName)
         this.$router.push('cgd')
       },
       _getProcess () {
