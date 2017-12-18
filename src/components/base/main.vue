@@ -68,7 +68,7 @@
             },
             {
               title: '流程名称',
-              key: 'processName',
+              key: 'flowName',
               sortable: true
             },
             {
@@ -90,7 +90,7 @@
             },
             {
               title: '执行中的活动',
-              key: 'taskNode'
+              key: 'taskName'
             }
           ]
         },
@@ -114,7 +114,7 @@
         // 重table列表中点进去，设置标记
         sessionStorage.setItem('rejectL', item.state)
         sessionStorage.setItem('eSend', this.eSend)
-        sessionStorage.setItem('processId', item.fId)
+        sessionStorage.setItem('processId', item.taskId)
         sessionStorage.setItem('flowId', item.flowId)
         sessionStorage.setItem('processInstanceId', item.processInstanceId)
         this.$router.push('cgd')
@@ -125,7 +125,7 @@
         console.log(sessionStorage.getItem('backwait'))
         this.showList = false
         if (sessionStorage.getItem('backwait') === 'backwait') {
-          axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrdersTask/list.do').then((res) => {
+          axios.post(this.ip + 'task/pendingTask.do').then((res) => {
             this.prodata.process = res.data.rows
             this.showList = true
             this.$Loading.finish()
@@ -140,7 +140,7 @@
           //   })
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === 'notice') {
-          axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrdersTask/unFinishedList.do').then((res) => {
+          axios.post(this.ip + 'task/unFinishedTask.do').then((res) => {
             console.log(res)
             this.prodata.process = res.data.rows
             this.showList = true
@@ -154,7 +154,7 @@
           //   })
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === 'end') {
-          axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrdersTask/finishedList.do').then((res) => {
+          axios.post(this.ip + 'task/finishedTask.do').then((res) => {
             console.log(res.data)
             this.prodata.process = res.data.rows
             this.showList = true
@@ -169,7 +169,7 @@
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === 'over') {
           // alert('查询已终止')
-          axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrdersTask/stoplist.do').then((res) => {
+          axios.post(this.ip + 'task/terminatedTask.do').then((res) => {
             console.log(res.data)
             this.prodata.process = res.data.rows
             this.showList = true
@@ -183,7 +183,7 @@
           //   })
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === null || sessionStorage.getItem('backwait') === '') {
-          axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrdersTask/list.do').then((res) => {
+          axios.post(this.ip + 'task/pendingTask.do').then((res) => {
             this.prodata.process = res.data.rows
             this.showList = true
             this.$Loading.finish()
@@ -203,15 +203,15 @@
         let url
         this.showList = false
         if (sessionStorage.getItem('backwait') === 'backwait') {
-          url = 'http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrdersTask/list.do'
+          url = this.ip + 'task/pendingTask.do'
         } else if (sessionStorage.getItem('backwait') === 'notice') {
-          url = 'http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrdersTask/unFinishedList.do'
+          url = this.ip + 'task/unFinishedTask.do'
         } else if (sessionStorage.getItem('backwait') === 'end') {
-          url = 'http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrdersTask/finishedList.do'
+          url = this.ip + 'task/finishedTask.do'
         } else if (sessionStorage.getItem('backwait') === 'over') {
-          url = 'http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrdersTask/stoplist.do'
+          url = this.ip + 'task/terminatedTask.do'
         } else {
-          url = 'http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrdersTask/list.do'
+          url = this.ip + 'task/pendingTask.do'
         }
         console.log(url)
         console.log(qs.stringify(this.searchdata))

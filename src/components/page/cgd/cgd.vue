@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div id="cgd">
+    <Button type="info" @click="printContent">打印</Button>
+    <!-- <Button type="info" @click="getPdf">打印pdf</Button> -->
     <Originate :data="sendState" v-if="showSend" @getSend="getSend" @backSend="backSend"></Originate>
     <h1>采购单</h1>
     <div class="processtietle">
        <div class="hk">单号：<span>{{alldata.flowId}}</span></div>
        <div class="hk">日期：<span>{{alldata.submissionDate}}</span></div>
-      </div>
+    </div>
     <div class="main-cgd">
       <Row class="row-line">
         <Col span='10'>
@@ -149,6 +151,7 @@
   import Staff from '../../page/infor/staff.vue'
   import {getRandomNum} from '../../../common/js/random.js'
   import {DX} from '../../../common/js/dx.js'
+  import {Print} from '../../../common/js/print.js'
   export default {
     data () {
       return {
@@ -271,7 +274,7 @@
           // formcontroler.list = this.orderslist
           console.log(qs.stringify(formcontroler))
           console.log(qs.parse(formcontroler))
-          axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
+          axios.post(this.ip + 'purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -408,10 +411,10 @@
           }
           this.$Loading.start()
           let flownum = {
-            fId: sessionStorage.getItem('processId'),
+            taskId: sessionStorage.getItem('processId'),
             flowId: sessionStorage.getItem('flowId')
           }
-          axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
+          axios.post(this.ip + 'purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
             console.log(res)
             this.alldata = res.data.purchaseOrders
             this.alldata.orderslist = res.data.list
@@ -431,7 +434,52 @@
         this.alldata.orderslist.splice(this.selectIndex, 1)
         this._scaleMoney()
         console.log(this.alldata.orderslist)
+      },
+      printContent (e) {
+        // Print函数接收一个div的id
+        Print('cgd')
+        // let subOutputRankPrint = document.getElementById('cgd')
+        // console.log(subOutputRankPrint.innerHTML)
+        // let newContent = subOutputRankPrint.innerHTML
+        // let oldContent = document.body.innerHTML
+        // document.body.innerHTML = newContent
+        // window.print()
+        // window.location.reload()
+        // document.body.innerHTML = oldContent
+        // return false
       }
+      // getPdf () {
+      //   转成pdf
+      //   let _this = this
+      //   let pdfDom = document.querySelector('#pdfDom')
+      //   html2Canvas(pdfDom, {
+      //     onrendered: function (canvas) {
+      //       let contentWidth = canvas.width
+      //       let contentHeight = canvas.height
+      //       let pageHeight = contentWidth / 592.28 * 841.89
+      //       let leftHeight = contentHeight
+      //       let position = 0
+      //       let imgWidth = 595.28
+      //       let imgHeight = 592.28 / contentWidth * contentHeight
+      //       let pageData = canvas.toDataURL('image/jpeg', 1.0)
+      //       let PDF = new JsPDF('', 'pt', 'a4')
+      //       if (leftHeight < pageHeight) {
+      //         PDF.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight)
+      //       } else {
+      //         while (leftHeight > 0) {
+      //           PDF.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
+      //           leftHeight -= pageHeight
+      //           position -= 841.89
+      //           if (leftHeight > 0) {
+      //             PDF.addPage()
+      //           }
+      //         }
+      //       }
+      //       PDF.save(_this.pdfData.title + '.pdf')
+      //     }
+      //   })
+      //   html2Canvas()
+      // }
     },
     components: {
       Staff,

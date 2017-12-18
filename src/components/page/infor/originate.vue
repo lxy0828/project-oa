@@ -143,7 +143,7 @@
       sucessprocess () {
         this.$Loading.start()
         let rsmsg = {
-          fId: sessionStorage.getItem('processId'),
+          taskId: sessionStorage.getItem('processId'),
           flowId: sessionStorage.getItem('flowId'),
           state: 1,
           comment: this.content
@@ -166,7 +166,7 @@
           //   }
           // })
         }
-        axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/account/updateState.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post(this.ip + 'task/processApproval.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')
@@ -179,12 +179,12 @@
       backprocess () {
         this.$Loading.start()
         let rsmsg = {
-          fId: sessionStorage.getItem('processId'),
+          taskId: sessionStorage.getItem('processId'),
           flowId: sessionStorage.getItem('flowId'),
           state: 2,
           comment: this.yaoqiu
         }
-        axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/contact/updateState.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post(this.ip + 'task/processApproval.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')
@@ -197,12 +197,12 @@
       faileprocess () {
         this.$Loading.start()
         let rsmsg = {
-          fId: sessionStorage.getItem('processId'),
+          taskId: sessionStorage.getItem('processId'),
           flowId: sessionStorage.getItem('flowId'),
           state: 3,
           comment: this.content
         }
-        axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/contact/updateState.do', qs.stringify(rsmsg)).then((res) => {
+        axios.post(this.ip + 'task/processApproval.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.$router.push('/index')
@@ -215,10 +215,10 @@
       getcourse () {
         this.$Loading.start()
         let resmsg = {
-          fId: sessionStorage.getItem('processId'),
+          taskId: sessionStorage.getItem('processId'),
           processInstanceId: sessionStorage.getItem('processInstanceId')
         }
-        axios.post('http://172.30.43.211:8080/ZHYOASystem_test3.0/snackApply/listHistoryCommentWithProcessInstanceId.do', qs.stringify(resmsg)).then((res) => {
+        axios.post(this.ip + 'task/listHistoryComment.do', qs.stringify(resmsg)).then((res) => {
           console.log(res)
           if (res.data.success) {
             this.spData = res.data.rows
