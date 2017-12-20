@@ -252,7 +252,7 @@
       }
     },
     created () {
-      console.log(sessionStorage.getItem('processId'))
+      console.log(sessionStorage.getItem('flowId'))
       this.sendState.sponsor = sessionStorage.getItem('eSend')
       this.sendState.initiate = sessionStorage.getItem('aSend')
       this.alldata.upperAmount = DX(this.alldata.totalAmount)

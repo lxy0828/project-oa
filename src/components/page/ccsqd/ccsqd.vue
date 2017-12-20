@@ -332,10 +332,10 @@
           }
           this.$Loading.start()
           let flownum = {
-            fId: sessionStorage.getItem('processId'),
+            taskId: sessionStorage.getItem('processId'),
             flowId: sessionStorage.getItem('flowId')
           }
-          axios.post(this.ip + 'purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
+          axios.post(this.ip + 'travelApply/getPurchaseByTaskId.do', qs.parse(flownum)).then((res) => {
             console.log(res)
             this.alldata = res.data.purchaseOrders
             this.alldata.orderslist = res.data.list

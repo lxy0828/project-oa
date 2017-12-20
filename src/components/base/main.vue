@@ -118,7 +118,7 @@
         sessionStorage.setItem('flowId', item.flowId)
         sessionStorage.setItem('processInstanceId', item.processInstanceId)
         // if(item.flowName)
-        this.$router.push('cgd')
+        this.$router.push(item.typeId)
       },
       _getProcess () {
         this.$Loading.start()
