@@ -11,7 +11,7 @@
         <Col span='10'>
           <div class="un-input">
             <Button type="text">发起人</Button>
-            <Input readonly v-model="alldata.proposerid" placeholder="请输入..." ></Input>
+            <Input readonly v-model="alldata.proposerId" placeholder="请输入..." ></Input>
             <Input readonly v-model="alldata.proposer" placeholder="请输入..." ></Input>
             <Button type="info" @click="selectStaff" :disabled='isDisabled' >查询</Button>
           </div>
@@ -19,8 +19,8 @@
          <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">发起人部门</Button>
-            <Input readonly v-model="alldata.propdeptid" placeholder="请输入..." ></Input>
-            <Input readonly v-model="alldata.propdeptname" placeholder="请输入..." ></Input>
+            <Input readonly v-model="alldata.propDeptId" placeholder="请输入..." ></Input>
+            <Input readonly v-model="alldata.propDeptName" placeholder="请输入..." ></Input>
             <Button type="info" @click="selectdepartment" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
@@ -29,16 +29,16 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">部门审核</Button>
-            <Input readonly v-model="alldata.deptauditor1id" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.deptauditor1" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptAuditor1Id" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptAuditor1" placeholder="请输入..."></Input>
             <Button type="info" @click="check" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
   	    <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">部门审核</Button>
-            <Input readonly v-model="alldata.deptauditor2id" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.deptauditor2" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptAuditor2Id" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptAuditor2" placeholder="请输入..."></Input>
             <Button type="info" @click="checknext" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
@@ -47,22 +47,22 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">报告所属公司</Button>
-            <Input readonly v-model="alldata.reportofcompanyid"  placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.reportofcompanyname"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.reportOfCompanyId"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.reportOfCompanyName"  placeholder="请输入..."></Input>
           </div>
         </Col>
         <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">部门负责人</Button>
-            <Input readonly v-model="alldata.depprincipalid"  placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.depprincipalname"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.depPrincipalId"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.depPrincipalName"  placeholder="请输入..."></Input>
   	      </div>
         </Col>
       </Row>
       <Row class="row-line">
         <Col span="10">
           <Button type="text">是否为总部报告</Button>
-          <RadioGroup v-model="alldata.sendheadquarters">
+          <RadioGroup v-model="alldata.sendHeadquarters">
             <Radio label="是" :disabled='isDisabled'></Radio>
             <Radio label="否" :disabled='isDisabled'></Radio>
           </RadioGroup>
@@ -72,7 +72,7 @@
             <Button type="text">主送:</Button>
             <div class="copy">
               <ul>
-                <li v-for='names in alldata.sendother' class="in-li">{{names.sendername}}</li>
+                <li v-for='names in alldata.sendOther' class="in-li">{{names.senderName}}</li>
               </ul>
             </div>
             <Button type="info" @click="copy">查询</Button>
@@ -104,12 +104,14 @@
 <script>
   import axios from 'axios'
   import qs from 'qs'
+  import ip from '../../../common/js/const.js'
   import Originate from '../../page/infor/originate.vue'
   import Staff from '../../page/infor/staff.vue'
   import {getRandomNum} from '../../../common/js/random.js'
   export default {
     data () {
       return {
+        ip: ip,
         sDisabled: '',
         showSend: true,
         processNumber: '',
@@ -128,19 +130,19 @@
           flowId: '',
           submissionDate: '',
           proposer: '',
-          proposerid: '',
-          propdeptid: '',
-          propdeptname: '',
-          deptauditor1id: '',
+          proposerId: '',
+          propDeptId: '',
+          propdeptName: '',
+          deptAuditor1Id: '',
           deptauditor1: '',
-          deptauditor2id: '',
-          deptauditor2: '',
-          reportofcompanyid: '',
-          reportofcompanyname: '',
-          sendheadquarters: '是',
-          depprincipalid: '',
-          depprincipalname: '',
-          sendother: [],
+          deptAuditor2Id: '',
+          deptAuditor2: '',
+          reportOfCompanyId: '',
+          reportOfCompanyName: '',
+          sendHeadquarters: '是',
+          depPrincipalId: '',
+          depPrincipalName: '',
+          sendOther: [],
           content: '',
           title: ''
         }
@@ -167,10 +169,10 @@
           this.alldata.proposer = item.ename
           this.alldata.propDeptId = item.did
           this.alldata.propDeptName = item.dname
-          this.alldata.deptHeadId = item.deptHeadId
-          this.alldata.deptHead = item.deptHead
-          this.alldata.propCompId = item.cid
-          this.alldata.propCompName = item.cname
+          this.alldata.depPrincipalId = item.deptHeadId
+          this.alldata.depPrincipalName = item.deptHead
+          this.alldata.reportOfCompanyId = item.cid
+          this.alldata.reportOfCompanyName = item.cname
         } else if (this.flagNum === 2) {
           this.alldata.deptAuditor1Id = item.eid
           this.alldata.deptAuditor1 = item.ename
@@ -209,8 +211,8 @@
       },
       add () {
         let ite = {}
-        ite.senderid = this.copyid
-        ite.sendername = this.copyname
+        ite.senderId = this.copyid
+        ite.senderName = this.copyname
         this.alldata.sendother.push(ite)
       },
       selectdepartment () {
@@ -224,7 +226,7 @@
           formcontroler = this.alldata
           console.log(qs.stringify(formcontroler))
           console.log(qs.parse(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
+          axios.post(this.ip + 'tReportCheck/addTReportCheck.do', qs.parse(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -237,20 +239,6 @@
       },
       backSend (item) {
       // 如果是点击被驳回的单子，从子组件获取信息，重新调用发起接口
-        if (item) {
-          this.$Loading.start()
-          let formcontroler = this.alldata
-          // console.log(qs.stringify(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
-            console.log(res)
-            if (res.data.success) {
-              this.$router.push('/index')
-              this.$Loading.finish()
-            } else {
-              alert('发送失败')
-            }
-          })
-        }
       },
       control () {
         if (this.sendState.sponsor) {
@@ -265,7 +253,7 @@
             fId: sessionStorage.getItem('processId'),
             flowId: sessionStorage.getItem('flowId')
           }
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
+          axios.post(this.ip + 'tReportCheck/addTReportCheck.do', qs.stringify(flownum)).then((res) => {
             console.log(res)
             this.alldata = res.data.purchaseOrders
             this.alldata.orderslist = res.data.list
@@ -308,9 +296,9 @@ h1{
   width: 200px;
   height: 30px;
   border: 1px solid #ccc;
+  overflow:auto;
 }
 .in-li{
   margin-right:5px;
-  overflow:auto;
 }
 </style>

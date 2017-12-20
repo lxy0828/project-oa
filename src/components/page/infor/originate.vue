@@ -5,9 +5,9 @@
     </div>
     <div v-show="data.sponsor">
       <!-- <Button v-show="wait" type="info" class="faqi" @click='sendProcess'>发起流程</Button> -->
-      <Button v-show="wait" type="success" size="small" @click="comment = true">继续派送</Button>
-      <Button v-show="wait1" type="warning" size="small" @click="back = true">退回</Button>
-      <Button v-show="wait2" type="error" size="small" @click="commen = true">终止</Button>
+      <Button v-show="wait" type="success" @click="comment = true">继续派送</Button>
+      <Button v-show="wait1" type="warning"  @click="back = true">退回</Button>
+      <Button v-show="wait2" type="error"  @click="commen = true">终止</Button>
     </div>
     <div v-show="data.sponsor" style="margin-top: 5px">
       <Button type="info" size="small" @click="getcourse">审批历程</Button>
@@ -237,7 +237,7 @@
 </script>
 <style>
 .faqi{
-  margin-bottom: 10px
+  margin-bottom: 10px;
 }
 .textera{
   margin-top: 10px
