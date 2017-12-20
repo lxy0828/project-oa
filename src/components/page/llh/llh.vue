@@ -13,7 +13,7 @@
             <Button type="text">发起人</Button>
             <Input readonly v-model="alldata.proposerId" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.proposer" placeholder="请输入..."></Input>
-            <Button type="info" @click="selectStaff">查询</Button>
+            <Button type="info" @click="selectStaff" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
   	    <Col span="10" offset="4">
@@ -21,7 +21,7 @@
             <Button type="text">发起人部门</Button>
             <Input readonly v-model="alldata.propDeptId" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.propDeptName" placeholder="请输入..."></Input>
-            <Button type="info" @click="selectdepartment">查询</Button>
+            <Button type="info" @click="selectdepartment" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
       </Row>
@@ -31,7 +31,7 @@
             <Button type="text">发起方审核人</Button>
             <Input readonly v-model="alldata.deptAuditor1Id" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.deptAuditor1" placeholder="请输入..."></Input>
-            <Button type="info" @click="check">查询</Button>
+            <Button type="info" @click="check" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
   	    <Col span="10" offset="4">
@@ -39,7 +39,7 @@
             <Button type="text">回应方审核人</Button>
             <Input readonly v-model="alldata.deptAuditor2Id" placeholder="请输入..."></Input>
             <Input readonly v-model="alldata.deptAuditor2" placeholder="请输入..."></Input>
-            <Button type="info" @click="checknext">查询</Button>
+            <Button type="info" @click="checknext" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
       </Row>
@@ -54,7 +54,7 @@
                 <li v-for='names in alldata.sendOther' class="in-li">{{names.senderName}}</li>
               </ul>
             </div>
-            <Button type="info" @click="copy">查询</Button>
+            <Button type="info" @click="copy" :disabled='isDisabled'>查询</Button>
           </div>
   	    </Col>
   	    <Col span="10" offset="4">
@@ -68,7 +68,7 @@
       <Row class="row-line">
       	<Col span="24">
       	  <Button type="text">事由:</Button>
-          <Input type="textarea" :rows="4" placeholder="请输入..." v-model="alldata.reason"></Input>
+          <Input type="textarea" :rows="4" placeholder="请输入..." v-model="alldata.reason" :disabled='isDisabled'></Input>
   	    </Col>
       </Row>
       <!-- 需要使用v-if，在条件切换的时候合适的销毁与重建 -->
@@ -137,7 +137,7 @@
     methods: {
       getDate () {
         var myDate = new Date()
-        this.alldata.flowid = getRandomNum('LLH')
+        this.alldata.flowId = getRandomNum('LLH')
         this.alldata.submissionDate = myDate.toLocaleDateString()
       },
       getTable (item) {
@@ -230,10 +230,9 @@
             fId: sessionStorage.getItem('processId'),
             flowId: sessionStorage.getItem('flowId')
           }
-          axios.post('http://172.30.41.170:8080/ZHYOASystem/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
+          axios.post(this.ip + 'contact/findTContactInfo.do', qs.stringify(flownum)).then((res) => {
             console.log(res)
-            this.alldata = res.data.purchaseOrders
-            this.alldata.orderslist = res.data.list
+            this.alldata = res.data.tContacts
             this.$Loading.finish()
           })
         }

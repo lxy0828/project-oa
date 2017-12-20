@@ -3,7 +3,7 @@
     <Originate :data="sendState" v-if="showSend" @getSend="getSend" @backSend="backSend"></Originate>
     <h1>对外宣传资料审核表</h1>
     <div class="processtietle">
-       <div class="hk">单号：<span>{{alldata.flowid}}</span></div>
+       <div class="hk">单号：<span>{{alldata.flowId}}</span></div>
        <div class="hk">日期：<span>{{alldata.submissionDate}}</span></div>
     </div>
     <div class="main-bgspd">
@@ -166,7 +166,7 @@
         copyid: '',
         copyname: '',
         alldata: {
-          flowid: '',
+          flowId: '',
           submissionDate: '',
           proposer: '',
           proposerid: '',
@@ -200,7 +200,7 @@
     methods: {
       getDate () {
         var myDate = new Date()
-        this.alldata.flowId = getRandomNum('BGSPD')
+        this.alldata.flowId = getRandomNum('DWXC')
         this.alldata.submissionDate = myDate.toLocaleDateString()
       },
       getTable (item) {

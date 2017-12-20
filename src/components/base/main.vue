@@ -118,7 +118,7 @@
         sessionStorage.setItem('flowId', item.flowId)
         sessionStorage.setItem('processInstanceId', item.processInstanceId)
         // if(item.flowName)
-        this.$router.push('cgd')
+        this.$router.push(item.typeId)
       },
       _getProcess () {
         this.$Loading.start()
@@ -127,6 +127,7 @@
         this.showList = false
         if (sessionStorage.getItem('backwait') === 'backwait') {
           axios.post(this.ip + 'task/pendingTask.do').then((res) => {
+            console.log(res)
             this.prodata.process = res.data.rows
             this.showList = true
             this.$Loading.finish()
@@ -185,6 +186,7 @@
           // }, 2000)
         } else if (sessionStorage.getItem('backwait') === null || sessionStorage.getItem('backwait') === '') {
           axios.post(this.ip + 'task/pendingTask.do').then((res) => {
+            console.log(res)
             this.prodata.process = res.data.rows
             this.showList = true
             this.$Loading.finish()
