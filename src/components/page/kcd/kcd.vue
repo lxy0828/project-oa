@@ -47,20 +47,20 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">来访人单位:</Button>
-            <Input v-model="alldata.company" placeholder="请输入..."></Input>
+            <Input v-model="alldata.visitCompany" placeholder="请输入..."></Input>
           </div>
         </Col>
         <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">来访人数量:</Button>
-            <Input v-model="alldata.companyNumber" placeholder="请输入..."></Input>
+            <Input v-model="alldata.popNumber" placeholder="请输入..."></Input>
           </div>
         </Col>
       </Row>
       <Row class="row-line">
         <Col span="10">
           <Button type="text">品种</Button>
-          <RadioGroup v-model="alldata.animal">
+          <RadioGroup v-model="alldata.type">
             <Radio label="普通餐" :disabled='isDisabled'></Radio>
             <Radio label="小炒" :disabled='isDisabled'></Radio>
           </RadioGroup>
@@ -68,7 +68,7 @@
         <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">消费金额:</Button>
-            <Input v-model="alldata.price" placeholder="请输入..."></Input>
+            <Input v-model="alldata.totalAmount" placeholder="请输入..."></Input>
           </div>
         </Col>
       </Row>
@@ -76,7 +76,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">来访事由：</Button>
-            <Input type="textarea" v-model='alldata.cause' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
+            <Input type="textarea" v-model='alldata.applyReason' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
@@ -86,6 +86,7 @@
 </template>
 
 <script>
+  import ip from '../../../common/js/const.js'
   import axios from 'axios'
   import qs from 'qs'
   import Originate from '../../page/infor/originate.vue'
@@ -94,6 +95,7 @@
   export default {
     data () {
       return {
+        ip: ip,
         isDisabled: '',
         showSend: true,
         processNumber: '',
@@ -109,6 +111,7 @@
         disabledGroup: '是',
         alldata: {
           flowId: '',
+          processName: '客餐单',
           submissionDate: '',
           proposer: '',
           proposerId: '',
@@ -118,11 +121,11 @@
           deptAuditor1: '',
           deptAuditor2Id: '',
           deptAuditor2: '',
-          company: '',
-          companyNumber: '',
-          animal: '小炒',
-          price: '',
-          cause: ''
+          visitCompany: '',
+          popNumber: '',
+          type: '小炒',
+          totalAmount: '',
+          applyReason: ''
         }
       }
     },
@@ -188,7 +191,7 @@
           formcontroler = this.alldata
           console.log(qs.stringify(formcontroler))
           console.log(qs.parse(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
+          axios.post(this.ip + 'keCanApply/startApply.do', qs.parse(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -201,20 +204,20 @@
       },
       backSend (item) {
       // 如果是点击被驳回的单子，从子组件获取信息，重新调用发起接口
-        if (item) {
-          this.$Loading.start()
-          let formcontroler = this.alldata
+        // if (item) {
+        //   this.$Loading.start()
+        //   let formcontroler = this.alldata
           // console.log(qs.stringify(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
-            console.log(res)
-            if (res.data.success) {
-              this.$router.push('/index')
-              this.$Loading.finish()
-            } else {
-              alert('发送失败')
-            }
-          })
-        }
+        //   axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
+        //     console.log(res)
+        //     if (res.data.success) {
+        //       this.$router.push('/index')
+        //       this.$Loading.finish()
+        //     } else {
+        //       alert('发送失败')
+        //     }
+        //   })
+        // }
       },
       control () {
         if (this.sendState.sponsor) {
@@ -229,10 +232,9 @@
             fId: sessionStorage.getItem('processId'),
             flowId: sessionStorage.getItem('flowId')
           }
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/getPurchaseByTaskId.do', qs.stringify(flownum)).then((res) => {
+          axios.post(this.ip + 'keCanApply/getPurchaseByTaskId.do', qs.parse(flownum)).then((res) => {
             console.log(res)
             this.alldata = res.data.purchaseOrders
-            this.alldata.orderslist = res.data.list
             this.$Loading.finish()
           })
         }

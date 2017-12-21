@@ -338,7 +338,6 @@
           axios.post(this.ip + 'travelApply/getPurchaseByTaskId.do', qs.parse(flownum)).then((res) => {
             console.log(res)
             this.alldata = res.data.purchaseOrders
-            this.alldata.orderslist = res.data.list
             this.$Loading.finish()
           })
         }
