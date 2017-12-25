@@ -47,44 +47,39 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">报告所属公司</Button>
-            <Input readonly  placeholder="请输入..."></Input>
-            <Input readonly  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.reportOfCompanyId"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.reportOfCompanyName"   placeholder="请输入..."></Input>
           </div>
         </Col>
         <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">部门负责人</Button>
-            <Input readonly  placeholder="请输入..."></Input>
-            <Input readonly  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.depPrincipalId"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.depPrincipalName"  placeholder="请输入..."></Input>
   	      </div>
         </Col>
       </Row>
       <Row class="row-line">
         <Col span="10">
           <Button type="text">派车类型</Button>
-          <RadioGroup v-model="alldata.animal">
+          <RadioGroup v-model="alldata.carType">
             <Radio label="火车托运" :disabled='isDisabled'></Radio>
             <Radio label="商务接待" :disabled='isDisabled'></Radio>
           </RadioGroup>
-        </Col>
-        <Col span="10" offset="4">
-          <div class="un-input">
-            <Button type="text">主送:</Button>
-            <Input v-model="alldata.price" placeholder="请输入..."></Input>
-          </div>
         </Col>
       </Row>
       <Row class="row-line">
         <Col span="10">
           <div class="un-input">
           <Button type="text">出厂日期日期</Button>
-          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+          <DatePicker type="date" v-model='alldata.dateOfProduction' placeholder="Select date" style="width: 200px"></DatePicker>
           </div>
   	    </Col>
   	    <Col span="10" offset="4">
+
           <div class="un-input">
   	      <Button type="text">返厂日期日期</Button>
-          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+          <DatePicker type="date" v-model='alldata.dateOfReturn' placeholder="Select date" style="width: 200px"></DatePicker>
           </div>
   	    </Col>
       </Row>
@@ -93,7 +88,7 @@
         <Col span="20">
           <div class="un-input">
             <Button type="text">目的地：</Button>
-            <Input v-model='alldata.title' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input v-model='alldata.destination' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
       </Row>
@@ -101,7 +96,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">申请事由：</Button>
-            <Input type="textarea" v-model='alldata.cause' placeholder="请输入..." :rows="6" :disabled='isDisabled'></Input>
+            <Input type="textarea" v-model='alldata.ApplyForReason' placeholder="请输入..." :rows="6" :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
@@ -109,13 +104,13 @@
         <Col span='10'>
           <div class="un-input">
             <Button type="text">车号：</Button>
-            <Input v-model='alldata.carNumber' placeholder="请输入..."></Input>
+            <Input v-model='alldata.CarNumber' placeholder="请输入..."></Input>
           </div>
         </Col>
         <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">负责司机</Button>
-            <Input v-model='alldata.carPerson' placeholder="请输入..."></Input>
+            <Input v-model='alldata.driver' placeholder="请输入..."></Input>
   	      </div>
         </Col>
       </Row>
@@ -130,9 +125,11 @@
   import Originate from '../../page/infor/originate.vue'
   import Staff from '../../page/infor/staff.vue'
   import {getRandomNum} from '../../../common/js/random.js'
+  import ip from '../../../common/js/const.js'
   export default {
     data () {
       return {
+        ip: ip,
         sDisabled: '',
         showSend: true,
         processNumber: '',
@@ -156,14 +153,17 @@
           deptAuditor1: '',
           deptAuditor2Id: '',
           deptAuditor2: '',
-          company: '',
-          companyNumber: '',
-          animal: '货车托运',
-          price: '',
-          cause: '',
-          title: '',
-          carNumber: '',
-          carPerson: ''
+          depPrincipalId: '',
+          depPrincipalName: '',
+          reportOfCompanyId: '',
+          reportOfCompanyName: '',
+          carType: '货车托运',
+          dateOfProduction: '',
+          dateOfReturn: '',
+          destination: '',
+          ApplyForReason: '',
+          CarNumber: '',
+          driver: ''
         }
       }
     },
@@ -188,10 +188,10 @@
           this.alldata.proposer = item.ename
           this.alldata.propDeptId = item.did
           this.alldata.propDeptName = item.dname
-          this.alldata.deptHeadId = item.deptHeadId
-          this.alldata.deptHead = item.deptHead
-          this.alldata.propCompId = item.cid
-          this.alldata.propCompName = item.cname
+          this.alldata.depPrincipalId = item.deptHeadId
+          this.alldata.depPrincipalName = item.deptHead
+          this.alldata.reportOfCompanyId = item.cid
+          this.alldata.reportOfCompanyName = item.cname
         } else if (this.flagNum === 2) {
           this.alldata.deptAuditor1Id = item.eid
           this.alldata.deptAuditor1 = item.ename
@@ -230,7 +230,7 @@
           formcontroler = this.alldata
           console.log(qs.stringify(formcontroler))
           console.log(qs.parse(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/startApply.do', qs.parse(formcontroler)).then((res) => {
+          axios.post(this.ip + 'TDispatchCarController/addTDispatchCar.do ', qs.parse(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -247,7 +247,7 @@
           this.$Loading.start()
           let formcontroler = this.alldata
           // console.log(qs.stringify(formcontroler))
-          axios.post('http://172.30.40.7:8080/ZHYOASystem_test2.0/purchaseOrders/restartApply.do', qs.stringify(formcontroler)).then((res) => {
+          axios.post(this.ip + 'TDispatchCarController/selectTDispatchCarInfo.do', qs.stringify(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')

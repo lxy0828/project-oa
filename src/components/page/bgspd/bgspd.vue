@@ -75,7 +75,7 @@
                 <li v-for='names in alldata.sendOther' class="in-li">{{names.senderName}}</li>
               </ul>
             </div>
-            <Button type="info" @click="copy">查询</Button>
+            <Button type="info" @click="copy" :disabled='isDisabled'>查询</Button>
           </div>
         </Col>
       </Row>
@@ -213,7 +213,7 @@
         let ite = {}
         ite.senderId = this.copyid
         ite.senderName = this.copyname
-        this.alldata.sendother.push(ite)
+        this.alldata.sendOther.push(ite)
       },
       selectdepartment () {
         alert('部门为自动获取')
@@ -253,10 +253,10 @@
             fId: sessionStorage.getItem('processId'),
             flowId: sessionStorage.getItem('flowId')
           }
-          axios.post(this.ip + 'tReportCheck/addTReportCheck.do', qs.stringify(flownum)).then((res) => {
+          axios.post(this.ip + 'tReportCheck/findReportCheckInfo.do', qs.stringify(flownum)).then((res) => {
             console.log(res)
-            this.alldata = res.data.purchaseOrders
-            this.alldata.orderslist = res.data.list
+            this.alldata = res.data.tReportCheck
+            // this.alldata.orderslist = res.data.list
             this.$Loading.finish()
           })
         }
