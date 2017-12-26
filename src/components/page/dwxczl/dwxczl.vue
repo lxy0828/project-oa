@@ -11,7 +11,7 @@
         <Col span='10'>
           <div class="un-input">
             <Button type="text">发起人</Button>
-            <Input readonly v-model="alldata.proposerid" placeholder="请输入..." ></Input>
+            <Input readonly v-model="alldata.proposerId" placeholder="请输入..." ></Input>
             <Input readonly v-model="alldata.proposer" placeholder="请输入..." ></Input>
             <Button type="info" @click="selectStaff" :disabled='isDisabled' >查询</Button>
           </div>
@@ -19,8 +19,8 @@
          <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">发起人部门</Button>
-            <Input readonly v-model="alldata.propdeptid" placeholder="请输入..." ></Input>
-            <Input readonly v-model="alldata.propdeptname" placeholder="请输入..." ></Input>
+            <Input readonly v-model="alldata.propDeptId" placeholder="请输入..." ></Input>
+            <Input readonly v-model="alldata.propDeptName" placeholder="请输入..." ></Input>
             <Button type="info" @click="selectdepartment" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
@@ -29,16 +29,16 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">部门审核</Button>
-            <Input readonly v-model="alldata.deptauditor1id" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.deptauditor1" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptAuditor1Id" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptAuditor1" placeholder="请输入..."></Input>
             <Button type="info" @click="check" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
   	    <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">部门审核</Button>
-            <Input readonly v-model="alldata.deptauditor2id" placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.deptauditor2" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptAuditor2Id" placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptAuditor2" placeholder="请输入..."></Input>
             <Button type="info" @click="checknext" :disabled='isDisabled'>查询</Button>
   	      </div>
   	    </Col>
@@ -47,15 +47,15 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">报告所属公司</Button>
-            <Input readonly v-model="alldata.reportofcompanyid"  placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.reportofcompanyname"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.propCompId"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.propCompName"  placeholder="请输入..."></Input>
           </div>
         </Col>
         <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">部门负责人</Button>
-            <Input readonly v-model="alldata.depprincipalid"  placeholder="请输入..."></Input>
-            <Input readonly v-model="alldata.depprincipalname"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptHeadId"  placeholder="请输入..."></Input>
+            <Input readonly v-model="alldata.deptHead"  placeholder="请输入..."></Input>
   	      </div>
         </Col>
       </Row>
@@ -63,11 +63,12 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">加签人:</Button>
-            <div class="copy">
+            <Input type="textarea" v-model='alldata.officer' placeholder="请输入..." :rows="3" readonly></Input>
+            <!-- <div class="copy" v-model="alldata.officer">
               <ul>
                 <li v-for='names in alldata.sendother' class="in-li">{{names.sendername}}</li>
               </ul>
-            </div>
+            </div> -->
             <Button type="info" @click="copy">查询</Button>
           </div>
         </Col>
@@ -76,15 +77,15 @@
         <Col span="10">
           <div class="un-input">
             <Button type="text">公共事务中心审核：</Button>
-            <Input readonly v-model='alldata.gxswId' placeholder="请输入..." :disabled='isDisabled'></Input>
-            <Input readonly v-model='alldata.gxsw' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input readonly v-model='alldata.pubAuditorId' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input readonly v-model='alldata.pubAuditor' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
         <Col span="10" offset="4">
           <div class="un-input">
             <Button type="text">总裁办审核：</Button>
-            <Input readonly v-model='alldata.zcbId' placeholder="请输入..." :disabled='isDisabled'></Input>
-            <Input readonly v-model='alldata.zcb' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input readonly v-model='alldata.presidentOfficeAuditorId' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input readonly v-model='alldata.presidentOfficeAuditor' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
       </Row>
@@ -92,13 +93,13 @@
         <Col span="10">
           <div class='un-input'>
             <Button type="text">发布时间：</Button>
-            <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+            <DatePicker type="date" placeholder="Select reducingTime" style="width: 200px"></DatePicker>
           </div>
         </Col>
         <Col span="10" offset="4">
           <div class='un-input'>
             <Button type="text">使用周期：</Button>
-            <Input v-model='alldata.zcb' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input v-model='alldata.lifeCycle' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </Col>
       </Row>
@@ -106,7 +107,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">主题：</Button>
-            <Input  v-model='alldata.content' placeholder="请输入..." :disabled='isDisabled'></Input>
+            <Input  v-model='alldata.theme' placeholder="请输入..." :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
@@ -114,7 +115,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">用途：</Button>
-            <Input type="textarea" v-model='alldata.content' placeholder="请输入..." :rows="3" :disabled='isDisabled'></Input>
+            <Input type="textarea" v-model='alldata.use' placeholder="请输入..." :rows="3" :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
@@ -122,7 +123,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">使用范围：</Button>
-            <Input type="textarea" v-model='alldata.content' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
+            <Input type="textarea" v-model='alldata.practicalLimits' placeholder="请输入..." :rows="4" :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
@@ -130,7 +131,7 @@
         <col span="20">
           <div class="un-input">
             <Button type="text">备注：</Button>
-            <Input type="textarea" v-model='alldata.content' placeholder="请输入..." :rows="3" :disabled='isDisabled'></Input>
+            <Input type="textarea" v-model='alldata.remarks' placeholder="请输入..." :rows="3" :disabled='isDisabled'></Input>
           </div>
         </col>
       </Row>
@@ -151,7 +152,7 @@
     data () {
       return {
         ip: ip,
-        sDisabled: '',
+        isDisabled: '',
         showSend: true,
         processNumber: '',
         selectIndex: '',
@@ -167,26 +168,32 @@
         copyname: '',
         alldata: {
           flowId: '',
+          processName: '对外宣传资料审核表',
           submissionDate: '',
+          proposerId: '',
           proposer: '',
-          proposerid: '',
-          propdeptid: '',
-          propdeptname: '',
-          deptauditor1id: '',
-          deptauditor1: '',
-          deptauditor2id: '',
-          deptauditor2: '',
-          reportofcompanyid: '',
-          reportofcompanyname: '',
-          depprincipalid: '',
-          depprincipalname: '',
-          gxswId: '004819',
-          gxsw: '郑贝贝',
-          zcb: '总裁办',
-          zcbId: 'A0002',
-          sendother: [],
-          content: '',
-          title: ''
+          propDeptId: '',
+          propDeptName: '',
+          deptAuditor1Id: '',
+          deptAuditor1: '',
+          deptAuditor2Id: '',
+          deptAuditor2: '',
+          propCompId: '',
+          propCompName: '',
+          deptHeadId: '',
+          deptHead: '',
+          officer: '',
+          practicalLimits: '',
+          reducingTime: '',
+          lifeCycle: '',
+          theme: '',
+          use: '',
+          remarks: '',
+          pubAuditorId: '004819',
+          pubAuditor: '郑贝贝',
+          presidentOfficeAuditor: '总裁办',
+          presidentOfficeAuditorId: 'A0002',
+          sendother: []
         }
       }
     },
@@ -207,24 +214,27 @@
         console.log(item)
         this.apadata = item
         if (this.flagNum === 1) {
-          this.alldata.proposerid = item.eid
+          this.alldata.proposerId = item.eid
           this.alldata.proposer = item.ename
-          this.alldata.propdeptid = item.did
-          this.alldata.propdeptname = item.dname
-          this.alldata.depprincipalid = item.deptHeadId
-          this.alldata.depprincipalname = item.deptHead
-          this.alldata.reportofcompanyid = item.cid
-          this.alldata.reportofcompanyname = item.cname
+          this.alldata.propDeptId = item.did
+          this.alldata.propDeptName = item.dname
+          this.alldata.deptHeadId = item.deptHeadId
+          this.alldata.deptHead = item.deptHead
+          this.alldata.propCompId = item.cid
+          this.alldata.propCompName = item.cname
         } else if (this.flagNum === 2) {
-          this.alldata.deptauditor1id = item.eid
-          this.alldata.deptauditor1 = item.ename
+          this.alldata.deptAuditor1Id = item.eid
+          this.alldata.deptAuditor1 = item.ename
         } else if (this.flagNum === 3) {
-          this.alldata.deptauditor2id = item.eid
-          this.alldata.deptauditor2 = item.ename
+          this.alldata.deptAuditor2Id = item.eid
+          this.alldata.deptAuditor2 = item.ename
         } else if (this.flagNum === 4) {
-          this.copyid = item.eid
-          this.copyname = item.ename
-          this.add()
+          console.log(item)
+          // this.copyid = item.apanum
+          // this.copyname = item.apaname
+          // this.add()
+          this.alldata.officer = this.alldata.officer + item.ename + '(' + item.eid + ');'
+          console.log(this.alldata.officer)
         }
       },
       getSt (item) {
@@ -268,7 +278,7 @@
           formcontroler = this.alldata
           console.log(qs.stringify(formcontroler))
           console.log(qs.parse(formcontroler))
-          axios.post(this.ip + 'tReportCheck/addTReportCheck.do', qs.parse(formcontroler)).then((res) => {
+          axios.post(this.ip + 'externalMaterials/startApply.do', qs.parse(formcontroler)).then((res) => {
             console.log(res)
             if (res.data.success) {
               this.$router.push('/index')
@@ -292,13 +302,14 @@
           }
           this.$Loading.start()
           let flownum = {
-            fId: sessionStorage.getItem('processId'),
+            // taskId: sessionStorage.getItem('processId'),
             flowId: sessionStorage.getItem('flowId')
           }
-          axios.post(this.ip + 'tReportCheck/addTReportCheck.do', qs.stringify(flownum)).then((res) => {
+          console.log(flownum)
+          axios.post(this.ip + 'externalMaterials/getExternalMaterialsAuditByFlowId.do', qs.stringify(flownum)).then((res) => {
             console.log(res)
-            this.alldata = res.data.purchaseOrders
-            this.alldata.orderslist = res.data.list
+            this.alldata = res.data.externalMaterialsAudit
+            // this.alldata.orderslist = res.data.list
             this.$Loading.finish()
           })
         }
@@ -336,11 +347,12 @@ h1{
 }
 .copy{
   width: 200px;
-  height: 50px;
+  height: 30px;
   border: 1px solid #ccc;
   overflow:auto;
 }
 .in-li{
   margin-right:5px;
 }
+/*input[disabled]{color:#fff;opacity:1}*/
 </style>

@@ -67,10 +67,12 @@
             let formcontroler = this.formInline
             // console.log(JSON.stringify(formcontroler))
             // console.log(qs.stringify(formcontroler))
-            this.$router.push('/index')
+            // window.sessionStorage.setItem('username', this.formInline.userName)
+            // this.$router.push('/index')
             // window.sessionStorage.setItem('in', '123')
             axios.post(this.ip + 'account/login.do', qs.stringify(formcontroler)).then((res) => {
               if (res.data.success) {
+                window.sessionStorage.setItem('username', this.formInline.userName)
                 window.sessionStorage.setItem('infor', res)
                 console.log(window.sessionStorage.getItem('infor'))
                 this.$Message.success('登录成功!')

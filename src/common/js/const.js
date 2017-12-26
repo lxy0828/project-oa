@@ -1,3 +1,3 @@
-const ipAddress = 'http://172.30.41.170:8080/ZHYOASystem/'
+const ipAddress = 'http://172.30.43.211:8080/ZHYOASystem/'
 
 export default ipAddress

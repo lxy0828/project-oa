@@ -90,6 +90,12 @@
           this.showList = true
           this.$Loading.finish()
         })
+        // axios.get('api/staff').then((res) => {
+        //   console.log(res)
+        //   this.staffdata.process = res.data.data.alldata
+        //   this.showList = true
+        //   this.$Loading.finish()
+        // })
       },
       getTable (item) {
         this.$emit('tableitem', item)

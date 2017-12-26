@@ -25,7 +25,7 @@
         </Menu>
       </i-col>
       <i-col :span="spanRight">
-        <marquee>当前使用者：014228</marquee>
+        <marquee v-model="username">当前使用者:{{username}}</marquee>
       	<div class="layout-header">
           <i-button type="text" @click="toggleClick">
             <Icon type="navicon" size="32"></Icon>
@@ -38,12 +38,12 @@
           </div>
         </div>
         <div class="layout-breadcrumb">
-          <Breadcrumb>
+          <!-- <Breadcrumb>
             <Breadcrumb-item>首页</Breadcrumb-item>
               <Breadcrumb-item>页面</Breadcrumb-item>
               <Breadcrumb-item>{{this.$route.path.replace('/','')}}</Breadcrumb-item>
             </Breadcrumb>
-          </Breadcrumb>
+          </Breadcrumb> -->
         </div>
         <div class="layout-content">
           <div class="layout-content-main">
@@ -53,7 +53,7 @@
           </div>
         </div>
         <div class="layout-copy">
-            信息中心
+            大数据战略技术中心
         </div>
       </i-col>
     </Row>
@@ -70,7 +70,8 @@
         backlog: 'backlog',
         notice: 'notice',
         end: 'end',
-        currentIndex: 1
+        currentIndex: 1,
+        username: ''
       }
     },
     beforeDestory () {
@@ -85,10 +86,11 @@
       }
     },
     created () {
+      this.username = window.sessionStorage.getItem('username')
       // console.log(window.sessionStorage.getItem('infor'))
-      // if (window.sessionStorage.getItem('infor') === null) {
-      //   this.$router.push('/error')
-      // }
+      if (window.sessionStorage.getItem('infor') === null) {
+        this.$router.push('/error')
+      }
     },
     methods: {
       toggleClick () {
