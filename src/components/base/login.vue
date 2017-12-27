@@ -67,7 +67,7 @@
             let formcontroler = this.formInline
             // console.log(JSON.stringify(formcontroler))
             // console.log(qs.stringify(formcontroler))
-            this.$router.push('/index')
+            // this.$router.push('/index')
             // window.sessionStorage.setItem('in', '123')
             axios.post(this.ip + 'account/login.do', qs.stringify(formcontroler)).then((res) => {
               if (res.data.success) {
