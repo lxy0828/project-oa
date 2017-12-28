@@ -24,14 +24,14 @@
         v-model="comment"
         @on-ok="sucessprocess"
         class-name="vertical-center-modal">
-        <Input type="textarea" v-model='content' placeholder="请输入..." :rows="4"></Input>
+        <Input type="textarea" v-model='content' :rows="4"></Input>
     </Modal>
     <Modal
         title="审批意见"
         v-model="commen"
         @on-ok="faileprocess"
         class-name="vertical-center-modal">
-        <Input type="textarea" v-model='content' placeholder="请输入..." :rows="4"></Input>
+        <Input type="textarea" v-model='failcontent' :rows="4"></Input>
     </Modal>
     <Modal
         title="退回到发起人关卡"
@@ -39,7 +39,7 @@
         @on-ok="backprocess"
         class-name="vertical-center-modal">
         <!-- <i-table  highlight-row ref="currentRowTable" border :columns="columns2" :data="data2" on-row-click></i-table> -->
-        <Input type="textarea" v-model='yaoqiu' placeholder="请输入审批意见..." :rows="4" class="textera"></Input>
+        <Input type="textarea" v-model='yaoqiu' :rows="4" class="textera"></Input>
     </Modal>
   </div>
 </template>
@@ -68,7 +68,7 @@
         wait1: false,
         wait2: false,
         // wait3: false,
-        yaoqiu: '',
+        yaoqiu: '退回修改',
         columns2: [
           {
             type: 'index',
@@ -84,7 +84,8 @@
           }
         ],
         data2: [],
-        content: '',
+        content: '同意',
+        failcontent: '不同意',
         spbb: false,
         columns1: [
           {
@@ -200,7 +201,7 @@
           taskId: sessionStorage.getItem('processId'),
           flowId: sessionStorage.getItem('flowId'),
           state: 3,
-          comment: this.content
+          comment: this.failcontent
         }
         axios.post(this.ip + 'task/processApproval.do', qs.stringify(rsmsg)).then((res) => {
           console.log(res)

@@ -38,12 +38,12 @@
           </div>
         </div>
         <div class="layout-breadcrumb">
-          <!-- <Breadcrumb>
+          <Breadcrumb>
             <Breadcrumb-item>首页</Breadcrumb-item>
               <Breadcrumb-item>页面</Breadcrumb-item>
-              <Breadcrumb-item>{{this.$route.path.replace('/','')}}</Breadcrumb-item>
+              <Breadcrumb-item></Breadcrumb-item>
             </Breadcrumb>
-          </Breadcrumb> -->
+          </Breadcrumb>
         </div>
         <div class="layout-content">
           <div class="layout-content-main">
