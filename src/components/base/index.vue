@@ -89,7 +89,7 @@
       this.username = window.sessionStorage.getItem('username')
       // console.log(window.sessionStorage.getItem('infor'))
       if (window.sessionStorage.getItem('infor') === null) {
-        this.$router.push('/error')
+        // this.$router.push('/error')
       }
     },
     methods: {

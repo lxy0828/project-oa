@@ -119,6 +119,7 @@
         sessionStorage.setItem('processInstanceId', item.processInstanceId)
         // if(item.flowName)
         this.$router.push(item.typeId)
+        // this.$router.push('cgd')
       },
       _getProcess () {
         this.$Loading.start()
